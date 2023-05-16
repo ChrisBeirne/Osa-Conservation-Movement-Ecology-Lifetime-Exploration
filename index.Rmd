@@ -67,7 +67,7 @@ animals <-getMovebankAnimals(study=1573471517,login=loginStored)
 tmp <-getMovebankAnimals(study=2526574641,login=loginStored)
 # Tapir
 tmp2 <- getMovebankAnimals(study=1954804459,login=loginStored)
-animals <- rbind(animals, tmp,tmp2)
+animals <- rbind(animals, tmp,tmp2) 
 
 # For some reason they are duplicated
 animals[duplicated(animals)==F,]

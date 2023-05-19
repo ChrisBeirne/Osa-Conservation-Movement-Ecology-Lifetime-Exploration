@@ -495,6 +495,7 @@ dat_sf_cr <- st_as_sf(tmp_cr, coords=c("location_long", "location_lat"), crs=432
 
 
 
+<<<<<<< HEAD
 #bg <- ne_countries(scale = "large", country=c("Costa Rica", "Panama"), #returnclass = "sf")
 #bg <- st_make_valid(bg)
 #st_write(bg, "landmass.shp", append=F)
@@ -505,6 +506,14 @@ grd <- st_make_grid(dat_sf_cr, n = 200)
 # visualize the grid
 #plot(grd)
 
+=======
+bg <- ne_countries(scale = "large", country=c("Costa Rica", "Panama"), returnclass = "sf")
+# make a fishnet grid over the countries
+grd <- st_make_grid(dat_sf_cr, n = 200)
+# visualize the grid
+plot(grd)
+
+>>>>>>> 3a5461bed42b6377d4c8afa6f7e2ccb335db3b0d
 index <- which(lengths(st_intersects(grd, dat_sf_cr)) > 0)
 # subset the grid to make a fishnet
 fishnet <- grd[index]
@@ -1109,10 +1118,15 @@ m <- leaflet() %>%
 # Convert the point shapefile into vect format and extract the habitat type for each bird
 
 cr_terra_points <- vect(dat_sf_cr) 
+<<<<<<< HEAD
 
 tmp <- extract(habitat, cr_terra_points)
+=======
+>>>>>>> 3a5461bed42b6377d4c8afa6f7e2ccb335db3b0d
 
+cr_terra_points$habitat <- extract(habitat, cr_terra_points)
 
+<<<<<<< HEAD
 dat_sf_cr$NB_LAB <- tmp$`ESACCI-global-10m_merged`
 dat_sf_cr <- left_join(dat_sf_cr, habitat_key)
 
@@ -1140,6 +1154,9 @@ ind_res_prop[,2:ncol(ind_res_wide)] <- round(ind_res_wide[,2:ncol(ind_res_wide)]
 #
 
 
+=======
+as.data.frame(cr_terra_points)
+>>>>>>> 3a5461bed42b6377d4c8afa6f7e2ccb335db3b0d
 
 
 ```

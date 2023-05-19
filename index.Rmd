@@ -526,6 +526,8 @@ test <- fishnet %>%
 
 tmp <- st_as_sf(test)
 
+tmp$log.n <- log(tmp$n + 1)
+
 ii <- cut(tmp$log.n, breaks = seq(min(tmp$log.n), max(tmp$log.n), len = 100), 
           include.lowest = TRUE)
 ## Use bin indices, ii, to select color from vector of n-1 equally spaced colors
@@ -1137,7 +1139,21 @@ tmp <- rowSums(ind_res_wide[,2:ncol(ind_res_wide)])
 ind_res_prop <- ind_res_wide
 ind_res_prop[,2:ncol(ind_res_wide)] <- round(ind_res_wide[,2:ncol(ind_res_wide)]/tmp,4)
 
-#
+colSums(ind_res_prop[,2:ncol(ind_res_prop)])
 
+ind_res_prop <- ind_res_prop[order(ind_res_prop$trees),]
+ind_res_prop$local_identifier <- factor(ind_res_prop$local_identifier, levels=unique(ind_res_prop$local_identifier))
+#
+fig <- plot_ly(ind_res_prop, x = ~local_identifier, y = ~trees, name = 'forest', type = 'bar')
+fig <- fig %>% add_trace(y = ~grassland, name = 'grassland')
+fig <- fig %>% add_trace(y = ~water, name = 'water')
+fig <- fig %>% add_trace(y = ~urban, name = 'urban')
+fig <- fig %>% add_trace(y = ~mangrove, name = 'mangrove')
+fig <- fig %>% add_trace(y = ~wetland, name = 'wetland')
+fig <- fig %>% add_trace(y = ~cropland, name = 'cropland')
+fig <- fig %>% add_trace(y = ~sparse_veg, name = 'sparse veg')
+
+fig <- fig %>% layout(yaxis = list(title = 'Proportion'), barmode = 'stack')
+fig
 ```
 

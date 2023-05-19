@@ -47,7 +47,6 @@ options(googledrive_quiet = TRUE)
 googledrive::drive_auth(path = Sys.getenv("GOOGLE_AUTHENTICATION_CREDENTIALS"))
 
 # ## Find Google Drive folder 'Centre Circle Data & Info'
- data_folder <- drive_ls(path = "files_for_github")
 # data_path <- "data" 
 # dir.create(data_path) 
 

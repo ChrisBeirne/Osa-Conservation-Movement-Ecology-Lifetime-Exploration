@@ -37,7 +37,7 @@ library(foreach)
 library(maptools)
 library(leaflet.opacity)
 library(leaflet.extras)
-library(rnaturalearth)
+#library(rnaturalearth)
 library(terra)
 library(ggplot2)
 
@@ -488,34 +488,38 @@ Below we show the logged point density accross our area of interest. Note, the e
 
 ```{r}
 # Density raster
-dat_sf <- st_as_sf(tmp_cr, coords=c("location_long", "location_lat"), crs=4326)
+dat_sf_cr <- st_as_sf(tmp_cr, coords=c("location_long", "location_lat"), crs=4326)
 
 # Write_for my files
 #st_write(tmp_cr_shp, "C:/Users/cwbei/Dropbox/Osa Conservation/Data analysis/current_vulture_data/vulture_tracks.shp", append=F)
 
 
 
-bg <- ne_countries(scale = "large", country=c("Costa Rica", "Panama"), returnclass = "sf")
-# make a fishnet grid over the countries
-grd <- st_make_grid(dat_sf, n = 200)
-# visualize the grid
-plot(grd)
+#bg <- ne_countries(scale = "large", country=c("Costa Rica", "Panama"), #returnclass = "sf")
+#bg <- st_make_valid(bg)
+#st_write(bg, "landmass.shp", append=F)
+bg <- st_read("landmass.shp")
 
-index <- which(lengths(st_intersects(grd, dat_sf)) > 0)
+# make a fishnet grid over the countries
+grd <- st_make_grid(dat_sf_cr, n = 200)
+# visualize the grid
+#plot(grd)
+
+index <- which(lengths(st_intersects(grd, dat_sf_cr)) > 0)
 # subset the grid to make a fishnet
 fishnet <- grd[index]
 
 # visualize the fishnet
-plot(fishnet)
-plot(bg, add=T, col="#f2f2f2", border=F)
-plot(fishnet,add=T)
+#plot(fishnet)
+#plot(bg, add=T, col="#f2f2f2", border=F)
+#plot(fishnet,add=T)
 
 
 
 test <- fishnet %>%   
   st_as_sf() %>% # cast to sf
   mutate(grid_id = row_number()) %>% # create unique ID
-  st_join(dat_sf) %>% # join the species dataset
+  st_join(dat_sf_cr) %>% # join the species dataset
   group_by(grid_id) %>% # group by the grid id
   count() 
 
@@ -1104,9 +1108,36 @@ m <- leaflet() %>%
 ```{r}
 # Convert the point shapefile into vect format and extract the habitat type for each bird
 
+cr_terra_points <- vect(dat_sf_cr) 
+
+tmp <- extract(habitat, cr_terra_points)
 
 
+dat_sf_cr$NB_LAB <- tmp$`ESACCI-global-10m_merged`
+dat_sf_cr <- left_join(dat_sf_cr, habitat_key)
 
+cr_hab_dat <- as.data.frame(dat_sf_cr)
+
+ind_res <- cr_hab_dat %>% group_by(local_identifier, LCCOwnLabel) %>% 
+summarise(count=n())
+
+ind_res <- as.data.frame(ind_res)
+
+ind_res$LCCOwnLabel
+
+ind_res_wide <- reshape(ind_res, idvar="local_identifier", timevar="LCCOwnLabel", direction="wide")
+
+# MAkes NA's 0
+ind_res_wide[is.na(ind_res_wide)]<- 0
+# up[date column names
+colnames(ind_res_wide)[2:ncol(ind_res_wide)] <- c("sparse_veg", "urban", "cropland", "grassland", "wetland", "mangrove","water", "trees", "shrubs" )
+
+# Count total opbs
+tmp <- rowSums(ind_res_wide[,2:ncol(ind_res_wide)])
+ind_res_prop <- ind_res_wide
+ind_res_prop[,2:ncol(ind_res_wide)] <- round(ind_res_wide[,2:ncol(ind_res_wide)]/tmp,4)
+
+#
 
 
 

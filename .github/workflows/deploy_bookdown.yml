@@ -59,8 +59,6 @@ jobs:
         run: Rscript -e "install.packages('leaflet.opacity')"
       - name: Install leaflet.opacity
         run: Rscript -e "install.packages('leaflet.extras')"
-      - name: Install rnaturalearth
-        run: Rscript -e "install.packages('rnaturalearth')"
       - name: Install terra
         run: Rscript -e "install.packages('terra')"
       - name: Install ggplot2

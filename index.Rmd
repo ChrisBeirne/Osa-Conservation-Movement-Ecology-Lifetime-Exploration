@@ -1111,7 +1111,7 @@ m <- leaflet() %>%
 
 cr_terra_points <- vect(dat_sf_cr) 
 
-cr_terra_points$habitat <- extract(habitat, cr_terra_points)
+tmp <- extract(habitat, cr_terra_points)
 
 dat_sf_cr$NB_LAB <- tmp$`ESACCI-global-10m_merged`
 dat_sf_cr <- left_join(dat_sf_cr, habitat_key)

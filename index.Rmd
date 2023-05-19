@@ -47,12 +47,11 @@ options(googledrive_quiet = TRUE)
 googledrive::drive_auth(path = Sys.getenv("GOOGLE_AUTHENTICATION_CREDENTIALS"))
 
 # ## Find Google Drive folder 'Centre Circle Data & Info'
- data_folder <- drive_ls(path = "files_for_github")
 # data_path <- "data" 
 # dir.create(data_path) 
 
 # Get the habitat raster 
-drive_download(as_id("1siCKr305m8ca9VLQV-2mThIAYAWkrlub"))
+drive_download(as_id("1zDN1uh_ioOdIFATp9Q18bYTukygNo52t"), overwrite=T)
 habitat <- rast("vulture_habitat_ESA_10m_aoi.tif")
 habitat_key <- read.csv("ESA_v2_labels.csv", header=T)
 # Update colour table

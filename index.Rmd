@@ -1185,7 +1185,6 @@ plot(tmp)
 tmp_df <- as.data.frame(tmp)
 
 lfc <- st_linestring(as.matrix(tmp_df[,c("location_long", "location_lat")]))
-dat_shp <- st_sf(data.frame(name="Pardo", geom=lfc))
 
 tmp_sf <- st_as_sf(tmp, coords=c(tmp_df$location_long, tmp_df$location_long))
 
@@ -1244,7 +1243,6 @@ i <-1
        addLegend(colors = c("red", "blue"), labels=c("Juancito" ,"Tuva"), opacity = 1)
   
 m 
-?addLegend
 
 mammal_dat <- moveStack(tmp, tmp2)
 

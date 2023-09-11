@@ -35,7 +35,6 @@ library(readxl)
 library(geosphere)
 library(foreach)
 library(maptools)
-library(leaflet.opacity)
 library(leaflet.extras)
 #library(rnaturalearth)
 library(terra)
@@ -1155,5 +1154,120 @@ fig <- fig %>% add_trace(y = ~sparse_veg, name = 'sparse veg')
 
 fig <- fig %>% layout(yaxis = list(title = 'Proportion'), barmode = 'stack')
 fig
+```
+
+# Mammal data
+```{r}
+
+# Ocelot
+tmp <-getMovebankAnimals(study=2526574641,login=loginStored)
+# Tapir
+tmp2 <- getMovebankAnimals(study=1954804459,login=loginStored)
+mammals <- rbind(tmp,tmp2)
+
+# For some reason they are duplicated
+mammals[duplicated(mammals)==F,]
+# They vary by the field "sensor_type_id"
+mammals <- mammals[mammals$sensor_type_id==653 & is.na(mammals$sensor_type_id)==F,]
+
+# Clean up the name
+mammals$animalName <- paste0(sub('\\_.*', '', mammals$animalName), "_", sub('\\ .*', '', mammals$taxon_canonical_name))
+mammals$name <- sub('\\_.*', '', mammals$animalName)
+
+# Sort date objects
+mammals$timestamp_start <- ymd_hms(mammals$timestamp_start)
+mammals$timestamp_end <- ymd_hms(mammals$timestamp_end)
+
+#OCelot
+tmp <- getMovebankData(study=2526574641, login=loginStored,  removeDuplicatedTimestamps=TRUE)
+tmp <- tmp[tmp$location_lat<8.7,]
+plot(tmp)
+tmp_df <- as.data.frame(tmp)
+
+lfc <- st_linestring(as.matrix(tmp_df[,c("location_long", "location_lat")]))
+dat_shp <- st_sf(data.frame(name="Pardo", geom=lfc))
+
+tmp_sf <- st_as_sf(tmp, coords=c(tmp_df$location_long, tmp_df$location_long))
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$OpenStreetMap.Mapnik, group="OS") %>%  
+      addPolylines(data = lfc, weight=1,opacity=0.5) %>%
+      # Add survey location
+      addCircleMarkers(lng=tmp_sf$location_long,
+                         lat=tmp_sf$location_lat, radius=1) %>% 
+      #addLegend(position= "topright", colors=tmp_cr_shp$colours, 
+       #         labels=names ,opacity = 0.7, title = "Animals") %>%
+      addScaleBar(position="topright", 
+                  options=scaleBarOptions(maxWidth = 100, metric = TRUE, imperial = FALSE, updateWhenIdle = TRUE)) %>%
+      addFullscreenControl()
+  
+m 
+
+
+
+#Tapir
+tmp2 <- getMovebankData(study=1954804459, login=loginStored,  removeDuplicatedTimestamps=TRUE)
+#plot(tmp2)
+# Remove the obvious outliers
+tmp2 <- tmp2[tmp2$location_lat>8,]
+tmp2 <- tmp2[tmp2$location_lat<8.5,]
+
+tmp3 <- as.data.frame(tmp2)
+tmp3 <- tmp3[order(tmp3$local_identifier),]
+
+lfc <- do.call(st_sfc,
+              lapply(split(tmp3, tmp3$local_identifier),
+                     function(d){st_linestring(as.matrix(d[,c("location_long", "location_lat")]))}))
+tmp3_shp <- st_sf(data.frame(name=levels(factor(tmp3[,"local_identifier"])), geom=lfc))
+
+ids <- tmp3_shp$name
+names <- tmp3_shp$name
+cols <- c("red", "blue")
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$Stamen.TonerLite, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik, group="OS") #%>%     
+i <-1
+  for (i in seq(along=ids))
+    {
+      m <- m %>%
+        addPolylines(data = tmp3_shp[i,], color = cols[i], group = ids[i], weight=1,opacity=0.4)         %>%
+        addCircleMarkers(lng=tmp3$location_long[tmp3$local_identifier==ids[i]],
+                         lat=tmp3$location_lat[tmp3$local_identifier==ids[i]], 
+                         popup=paste(tmp3$timestamp[tmp3$local_identifier==ids[i]]),
+                         fillOpacity = 1, opacity = 0.5, radius=2, color = cols[i], group = ids[i], stroke=F) 
+  }
+
+  m <- m %>%
+       addLegend(colors = c("red", "blue"), labels=c("Juancito" ,"Tuva"), opacity = 1)
+  
+m 
+?addLegend
+
+mammal_dat <- moveStack(tmp, tmp2)
+
+table(tmp$local_identifier)
+#res <- distance(mammal_dat)
+#sapply(res, sum)/1000  
+
+mov_dist <- list()
+i <-1
+for(i in 1:nrow(mammals))
+{
+  tmp <- interpolateTime(mammal_dat[[as.character(mammals$name[i])]], time=as.difftime(60,units="mins"), spaceMethod='greatcircle')
+  tmp$distance_km <- c(NA, distance(tmp)/1000)
+  mov_dist[[i]] <- as.data.frame(tmp)
+  print(i)
+}
+mammal_df <- bind_rows(mov_dist)
+#plot(mammal_df$location_long, mammal_df$location_lat)
+
+mammal_df %>% group_by(local_identifier) %>% summarize(obs_days=n()/24, dist_moved_km=sum(distance_km, na.rm=T))
+
+
+
+
 ```
 

@@ -11,9 +11,9 @@ editor_options:
   chunk_output_type: console
 ---
 
-# Device Status
+# Vultures
 
-This document summarizes the movement locations for all active devices within Osa Conservation's movement ecology project. 
+This section summarizes the movement locations for all the vulture devices within Osa Conservation's movement ecology project. 
 
 ```{r c01, echo=F, message=F, include=F}
 knitr::opts_chunk$set(echo = FALSE, message=F, warning=F)
@@ -67,8 +67,18 @@ loginStored <- movebankLogin(username=MOVE_USE,
                              password=MOVE_PASS)
 
 # Get animals
-# Vultures
+# OC Vultures
 animals <-getMovebankAnimals(study=1573471517,login=loginStored)
+
+# andean condor foundation
+tmp4 <- getMovebankAnimals(study=2885579493,login=loginStored)
+
+# Move nickname to locak_identifier
+tmp4$local_identifier <- tmp4$nick_name
+tmp4$animalName <- tmp4$nick_name
+
+animals <- rbind(animals, tmp4)
+
 
 # For some reason they are duplicated
 animals[duplicated(animals)==F,]
@@ -85,8 +95,22 @@ animals$timestamp_end <- ymd_hms(animals$timestamp_end)
 
 # Get all the data
 
-# Vultures
-mov_dat <- getMovebankData(study=1573471517, login=loginStored,  removeDuplicatedTimestamps=TRUE)
+# OC Vultures
+tmp1 <- getMovebankData(study=1573471517, login=loginStored,  removeDuplicatedTimestamps=TRUE)
+
+#Andean condor foundation
+tmp5 <- getMovebankData(study=2885579493, login=loginStored,  removeDuplicatedTimestamps=TRUE)
+
+ec_names <- data.frame(code=row.names(tmp5@idData), name=(tmp5@idData$nick_name))
+
+mov_dat <- moveStack(tmp1, tmp5)
+
+#Add the names
+mov_dat$name <- trackId(mov_dat)
+
+# Remove the random zeros
+summary(mov_dat$location_long)
+mov_dat <- mov_dat[mov_dat$location_long<0,]
 
 #Add the names
 mov_dat$name <- trackId(mov_dat)
@@ -109,10 +133,11 @@ dat <- left_join(dat, animals[, c("tag_id", "animalName")])
 # Sort the names out
 
 dat$animalName <- sub('\\_.*', '', dat$animalName)
+
 # Add in the taxonomic group
 dat$animalName <- paste0(dat$animalName, "_", sub('\\ .*', '', dat$taxon_canonical_name))
 
-# Current time and date
+
 
 t <- now("America/Costa_Rica") 
 
@@ -162,11 +187,28 @@ bairdii <- makeIcon(
   iconWidth = 38, iconHeight = 40,
   iconAnchorX = 22, iconAnchorY = 39)
 
+microtis <- makeIcon(
+  iconUrl = "https://raw.githubusercontent.com/ChrisBeirne/Osa-Conservation-Movement-Ecology-Daily-Report/main/icons/sed.png",
+  iconWidth = 38, iconHeight = 40,
+  iconAnchorX = 22, iconAnchorY = 39)
+
+atra <- makeIcon(
+  iconUrl = "https://raw.githubusercontent.com/ChrisBeirne/Osa-Conservation-Movement-Ecology-Daily-Report/main/icons/bhv_small.png",
+  iconWidth = 38, iconHeight = 40,
+  iconAnchorX = 22, iconAnchorY = 39,
+  shadowUrl = "https://raw.githubusercontent.com/ChrisBeirne/Osa-Conservation-Movement-Ecology-Daily-Report/main/icons/vul_small_shadow.png",
+  shadowWidth = 38, shadowHeight = 30,
+  shadowAnchorX = 4, shadowAnchorY = 39)
+
+
+
 iconSet <- iconList(aura= aura,
                     papa =papa,
                     melambrotus = mela,
+                    atratus = atra,
                     pardalis = pardalis,
-                    bairdii = bairdii)
+                    bairdii = bairdii,
+                    microtis = microtis)
 
 dat$icon <- sub(".*? ", "", dat$taxon_canonical_name)
 
@@ -176,26 +218,43 @@ cr_locs<- data.frame(location_code=c("AIRS02", "CERR02","LOMAS01"),
            latitude=c(8.402595,	8.416142,8.758321)	,
            longitude=c( -83.35852,	-83.31793,	-83.29787) )
 
-
-
+# Add peru survey locations
+pe_locs<- data.frame(location_code=c("VT_MANU01"), 	
+           latitude=c(-12.887758)	,
+           longitude=c( -71.403264) )
 
 ```
 
 *Last data request: `r now(tzone = "America/Costa_Rica")`*
 
-The project currently contains `r length(unique(dat$tag_id))` active tag deployments (defined as being active within the last 14 days). 
+The project currently contains *`r length(unique(dat$tag_id))`* tag deployments. 
 
 ```{r  c02, include=F}
+# Create data summaries 
 
 # Add a country column
-dat$country <- dat$location_lat<0
-dat$country[dat$country==T] <- "peru"
-dat$country[dat$country==F] <- "costa_rica"
+dat$country <- NA
+dat$country[dat$location_lat>6] <- "costa_rica"
+dat$country[dat$location_lat>(-6) & dat$location_lat<6] <- "ecuador"
+dat$country[dat$location_lat<(-6)] <- "peru"
+
 #table(dat$country)
 
 # Costa rica
 # Convert to shapefiles
 dat <- dat[order(dat$animalName),]
+
+
+# Rename the ecuador tags
+dat$name<- as.character(dat$name)
+i <- 1
+for(i in 1: nrow(ec_names))
+  {
+    dat$name[dat$name==ec_names$code[i]] <- ec_names$name[i]      
+  }
+dat$name<- as.factor(dat$name)
+
+
 
 lfc <- do.call(st_sfc,
               lapply(split(dat, dat$name),
@@ -211,11 +270,6 @@ sp_dat <- sp_dat[duplicated(sp_dat)==F,]
 # add back in the metadata
 dat_shp  <- left_join(dat_shp,sp_dat)
 
-```
-
-**Time since last check-in**
-
-```{r  c03, echo=F, include=F}
 # Last location and time since present
 dat$diff_time <- round(as.numeric(difftime(t, dat$timestamp, units="days")),1)
 
@@ -234,53 +288,25 @@ check_in_summary <- tmp[order(tmp$country, tmp$days_since_checkin),]
 
 ```
 
-
-```{r  c04, echo=F, message=F, warning=F}
-tmp_col <- check_in_summary$days_since_checkin
-tmp_col[tmp_col<12]<- 12
-
-### Total locations Mean eobs battery power, eobs accuracy
-tmp_sum <- dat %>% group_by(name) %>% dplyr::summarise(total_obs=n(), start_date=min(timestamp, na.rm=T), end_date=max(timestamp, na.rm=T))
-tmp_sum$days_of_data <- round(difftime(tmp_sum$end_date, tmp_sum$start_date),0)
-#colnames(dat)
-tmp_sum$start_date <- substr(tmp_sum$start_date,1,10)
-
-check_in_summary <- left_join(check_in_summary, tmp_sum)
-check_in_summary$last_timestamp <- NULL
-
-check_in_summary$locs_per_day <- round(check_in_summary$total_obs/as.numeric(check_in_summary$days_of_data),0)
-check_in_summary$end_date <- substr(check_in_summary$end_date,1,10)
-
-
-check_in_summary %>%
-  kbl() %>%
-  kable_styling()  %>%
-    column_spec(4, color = "white",
-              background = spec_color(tmp_col, begin=0,end = 0.7, direction=-1,
-                                      option="D", scale_from = c(12,120)))%>%
-  kableExtra::scroll_box(width = "100%")
-```
-
-**Tagging summary**
-
-We have tagged `r nrow(check_in_summary)` birds to date, the breakdown by country is:
+The breakdown by country is:
 
 ```{r, echo=F}
 
-tmp <- as.data.frame.matrix(table(check_in_summary$taxon_canonical_name, check_in_summary$country))
-tmp$taxon_canonical_name <- row.names(tmp)
-fig <- plot_ly(tmp, x = ~taxon_canonical_name, y = ~costa_rica, type = 'bar', name = 'Costa Rica')
-fig <- fig %>% add_trace(y = ~peru, name = 'Peru')
+data <- t(as.data.frame.matrix(table(check_in_summary$taxon_canonical_name, check_in_summary$country)))
+data <- as.data.frame(data)
+data$country <- row.names(data)
+fig <- plot_ly(data, x = ~country, y = ~data$`Sarcoramphus papa`, type = 'bar', name = 'King vulture')
+fig <- fig %>% add_trace(y = ~data$`Cathartes melambrotus`, name = 'GYH vulture')
+fig <- fig %>% add_trace(y = ~data$`Cathartes aura`, name = 'Turkey vulture')
+fig <- fig %>% add_trace(y = ~data$`Coragyps atratus`, name = 'Black vulture')
 fig <- fig %>% layout(yaxis = list(title = 'Count'), barmode = 'stack')
 
 fig
 ```
 
-**Maps**
 
-All of our tracking data
-
-*Costa Rica*
+### Costa Rica map
+**note this is raw unfiltered data**
 
 ```{r, echo=F}
 tmp_cr <- dat[dat$country=="costa_rica",]
@@ -298,7 +324,7 @@ tmp_cr_shp$colours <- col.cat[tmp_cr_shp$name]
 
 ```
 
-We currently have `r length(unique(tmp_cr$name))` devices transmitting data in Costa Rica:
+We currently have deployed *`r length(unique(tmp_cr$name))`* devices in Costa Rica:
 
 ```{r, echo=F}
 
@@ -391,24 +417,72 @@ m <- leaflet() %>%
 m 
 ```
 
+*Ecuador*
+
+```{r, echo=F}
+tmp_ecuador <- dat[dat$country=="ecuador",]
+tmp_ecuador_shp <- dat_shp[dat_shp$country=="ecuador",]
+
+
+# First lets choose a category to colour
+tmp_ecuador[,"name"] <- factor(tmp_ecuador[,"name"])
+tmp_ecuador_shp$name <- factor(tmp_ecuador_shp$name)
+
+col.cat <- turbo(length(levels(tmp_ecuador[,"name"])))
+# Add it to the dataframe
+tmp_ecuador$colours <- col.cat[tmp_ecuador[,"name"]]
+tmp_ecuador_shp$colours <- col.cat[tmp_ecuador_shp$name]
+
+```
+
+We currently have `r length(unique(tmp_ecuador$name))` devices transmitting data in ecuador:
+
+
+```{r, echo=F}
+# New map
+ids <- tmp_ecuador_shp$name
+i <- 1
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$Esri.WorldImagery, group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik, group="OS") %>%  
+    addProviderTiles(providers$Stamen.TonerLite, group="Simple")
+
+
+  for (i in seq(along=ids))
+    {
+      m <- m %>%
+        addPolylines(data = tmp_ecuador_shp[i,], color = tmp_ecuador_shp$colours[i], group = ids[i], weight=1,opacity=0.5)  
+    }
+    
+  m <- m %>%
+      addScaleBar(position="topleft", 
+                  options=scaleBarOptions(maxWidth = 100, metric = TRUE, imperial = FALSE, updateWhenIdle = TRUE)) %>%
+      addLayersControl(
+        baseGroups = c("Simple","OS", "Satellite"),
+        overlayGroups = ids,
+        options = layersControlOptions(collapsed = FALSE)
+      ) %>%
+  addFullscreenControl()
+  
+m 
+```
+
+
 ### Movement summaries
 
-We first regularize all of the data to one our intervals, then calculate distance moved
+We first regularize all of the data to one our intervals, then calculate distance moved.
 
 #### King vultures
 
-Average daily movement distance (1 hour intervals): 
+Average daily movement distance (1 hour intervals) across all individuals: 
 
-```{r}
-# Test to see if I can regularise data
-ids <- tmp_cr_shp$name
-
-kings <- tmp_cr_shp$name[tmp_cr_shp$taxon_canonical_name=="Sarcoramphus papa"]
-
-turkey <- tmp_cr_shp$name[tmp_cr_shp$taxon_canonical_name=="Cathartes aura"]
-
+```{r, echo=F, include=F, message=F, warning=F}
+# Create regular data
+ids <- as.character(unique(trackId(mov_dat)))
 #######
 mov_regular <- list()
+
 for(i in 1:length(ids))
 {
   tmp <- interpolateTime(mov_dat[[as.character(ids[i])]], time=as.difftime(60,units="mins"), spaceMethod='greatcircle')
@@ -422,29 +496,46 @@ mov_regular <- bind_rows(mov_regular)
 # plot(test_df$location_long.1, test_df$location_lat.1, asp=1)
 # plot(test_df$location_long, test_df$location_lat, asp=1)
 
+kings <- unique(animals$local_identifier[animals$taxon_canonical_name=="Sarcoramphus papa"])
+
+turkey <- unique(animals$local_identifier[animals$taxon_canonical_name=="Cathartes aura"])
+
+yellow <- unique(animals$local_identifier[animals$taxon_canonical_name=="Cathartes melambrotus"])
+
+black <- unique(animals$local_identifier[animals$taxon_canonical_name=="Coragyps atratus"])
+
 mov_regular$date <- ymd(substr(mov_regular$timestamps,1,10))
 
 tmp_res <- mov_regular %>% group_by(local_identifier, date) %>% summarize(obs=n(), daily_km=sum(distance_km))
 
-tmp_res <- tmp_res[tmp_res$obs>23,]
+#table(tmp_res$local_identifier)
+# Correct the ecuador names
+tmp_res$local_identifier[nchar(tmp_res$local_identifier)<3] <- paste0("X",tmp_res$local_identifier[nchar(tmp_res$local_identifier)<3])
 
+# Rename
+tmp_res$local_identifier[tmp_res$local_identifier=="X1"] <- ec_names$name[1]
+tmp_res$local_identifier[tmp_res$local_identifier=="X2"] <- ec_names$name[2]
+tmp_res$local_identifier[tmp_res$local_identifier=="X3"] <- ec_names$name[3]
+tmp_res$local_identifier[tmp_res$local_identifier=="X4"] <- ec_names$name[4]
+
+tmp_res <- tmp_res[tmp_res$obs>23,]
+tmp_res$daily_km <- round(tmp_res$daily_km,1)
 
 ymax <- max(tmp_res$daily_km, na.rm=T)
+# Add in country
+tmp <- dat[,c("name", "country")][duplicated(dat[,c("name", "country")])==F,]
 
 
+tmp_res <- left_join(tmp_res, tmp, by=c("local_identifier"="name"))
+```
 
-p0 <- ggplot(tmp_res[tmp_res$local_identifier %in% kings,], aes(x = date, y = daily_km)) +
-    geom_point() +
-    stat_smooth(method = "loess") +
-  scale_y_continuous(expand = c(0, 0), limits = c(0, ymax)) + ggtitle("All data")
+```{r}
 
-ggplotly(p0)
-
-
+table(tmp$country)
 p1 <- ggplot(tmp_res[tmp_res$local_identifier %in% kings,], aes(x = date, y = daily_km)) +
     geom_point() +
     stat_smooth(method = "loess") +
-     facet_wrap(~local_identifier, ncol = 5) +
+     facet_wrap(~country, ncol = 3) +
   scale_y_continuous(expand = c(0, 0), limits = c(0, ymax))
 
 ggplotly(p1)
@@ -455,37 +546,80 @@ ggplotly(p1)
 
 ```{r}
 
-ymax <- max(tmp_res$daily_km[tmp_res$local_identifier %in% turkey], na.rm=T)
-
-
-p0 <- ggplot(tmp_res[tmp_res$local_identifier %in% turkey,], aes(x = date, y = daily_km)) +
-    geom_point() +
-    stat_smooth(method = "loess") +
-  scale_y_continuous(expand = c(0, 0), limits = c(0, ymax)) + ggtitle("All data")
-
-ggplotly(p0)
-
 
 p1 <- ggplot(tmp_res[tmp_res$local_identifier %in% turkey,], aes(x = date, y = daily_km)) +
     geom_point() +
     stat_smooth(method = "loess") +
-     facet_wrap(~local_identifier, ncol = 5) +
+     facet_wrap(~country, ncol = 3) +
   scale_y_continuous(expand = c(0, 0), limits = c(0, ymax))
 
 ggplotly(p1)
 
 ```
 
+#### Greater Yellow-headed vultures
+
+```{r}
+
+p1 <- ggplot(tmp_res[tmp_res$local_identifier %in% yellow,], aes(x = date, y = daily_km)) +
+    geom_point() +
+    stat_smooth(method = "loess") +
+     facet_wrap(~country, ncol = 3) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, ymax))
+
+ggplotly(p1)
+
+```
+
+#### Black vultures
+
+```{r}
+
+p1 <- ggplot(tmp_res[tmp_res$local_identifier %in% black,], aes(x = date, y = daily_km)) +
+    geom_point() +
+    stat_smooth(method = "loess") +
+     facet_wrap(~country, ncol = 3) +
+  scale_y_continuous(expand = c(0, 0), limits = c(0, ymax))
+
+ggplotly(p1)
+```
+
+### Tag deployment summaries
+
+```{r  c04, echo=F, message=F, warning=F}
+tmp_col <- check_in_summary$days_since_checkin
+tmp_col[tmp_col<12]<- 12
+
+### Total locations Mean eobs battery power, eobs accuracy
+tmp_sum <- dat %>% group_by(name) %>% dplyr::summarise(total_obs=n(), start_date=min(timestamp, na.rm=T), end_date=max(timestamp, na.rm=T))
+tmp_sum$days_of_data <- round(difftime(tmp_sum$end_date, tmp_sum$start_date),0)
+#colnames(dat)
+tmp_sum$start_date <- substr(tmp_sum$start_date,1,10)
+
+check_in_summary <- left_join(check_in_summary, tmp_sum)
+check_in_summary$last_timestamp <- NULL
+
+check_in_summary$locs_per_day <- round(check_in_summary$total_obs/as.numeric(check_in_summary$days_of_data),0)
+check_in_summary$end_date <- substr(check_in_summary$end_date,1,10)
 
 
+check_in_summary %>%
+  kbl() %>%
+  kable_styling()  %>%
+    column_spec(4, color = "white",
+              background = spec_color(tmp_col, begin=0,end = 0.7, direction=-1,
+                                      option="D", scale_from = c(12,120)))%>%
+  kableExtra::scroll_box(width = "100%")
+```
 
-# Costa Rica  {.tabset}
+
+# Vultures - Costa Rica  {.tabset}
 
 ### Point density
 
 Below we show the logged point density accross our area of interest. Note, the extreme number of values on the Peninsula means we can't do a color ramp on the observation scale. 
 
-```{r}
+```{r, echo=F, message=F, warning=F}
 # Density raster
 dat_sf_cr <- st_as_sf(tmp_cr, coords=c("location_long", "location_lat"), crs=4326)
 
@@ -1057,12 +1191,12 @@ clus_res$type[clus_res$hour>15] <- "night_roost"
 
 clus_res$type[as.numeric(substr(clus_res$timestamp.first,12,13))>7 &  as.numeric(substr(clus_res$timestamp.first,12,13))< 16] <- "potential_feeding"
 
-boxplot(clus_res$rest.duration~clus_res$type)
+#boxplot(clus_res$rest.duration~clus_res$type)
 
 
-hist(clus_res$rest.duration[clus_res$type=="potential_feeding"])
+#hist(clus_res$rest.duration[clus_res$type=="potential_feeding"])
 
-summary(clus_res$rest.duration[clus_res$type=="potential_feeding"])
+#summary(clus_res$rest.duration[clus_res$type=="potential_feeding"])
 
 clus_res$type_col <- NA
 clus_res$type_col[clus_res$type=="potential_feeding"] <- "yellow"
@@ -1124,7 +1258,7 @@ summarise(count=n())
 
 ind_res <- as.data.frame(ind_res)
 
-ind_res$LCCOwnLabel
+#ind_res$LCCOwnLabel
 
 ind_res_wide <- reshape(ind_res, idvar="local_identifier", timevar="LCCOwnLabel", direction="wide")
 
@@ -1163,7 +1297,10 @@ fig
 tmp <-getMovebankAnimals(study=2526574641,login=loginStored)
 # Tapir
 tmp2 <- getMovebankAnimals(study=1954804459,login=loginStored)
-mammals <- rbind(tmp,tmp2)
+# Carnivores
+tmp3 <- getMovebankAnimals(study=2957292408,login=loginStored)
+
+mammals <- rbind(tmp,tmp2, tmp3)
 
 # For some reason they are duplicated
 mammals[duplicated(mammals)==F,]
@@ -1177,11 +1314,27 @@ mammals$name <- sub('\\_.*', '', mammals$animalName)
 # Sort date objects
 mammals$timestamp_start <- ymd_hms(mammals$timestamp_start)
 mammals$timestamp_end <- ymd_hms(mammals$timestamp_end)
+```
 
-#OCelot
+### Pardo
+
+```{r}
 tmp <- getMovebankData(study=2526574641, login=loginStored,  removeDuplicatedTimestamps=TRUE)
-tmp <- tmp[tmp$location_lat<8.7,]
-plot(tmp)
+# Remove obvious outliers
+tmp <- tmp[tmp$location_lat<8.6,]
+tmp <- tmp[tmp$location_lat>8.7,]
+```
+
+```{r}
+# Create a checkin summary
+```
+
+We recieved `r nrow(tmp)` locations from Pardos collar, covering a time span of `r round((min(tmp$timestamp) %--% max(tmp$timestamp))/ddays(1),0)` days. 
+
+```{r}
+#plot(tmp)
+#summary(tmp@data$location_error_numerical)
+
 tmp_df <- as.data.frame(tmp)
 
 lfc <- st_linestring(as.matrix(tmp_df[,c("location_long", "location_lat")]))
@@ -1202,12 +1355,13 @@ m <- leaflet() %>%
       addFullscreenControl()
   
 m 
+```
 
+### Tapirs
 
-
+```{r}
 #Tapir
 tmp2 <- getMovebankData(study=1954804459, login=loginStored,  removeDuplicatedTimestamps=TRUE)
-#plot(tmp2)
 # Remove the obvious outliers
 tmp2 <- tmp2[tmp2$location_lat>8,]
 tmp2 <- tmp2[tmp2$location_lat<8.5,]
@@ -1215,11 +1369,46 @@ tmp2 <- tmp2[tmp2$location_lat<8.5,]
 tmp3 <- as.data.frame(tmp2)
 tmp3 <- tmp3[order(tmp3$local_identifier),]
 
+# plot(tmp3$location_long, tmp3$location_lat, asp=1)
+# points(tmp3$location_long[is.na(tmp3$location_error_numerical)==T],tmp3$location_lat[is.na(tmp3$location_error_numerical)==T] , col="red")
+# points(tmp3$location_long[is.na(tmp3$location_error_numerical)==F],tmp3$location_lat[is.na(tmp3$location_error_numerical)==F] , col="black")
+
+
+
 lfc <- do.call(st_sfc,
               lapply(split(tmp3, tmp3$local_identifier),
                      function(d){st_linestring(as.matrix(d[,c("location_long", "location_lat")]))}))
 tmp3_shp <- st_sf(data.frame(name=levels(factor(tmp3[,"local_identifier"])), geom=lfc))
 
+errors <- tmp3[tmp3$gps_hdop>2000 & is.na(tmp3$gps_hdop)==F,]
+
+# Create a summary
+mov_dist <- list()
+i <-1
+
+for(i in 1:length(levels(tmp2@trackId)))
+{
+  tmp <- interpolateTime(tmp2[[as.character(levels(tmp2@trackId)[i])]], time=as.difftime(60,units="mins"), spaceMethod='greatcircle')
+  tmp$distance_km <- c(NA, distance(tmp)/1000)
+  mov_dist[[i]] <- as.data.frame(tmp)
+  #print(i)
+}
+mammal_df <- bind_rows(mov_dist)
+#plot(mammal_df$location_long, mammal_df$location_lat)
+
+
+summary <- tmp3 %>% group_by(local_identifier) %>% summarize(n_obs=n(), first_day=substr(min(timestamp),1,10), last_day=substr(max(timestamp),1,10))
+
+tmp <- mammal_df %>% group_by(local_identifier) %>% summarize(obs_days=round(n()/24,0), dist_moved_km=round(sum(distance_km, na.rm=T),0))
+
+summary <- left_join(summary, tmp)
+kbl(summary)%>%
+  kable_styling()
+```
+
+And a map of the locations
+
+```{r}
 ids <- tmp3_shp$name
 names <- tmp3_shp$name
 cols <- c("red", "blue")
@@ -1241,29 +1430,104 @@ i <-1
 
   m <- m %>%
        addLegend(colors = c("red", "blue"), labels=c("Juancito" ,"Tuva"), opacity = 1)
+
   
+ # p <- m  %>%
+  #      addCircleMarkers(lng=errors$location_long,
+  #                       lat=errors$location_lat, 
+  #                       popup=paste(errors$timestamp))
+    
 m 
 
-mammal_dat <- moveStack(tmp, tmp2)
+#p
 
-table(tmp$local_identifier)
-#res <- distance(mammal_dat)
-#sapply(res, sum)/1000  
+```
 
+### Carnivores
+
+```{r}
+# cARNIVORES
+tmp2 <- getMovebankData(study=2957292408, login=loginStored,  removeDuplicatedTimestamps=TRUE)
+#plot(tmp2)
+
+# plot(tmp2)
+# plot(tmp2[is.na(tmp2$location_error_numerical)==T,], col="red", add=T)
+# table(is.na(tmp2$location_error_numerical))
+
+
+tmp3 <- as.data.frame(tmp2)
+tmp3 <- tmp3[order(tmp3$local_identifier),]
+
+high_qual <- tmp3[is.na(tmp3$location_error_numerical)==F,]
+
+#summary(tmp3$location_error_numerical)
+# table(is.na(tmp3$location_error_numerical))
+
+lfc <- do.call(st_sfc,
+              lapply(split(tmp3, tmp3$local_identifier),
+                     function(d){st_linestring(as.matrix(d[,c("location_long", "location_lat")]))}))
+tmp3_shp <- st_sf(data.frame(name=levels(factor(tmp3[,"local_identifier"])), geom=lfc))
+
+#errors <- tmp3[tmp3$gps_hdop>2000 & is.na(tmp3$gps_hdop)==F,]
+
+# Create a summary
 mov_dist <- list()
 i <-1
-for(i in 1:nrow(mammals))
-{
-  tmp <- interpolateTime(mammal_dat[[as.character(mammals$name[i])]], time=as.difftime(60,units="mins"), spaceMethod='greatcircle')
+
+
+#for(i in 1:length(tmp2@idData$local_identifier))
+#{
+  tmp <- interpolateTime(tmp2, time=as.difftime(60,units="mins"), spaceMethod='greatcircle')
   tmp$distance_km <- c(NA, distance(tmp)/1000)
   mov_dist[[i]] <- as.data.frame(tmp)
-  print(i)
-}
+  #print(i)
+#}
 mammal_df <- bind_rows(mov_dist)
 #plot(mammal_df$location_long, mammal_df$location_lat)
 
-mammal_df %>% group_by(local_identifier) %>% summarize(obs_days=n()/24, dist_moved_km=sum(distance_km, na.rm=T))
 
+summary <- tmp3 %>% group_by(local_identifier) %>% summarize(n_obs=n(), first_day=substr(min(timestamp),1,10), last_day=substr(max(timestamp),1,10))
+
+tmp <- mammal_df %>% group_by(local_identifier) %>% summarize(obs_days=round(n()/24,0), dist_moved_km=round(sum(distance_km, na.rm=T),0))
+
+summary <- left_join(summary, tmp)
+kbl(summary)%>%
+  kable_styling()
+```
+
+And a map of the locations
+
+```{r}
+ids <- tmp3_shp$name
+names <- tmp3_shp$name
+cols <- c("blue")
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$Stamen.TonerLite, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery, group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik, group="OS") #%>%     
+i <-1
+  for (i in seq(along=ids))
+    {
+      m <- m %>%
+        addPolylines(data = tmp3_shp[i,], color = cols[i], group = ids[i], weight=1,opacity=0.4)         %>%
+        
+        addCircleMarkers(lng=tmp3$location_long[tmp3$local_identifier==ids[i]],
+                         lat=tmp3$location_lat[tmp3$local_identifier==ids[i]], 
+                         popup=paste(tmp3$timestamp[tmp3$local_identifier==ids[i]]),
+                         fillOpacity = 1, opacity = 0.5, radius=2, color = "blue", group = ids[i], stroke=F) %>% 
+      addCircleMarkers(lng=high_qual$location_long[high_qual$local_identifier==ids[i]],
+                         lat=high_qual$location_lat[high_qual$local_identifier==ids[i]], 
+                         popup=paste(high_qual$timestamp[high_qual$local_identifier==ids[i]]),
+                         fillOpacity = 1, opacity = 0.5, radius=2, color = "red", group = ids[i], stroke=F) 
+  }
+
+  m <- m %>%
+       addLegend(colors = c("red", "blue"), labels=c("High quality" ,"All locations"), opacity = 1)
+
+                   popup=paste(errors$timestamp))
+    
+m 
 
 
 

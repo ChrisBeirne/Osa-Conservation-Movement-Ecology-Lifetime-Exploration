@@ -290,7 +290,7 @@ check_in_summary <- tmp[order(tmp$country, tmp$days_since_checkin),]
 
 The breakdown by country is:
 
-```{r, echo=F}
+```{r c03, echo=F}
 
 data <- t(as.data.frame.matrix(table(check_in_summary$taxon_canonical_name, check_in_summary$country)))
 data <- as.data.frame(data)
@@ -308,7 +308,7 @@ fig
 ### Costa Rica map
 **note this is raw unfiltered data**
 
-```{r, echo=F}
+```{r c04, echo=F}
 tmp_cr <- dat[dat$country=="costa_rica",]
 tmp_cr_shp <- dat_shp[dat_shp$country=="costa_rica",]
 
@@ -326,7 +326,7 @@ tmp_cr_shp$colours <- col.cat[tmp_cr_shp$name]
 
 We currently have deployed *`r length(unique(tmp_cr$name))`* devices in Costa Rica:
 
-```{r, echo=F}
+```{r c05, echo=F}
 
 # New map
 ids <- tmp_cr_shp$name
@@ -368,7 +368,7 @@ m
 
 *Peru*
 
-```{r, echo=F}
+```{r c06, echo=F}
 tmp_peru <- dat[dat$country=="peru",]
 tmp_peru_shp <- dat_shp[dat_shp$country=="peru",]
 
@@ -387,7 +387,7 @@ tmp_peru_shp$colours <- col.cat[tmp_peru_shp$name]
 We currently have `r length(unique(tmp_peru$name))` devices transmitting data in Peru:
 
 
-```{r, echo=F}
+```{r c07, echo=F}
 # New map
 ids <- tmp_peru_shp$name
 i <- 1
@@ -419,7 +419,7 @@ m
 
 *Ecuador*
 
-```{r, echo=F}
+```{r c08, echo=F}
 tmp_ecuador <- dat[dat$country=="ecuador",]
 tmp_ecuador_shp <- dat_shp[dat_shp$country=="ecuador",]
 
@@ -438,7 +438,7 @@ tmp_ecuador_shp$colours <- col.cat[tmp_ecuador_shp$name]
 We currently have `r length(unique(tmp_ecuador$name))` devices transmitting data in ecuador:
 
 
-```{r, echo=F}
+```{r c09, echo=F}
 # New map
 ids <- tmp_ecuador_shp$name
 i <- 1
@@ -477,7 +477,7 @@ We first regularize all of the data to one our intervals, then calculate distanc
 
 Average daily movement distance (1 hour intervals) across all individuals: 
 
-```{r, echo=F, include=F, message=F, warning=F}
+```{r c10, echo=F, include=F, message=F, warning=F}
 # Create regular data
 ids <- as.character(unique(trackId(mov_dat)))
 #######
@@ -529,7 +529,7 @@ tmp <- dat[,c("name", "country")][duplicated(dat[,c("name", "country")])==F,]
 tmp_res <- left_join(tmp_res, tmp, by=c("local_identifier"="name"))
 ```
 
-```{r}
+```{r c11}
 
 table(tmp$country)
 p1 <- ggplot(tmp_res[tmp_res$local_identifier %in% kings,], aes(x = date, y = daily_km)) +
@@ -544,7 +544,7 @@ ggplotly(p1)
 
 #### Turkey Vultures
 
-```{r}
+```{r c12}
 
 
 p1 <- ggplot(tmp_res[tmp_res$local_identifier %in% turkey,], aes(x = date, y = daily_km)) +
@@ -559,7 +559,7 @@ ggplotly(p1)
 
 #### Greater Yellow-headed vultures
 
-```{r}
+```{r c13}
 
 p1 <- ggplot(tmp_res[tmp_res$local_identifier %in% yellow,], aes(x = date, y = daily_km)) +
     geom_point() +
@@ -573,7 +573,7 @@ ggplotly(p1)
 
 #### Black vultures
 
-```{r}
+```{r c14}
 
 p1 <- ggplot(tmp_res[tmp_res$local_identifier %in% black,], aes(x = date, y = daily_km)) +
     geom_point() +
@@ -586,7 +586,7 @@ ggplotly(p1)
 
 ### Tag deployment summaries
 
-```{r  c04, echo=F, message=F, warning=F}
+```{r  c15, echo=F, message=F, warning=F}
 tmp_col <- check_in_summary$days_since_checkin
 tmp_col[tmp_col<12]<- 12
 
@@ -619,7 +619,7 @@ check_in_summary %>%
 
 Below we show the logged point density accross our area of interest. Note, the extreme number of values on the Peninsula means we can't do a color ramp on the observation scale. 
 
-```{r, echo=F, message=F, warning=F}
+```{r c16, echo=F, message=F, warning=F}
 # Density raster
 dat_sf_cr <- st_as_sf(tmp_cr, coords=c("location_long", "location_lat"), crs=4326)
 
@@ -699,7 +699,7 @@ The following map shows all of the vulture clusters.
 We define a cluster where a bird stays for >80 minutes within 100m of its starting location. Provided it arrives after 08:00 am or before 16:00.  
 
 ### Costa Rica
-```{r, eval=T, echo=F, message=F, warning=F}
+```{r c17, eval=T, echo=F, message=F, warning=F}
 # Code derived from
 # https://github.com/movestore/Daily-Rest-Sites
 #library('maptools')
@@ -1241,7 +1241,7 @@ m <- leaflet() %>%
 
 ### Habitat use
 
-```{r}
+```{r c18}
 # Convert the point shapefile into vect format and extract the habitat type for each bird
 
 cr_terra_points <- vect(dat_sf_cr) 
@@ -1291,7 +1291,7 @@ fig
 ```
 
 # Mammal data
-```{r}
+```{r c18a}
 
 # Ocelot
 tmp <-getMovebankAnimals(study=2526574641,login=loginStored)
@@ -1318,20 +1318,15 @@ mammals$timestamp_end <- ymd_hms(mammals$timestamp_end)
 
 ### Pardo
 
-```{r}
+```{r c18b}
 tmp <- getMovebankData(study=2526574641, login=loginStored,  removeDuplicatedTimestamps=TRUE)
 # Remove obvious outliers
 tmp <- tmp[tmp$location_lat<8.6,]
-tmp <- tmp[tmp$location_lat>8.7,]
-```
-
-```{r}
-# Create a checkin summary
 ```
 
 We recieved `r nrow(tmp)` locations from Pardos collar, covering a time span of `r round((min(tmp$timestamp) %--% max(tmp$timestamp))/ddays(1),0)` days. 
 
-```{r}
+```{r c18c}
 #plot(tmp)
 #summary(tmp@data$location_error_numerical)
 
@@ -1359,7 +1354,7 @@ m
 
 ### Tapirs
 
-```{r}
+```{r c19}
 #Tapir
 tmp2 <- getMovebankData(study=1954804459, login=loginStored,  removeDuplicatedTimestamps=TRUE)
 # Remove the obvious outliers
@@ -1408,7 +1403,7 @@ kbl(summary)%>%
 
 And a map of the locations
 
-```{r}
+```{r c20}
 ids <- tmp3_shp$name
 names <- tmp3_shp$name
 cols <- c("red", "blue")
@@ -1445,7 +1440,7 @@ m
 
 ### Carnivores
 
-```{r}
+```{r c21}
 # cARNIVORES
 tmp2 <- getMovebankData(study=2957292408, login=loginStored,  removeDuplicatedTimestamps=TRUE)
 #plot(tmp2)
@@ -1497,7 +1492,7 @@ kbl(summary)%>%
 
 And a map of the locations
 
-```{r}
+```{r c22}
 ids <- tmp3_shp$name
 names <- tmp3_shp$name
 cols <- c("blue")

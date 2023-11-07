@@ -7,7 +7,7 @@ We first regularize all of the data to one our intervals, then calculate distanc
 
 Average daily movement distance (1 hour intervals) across all individuals: 
 
-```{r c10, echo=F, include=F, message=F, warning=F}
+```{r c10, echo=F, include=F, message=F, warning=F, eval=F}
 # Create regular data
 ids <- as.character(unique(trackId(mov_dat)))
 #######
@@ -59,7 +59,7 @@ tmp <- dat[,c("name", "country")][duplicated(dat[,c("name", "country")])==F,]
 tmp_res <- left_join(tmp_res, tmp, by=c("local_identifier"="name"))
 ```
 
-```{r c11}
+```{r c11, eval=F}
 
 table(tmp$country)
 p1 <- ggplot(tmp_res[tmp_res$local_identifier %in% kings,], aes(x = date, y = daily_km)) +
@@ -74,7 +74,7 @@ ggplotly(p1)
 
 #### Turkey Vultures
 
-```{r c12}
+```{r c12, eval=F}
 
 
 p1 <- ggplot(tmp_res[tmp_res$local_identifier %in% turkey,], aes(x = date, y = daily_km)) +
@@ -89,7 +89,7 @@ ggplotly(p1)
 
 #### Greater Yellow-headed vultures
 
-```{r c13}
+```{r c13, eval=F}
 
 p1 <- ggplot(tmp_res[tmp_res$local_identifier %in% yellow,], aes(x = date, y = daily_km)) +
     geom_point() +
@@ -103,7 +103,7 @@ ggplotly(p1)
 
 #### Black vultures
 
-```{r c14}
+```{r c14, eval=F}
 
 p1 <- ggplot(tmp_res[tmp_res$local_identifier %in% black,], aes(x = date, y = daily_km)) +
     geom_point() +
@@ -229,7 +229,7 @@ The following map shows all of the vulture clusters.
 We define a cluster where a bird stays for >80 minutes within 100m of its starting location. Provided it arrives after 08:00 am or before 16:00.  
 
 ### Costa Rica
-```{r c17, eval=T, echo=F, message=F, warning=F}
+```{r c17, eval=T, echo=F, message=F, warning=F, eval=F}
 # Code derived from
 # https://github.com/movestore/Daily-Rest-Sites
 #library('maptools')
@@ -771,7 +771,7 @@ m <- leaflet() %>%
 
 ### Habitat use
 
-```{r c18}
+```{r c18, eval=F}
 # Convert the point shapefile into vect format and extract the habitat type for each bird
 
 habitat <- rast("vulture_habitat_ESA_10m_aoi.tif")
@@ -829,7 +829,7 @@ fig
 ```
 
 # Mammal data
-```{r c18a}
+```{r c18a, eval=F}
 
 # Ocelot
 tmp <-getMovebankAnimals(study=2526574641,login=loginStored)
@@ -856,7 +856,7 @@ mammals$timestamp_end <- ymd_hms(mammals$timestamp_end)
 
 ### Pardo
 
-```{r c18b}
+```{r c18b, eval=F}
 tmp <- getMovebankData(study=2526574641, login=loginStored,  removeDuplicatedTimestamps=TRUE)
 # Remove obvious outliers
 tmp <- tmp[tmp$location_lat<8.6,]
@@ -864,7 +864,7 @@ tmp <- tmp[tmp$location_lat<8.6,]
 
 We recieved `r nrow(tmp)` locations from Pardos collar, covering a time span of `r round((min(tmp$timestamp) %--% max(tmp$timestamp))/ddays(1),0)` days. 
 
-```{r c18c}
+```{r c18c, eval=F}
 #plot(tmp)
 #summary(tmp@data$location_error_numerical)
 
@@ -892,7 +892,7 @@ m
 
 ### Tapirs
 
-```{r c19}
+```{r c19, eval=F}
 #Tapir
 tmp2 <- getMovebankData(study=1954804459, login=loginStored,  removeDuplicatedTimestamps=TRUE)
 # Remove the obvious outliers
@@ -941,7 +941,7 @@ kbl(summary)%>%
 
 And a map of the locations
 
-```{r c20}
+```{r c20, eval=F}
 ids <- tmp3_shp$name
 names <- tmp3_shp$name
 cols <- c("red", "blue")
@@ -978,7 +978,7 @@ m
 
 ### Carnivores
 
-```{r c21}
+```{r c21, eval=F}
 # cARNIVORES
 tmp2 <- getMovebankData(study=2957292408, login=loginStored,  removeDuplicatedTimestamps=TRUE)
 #plot(tmp2)
@@ -1030,7 +1030,7 @@ kbl(summary)%>%
 
 And a map of the locations
 
-```{r c22}
+```{r c22, eval=F}
 ids <- tmp3_shp$name
 names <- tmp3_shp$name
 cols <- c("blue")

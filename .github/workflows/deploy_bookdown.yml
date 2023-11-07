@@ -19,6 +19,9 @@ jobs:
         env:
           # install full prebuilt version
           TINYTEX_INSTALLER: TinyTeX
+      - name: Get the github access token  
+        env:
+          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       - name: Install rmarkdown
         run: Rscript -e 'install.packages(c("rmarkdown","bookdown"))'
       #- name: Install rgdal

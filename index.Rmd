@@ -39,6 +39,9 @@ library(leaflet.extras)
 #library(rnaturalearth)
 library(terra)
 library(ggplot2)
+library(atlastools)
+library(ctmm)
+library(move2)
 
 options(googledrive_quiet = TRUE)
 

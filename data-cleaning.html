@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="index.html"/>
-
+<link rel="next" href="vultures---costa-rica.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -69,6 +69,10 @@
 <script src="libs/leaflet-providers-plugin-2.2.0/leaflet-providers-plugin.js"></script>
 <link href="libs/lfx-fullscreen-1.0.2/lfx-fullscreen-prod.css" rel="stylesheet" />
 <script src="libs/lfx-fullscreen-1.0.2/lfx-fullscreen-prod.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+<script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
 
 
 
@@ -101,6 +105,21 @@
 <li class="chapter" data-level="2" data-path="data-cleaning.html"><a href="data-cleaning.html"><i class="fa fa-check"></i><b>2</b> Data cleaning</a>
 <ul>
 <li class="chapter" data-level="2.0.1" data-path="data-cleaning.html"><a href="data-cleaning.html#vultures"><i class="fa fa-check"></i><b>2.0.1</b> Vultures</a></li>
+<li class="chapter" data-level="2.0.2" data-path="data-cleaning.html"><a href="data-cleaning.html#vulture-summaries"><i class="fa fa-check"></i><b>2.0.2</b> Vulture summaries</a></li>
+<li class="chapter" data-level="2.0.3" data-path="data-cleaning.html"><a href="data-cleaning.html#tag-deployment-summaries"><i class="fa fa-check"></i><b>2.0.3</b> Tag deployment summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="vultures---costa-rica.html"><a href="vultures---costa-rica.html"><i class="fa fa-check"></i><b>3</b> Vultures - Costa Rica</a>
+<ul>
+<li class="chapter" data-level="3.0.1" data-path="vultures---costa-rica.html"><a href="vultures---costa-rica.html#point-density"><i class="fa fa-check"></i><b>3.0.1</b> Point density</a></li>
+<li class="chapter" data-level="3.0.2" data-path="vultures---costa-rica.html"><a href="vultures---costa-rica.html#feeding-clusters"><i class="fa fa-check"></i><b>3.0.2</b> Feeding clusters</a></li>
+<li class="chapter" data-level="3.0.3" data-path="vultures---costa-rica.html"><a href="vultures---costa-rica.html#costa-rica-1"><i class="fa fa-check"></i><b>3.0.3</b> Costa Rica</a></li>
+<li class="chapter" data-level="3.0.4" data-path="vultures---costa-rica.html"><a href="vultures---costa-rica.html#habitat-use"><i class="fa fa-check"></i><b>3.0.4</b> Habitat use</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="mammal-data.html"><a href="mammal-data.html"><i class="fa fa-check"></i><b>4</b> Mammal data</a>
+<ul>
+<li class="chapter" data-level="4.0.1" data-path="mammal-data.html"><a href="mammal-data.html#pardo"><i class="fa fa-check"></i><b>4.0.1</b> Pardo</a></li>
+<li class="chapter" data-level="4.0.2" data-path="mammal-data.html"><a href="mammal-data.html#tapirs"><i class="fa fa-check"></i><b>4.0.2</b> Tapirs</a></li>
+<li class="chapter" data-level="4.0.3" data-path="mammal-data.html"><a href="mammal-data.html#carnivores"><i class="fa fa-check"></i><b>4.0.3</b> Carnivores</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/ChrisBeirne/" target="blank">Osa Conservation: Movement data exploration</a></li>
@@ -131,14 +150,2681 @@
 <h3><span class="header-section-number">2.0.1</span> Vultures<a href="data-cleaning.html#vultures" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 
 </div>
+<div id="vulture-summaries" class="section level3 hasAnchor" number="2.0.2">
+<h3><span class="header-section-number">2.0.2</span> Vulture summaries<a href="data-cleaning.html#vulture-summaries" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We first regularize all of the data to one our intervals, then calculate distance moved.</p>
+<div id="king-vultures" class="section level4 hasAnchor" number="2.0.2.1">
+<h4><span class="header-section-number">2.0.2.1</span> King vultures<a href="data-cleaning.html#king-vultures" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Average daily movement distance (1 hour intervals) across all individuals:</p>
+</div>
+<div id="turkey-vultures" class="section level4 hasAnchor" number="2.0.2.2">
+<h4><span class="header-section-number">2.0.2.2</span> Turkey Vultures<a href="data-cleaning.html#turkey-vultures" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="greater-yellow-headed-vultures" class="section level4 hasAnchor" number="2.0.2.3">
+<h4><span class="header-section-number">2.0.2.3</span> Greater Yellow-headed vultures<a href="data-cleaning.html#greater-yellow-headed-vultures" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="black-vultures" class="section level4 hasAnchor" number="2.0.2.4">
+<h4><span class="header-section-number">2.0.2.4</span> Black vultures<a href="data-cleaning.html#black-vultures" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+</div>
+<div id="tag-deployment-summaries" class="section level3 hasAnchor" number="2.0.3">
+<h3><span class="header-section-number">2.0.3</span> Tag deployment summaries<a href="data-cleaning.html#tag-deployment-summaries" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; ">
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+taxon_canonical_name
+</th>
+<th style="text-align:left;">
+country
+</th>
+<th style="text-align:right;">
+days_since_checkin
+</th>
+<th style="text-align:right;">
+total_obs
+</th>
+<th style="text-align:left;">
+start_date
+</th>
+<th style="text-align:left;">
+end_date
+</th>
+<th style="text-align:left;">
+days_of_data
+</th>
+<th style="text-align:right;">
+locs_per_day
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Buzzie
+</td>
+<td style="text-align:left;">
+Coragyps atratus
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+7329
+</td>
+<td style="text-align:left;">
+2023-06-14
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+3495 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Carolina
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+14526
+</td>
+<td style="text-align:left;">
+2023-01-17
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+7054 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Charizard
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+21693
+</td>
+<td style="text-align:left;">
+2023-01-23
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+6905 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Charles
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+7214
+</td>
+<td style="text-align:left;">
+2023-05-10
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+4339 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Clifford
+</td>
+<td style="text-align:left;">
+Cathartes aura
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+14171
+</td>
+<td style="text-align:left;">
+2023-03-03
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+5971 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dizzy
+</td>
+<td style="text-align:left;">
+Coragyps atratus
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+7273
+</td>
+<td style="text-align:left;">
+2023-06-14
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+3493 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Dustin
+</td>
+<td style="text-align:left;">
+Cathartes aura
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+8624
+</td>
+<td style="text-align:left;">
+2023-06-12
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+3541 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Elizabeth
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+15482
+</td>
+<td style="text-align:left;">
+2023-02-04
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+6619 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Elvis
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+21953
+</td>
+<td style="text-align:left;">
+2022-12-28
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+7527 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Flaps
+</td>
+<td style="text-align:left;">
+Coragyps atratus
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+7464
+</td>
+<td style="text-align:left;">
+2023-06-14
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+3495 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gordon
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+6202
+</td>
+<td style="text-align:left;">
+2023-06-08
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+3641 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Jatayu
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+17951
+</td>
+<td style="text-align:left;">
+2023-01-07
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+7290 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kingdavid
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+16803
+</td>
+<td style="text-align:left;">
+2023-03-24
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+5464 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kingkong
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+54873
+</td>
+<td style="text-align:left;">
+2023-02-04
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+6621 hours
+</td>
+<td style="text-align:right;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Messi
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+21798
+</td>
+<td style="text-align:left;">
+2023-01-07
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+7292 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Moskovits
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+17868
+</td>
+<td style="text-align:left;">
+2023-01-23
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+6907 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mufasa
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+6959
+</td>
+<td style="text-align:left;">
+2023-06-08
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+3651 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Nekhbet
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+8288
+</td>
+<td style="text-align:left;">
+2023-04-23
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+4755 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pedro
+</td>
+<td style="text-align:left;">
+Cathartes aura
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+12109
+</td>
+<td style="text-align:left;">
+2023-03-20
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+5560 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Robinhood
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+17478
+</td>
+<td style="text-align:left;">
+2022-12-23
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+7647 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rocky
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+18681
+</td>
+<td style="text-align:left;">
+2023-01-16
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+7075 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Santa
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+17962
+</td>
+<td style="text-align:left;">
+2022-12-23
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+7649 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Shakira
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+7312
+</td>
+<td style="text-align:left;">
+2023-05-10
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+4337 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sherekhan
+</td>
+<td style="text-align:left;">
+Coragyps atratus
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+7536
+</td>
+<td style="text-align:left;">
+2023-06-14
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+3501 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Siegfried
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+7334
+</td>
+<td style="text-align:left;">
+2023-05-11
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+4315 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sonqoy
+</td>
+<td style="text-align:left;">
+Cathartes aura
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+8352
+</td>
+<td style="text-align:left;">
+2023-06-15
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+3471 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Spazzino
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+8585
+</td>
+<td style="text-align:left;">
+2023-04-26
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+4675 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Steve
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+7456
+</td>
+<td style="text-align:left;">
+2023-05-23
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+4021 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tupac
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+7862
+</td>
+<td style="text-align:left;">
+2023-05-23
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+4023 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wenceslas
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+21485
+</td>
+<td style="text-align:left;">
+2022-12-28
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+7529 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Yemanja
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+6170
+</td>
+<td style="text-align:left;">
+2023-05-13
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+4275 hours
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ziggy
+</td>
+<td style="text-align:left;">
+Coragyps atratus
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+6834
+</td>
+<td style="text-align:left;">
+2023-06-14
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+3493 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Tuva
+</td>
+<td style="text-align:left;">
+Tapirus bairdii
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.7
+</td>
+<td style="text-align:right;">
+1426
+</td>
+<td style="text-align:left;">
+2023-04-14
+</td>
+<td style="text-align:left;">
+2023-11-06
+</td>
+<td style="text-align:left;">
+4958 hours
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Attenborough
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+1.0
+</td>
+<td style="text-align:right;">
+59873
+</td>
+<td style="text-align:left;">
+2022-02-16
+</td>
+<td style="text-align:left;">
+2023-11-06
+</td>
+<td style="text-align:left;">
+15077 hours
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Illari
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+1.0
+</td>
+<td style="text-align:right;">
+7292
+</td>
+<td style="text-align:left;">
+2023-05-11
+</td>
+<td style="text-align:left;">
+2023-11-06
+</td>
+<td style="text-align:left;">
+4297 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ugalde
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+1.0
+</td>
+<td style="text-align:right;">
+59050
+</td>
+<td style="text-align:left;">
+2022-03-02
+</td>
+<td style="text-align:left;">
+2023-11-06
+</td>
+<td style="text-align:left;">
+14739 hours
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Forsyth
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+1.1
+</td>
+<td style="text-align:right;">
+57583
+</td>
+<td style="text-align:left;">
+2022-03-03
+</td>
+<td style="text-align:left;">
+2023-11-06
+</td>
+<td style="text-align:left;">
+14713 hours
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Goodall
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+1.1
+</td>
+<td style="text-align:right;">
+60009
+</td>
+<td style="text-align:left;">
+2022-03-09
+</td>
+<td style="text-align:left;">
+2023-11-06
+</td>
+<td style="text-align:left;">
+14566 hours
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Bonnie
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+1.3
+</td>
+<td style="text-align:right;">
+16723
+</td>
+<td style="text-align:left;">
+2023-01-23
+</td>
+<td style="text-align:left;">
+2023-11-06
+</td>
+<td style="text-align:left;">
+6881 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wilson
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+2.0
+</td>
+<td style="text-align:right;">
+53493
+</td>
+<td style="text-align:left;">
+2022-03-24
+</td>
+<td style="text-align:left;">
+2023-11-05
+</td>
+<td style="text-align:left;">
+14182 hours
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Frosty
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+2.3
+</td>
+<td style="text-align:right;">
+2813
+</td>
+<td style="text-align:left;">
+2022-12-28
+</td>
+<td style="text-align:left;">
+2023-11-05
+</td>
+<td style="text-align:left;">
+7491 hours
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Juancito
+</td>
+<td style="text-align:left;">
+Tapirus bairdii
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+2.5
+</td>
+<td style="text-align:right;">
+3982
+</td>
+<td style="text-align:left;">
+2022-05-29
+</td>
+<td style="text-align:left;">
+2023-11-05
+</td>
+<td style="text-align:left;">
+12584 hours
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fossey
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+8.0
+</td>
+<td style="text-align:right;">
+44480
+</td>
+<td style="text-align:left;">
+2022-03-07
+</td>
+<td style="text-align:left;">
+2023-10-30
+</td>
+<td style="text-align:left;">
+14452 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pilo
+</td>
+<td style="text-align:left;">
+Cathartes aura
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: #BBBBBB !important;">
+130.9
+</td>
+<td style="text-align:right;">
+5136
+</td>
+<td style="text-align:left;">
+2023-03-27
+</td>
+<td style="text-align:left;">
+2023-06-29
+</td>
+<td style="text-align:left;">
+2261 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Fortaleza
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: #BBBBBB !important;">
+274.2
+</td>
+<td style="text-align:right;">
+255
+</td>
+<td style="text-align:left;">
+2023-01-30
+</td>
+<td style="text-align:left;">
+2023-02-06
+</td>
+<td style="text-align:left;">
+166 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Carson
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+costa_rica
+</td>
+<td style="text-align:right;color: white !important;background-color: #BBBBBB !important;">
+424.2
+</td>
+<td style="text-align:right;">
+12575
+</td>
+<td style="text-align:left;">
+2022-03-10
+</td>
+<td style="text-align:left;">
+2022-09-09
+</td>
+<td style="text-align:left;">
+4394 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Guasmo
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+ecuador
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.0
+</td>
+<td style="text-align:right;">
+1892
+</td>
+<td style="text-align:left;">
+2023-09-09
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+1412 hours
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pigio
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+ecuador
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.0
+</td>
+<td style="text-align:right;">
+2447
+</td>
+<td style="text-align:left;">
+2023-09-09
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+1412 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Quil
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+ecuador
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.0
+</td>
+<td style="text-align:right;">
+2427
+</td>
+<td style="text-align:left;">
+2023-09-09
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+1424 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Guayas
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+ecuador
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+5.0
+</td>
+<td style="text-align:right;">
+1874
+</td>
+<td style="text-align:left;">
+2023-09-09
+</td>
+<td style="text-align:left;">
+2023-11-02
+</td>
+<td style="text-align:left;">
+1304 hours
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Antares
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.0
+</td>
+<td style="text-align:right;">
+2521
+</td>
+<td style="text-align:left;">
+2023-09-20
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+1149 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chifle
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.0
+</td>
+<td style="text-align:right;">
+3019
+</td>
+<td style="text-align:left;">
+2023-08-07
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+2207 hours
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cronos
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.0
+</td>
+<td style="text-align:right;">
+3025
+</td>
+<td style="text-align:left;">
+2023-09-06
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+1489 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kika
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.0
+</td>
+<td style="text-align:right;">
+2639
+</td>
+<td style="text-align:left;">
+2023-09-14
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+1296 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Kiteri
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.0
+</td>
+<td style="text-align:right;">
+3623
+</td>
+<td style="text-align:left;">
+2023-09-15
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+1271 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Picasso
+</td>
+<td style="text-align:left;">
+Coragyps atratus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.0
+</td>
+<td style="text-align:right;">
+895
+</td>
+<td style="text-align:left;">
+2023-10-23
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+362 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Psyduck
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.0
+</td>
+<td style="text-align:right;">
+4477
+</td>
+<td style="text-align:left;">
+2023-08-14
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+2037 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Vermelho
+</td>
+<td style="text-align:left;">
+Cathartes aura
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.0
+</td>
+<td style="text-align:right;">
+2406
+</td>
+<td style="text-align:left;">
+2023-10-12
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+621 hours
+</td>
+<td style="text-align:right;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wayra
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.0
+</td>
+<td style="text-align:right;">
+4892
+</td>
+<td style="text-align:left;">
+2023-08-05
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+2259 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Zeus
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.0
+</td>
+<td style="text-align:right;">
+2490
+</td>
+<td style="text-align:left;">
+2023-09-13
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+1321 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OC1
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.2
+</td>
+<td style="text-align:right;">
+22101
+</td>
+<td style="text-align:left;">
+2021-08-09
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+19685 hours
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OC3
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.2
+</td>
+<td style="text-align:right;">
+65507
+</td>
+<td style="text-align:left;">
+2021-06-19
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+20909 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OC8
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.2
+</td>
+<td style="text-align:right;">
+36667
+</td>
+<td style="text-align:left;">
+2021-06-10
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+21119 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cosmo
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+1973
+</td>
+<td style="text-align:left;">
+2023-09-25
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+1026 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Ketchup
+</td>
+<td style="text-align:left;">
+Cathartes aura
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+2656
+</td>
+<td style="text-align:left;">
+2023-09-15
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+1266 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Mostaza
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+2143
+</td>
+<td style="text-align:left;">
+2023-09-15
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+1263 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Rolim
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.3
+</td>
+<td style="text-align:right;">
+1079
+</td>
+<td style="text-align:left;">
+2023-10-23
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+356 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Chilombiano
+</td>
+<td style="text-align:left;">
+Coragyps atratus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.4
+</td>
+<td style="text-align:right;">
+43
+</td>
+<td style="text-align:left;">
+2023-11-05
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+38 hours
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Yana
+</td>
+<td style="text-align:left;">
+Coragyps atratus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+0.4
+</td>
+<td style="text-align:right;">
+127
+</td>
+<td style="text-align:left;">
+2023-11-05
+</td>
+<td style="text-align:left;">
+2023-11-07
+</td>
+<td style="text-align:left;">
+38 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pachacutec
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+1.0
+</td>
+<td style="text-align:right;">
+1850
+</td>
+<td style="text-align:left;">
+2023-09-15
+</td>
+<td style="text-align:left;">
+2023-11-06
+</td>
+<td style="text-align:left;">
+1248 hours
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Panchito
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+1.0
+</td>
+<td style="text-align:right;">
+3357
+</td>
+<td style="text-align:left;">
+2023-08-17
+</td>
+<td style="text-align:left;">
+2023-11-06
+</td>
+<td style="text-align:left;">
+1941 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OC9
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+1.3
+</td>
+<td style="text-align:right;">
+65645
+</td>
+<td style="text-align:left;">
+2021-07-10
+</td>
+<td style="text-align:left;">
+2023-11-06
+</td>
+<td style="text-align:left;">
+20380 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sirius
+</td>
+<td style="text-align:left;">
+Coragyps atratus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+1.4
+</td>
+<td style="text-align:right;">
+46
+</td>
+<td style="text-align:left;">
+2023-11-05
+</td>
+<td style="text-align:left;">
+2023-11-06
+</td>
+<td style="text-align:left;">
+16 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Killa
+</td>
+<td style="text-align:left;">
+Panthera onca
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+1.8
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:left;">
+2023-10-31
+</td>
+<td style="text-align:left;">
+2023-11-05
+</td>
+<td style="text-align:left;">
+126 hours
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Wanda
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+2.0
+</td>
+<td style="text-align:right;">
+1923
+</td>
+<td style="text-align:left;">
+2023-09-25
+</td>
+<td style="text-align:left;">
+2023-11-05
+</td>
+<td style="text-align:left;">
+987 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Sparrow
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+2.3
+</td>
+<td style="text-align:right;">
+3772
+</td>
+<td style="text-align:left;">
+2023-08-09
+</td>
+<td style="text-align:left;">
+2023-11-05
+</td>
+<td style="text-align:left;">
+2108 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OC10
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+3.3
+</td>
+<td style="text-align:right;">
+26739
+</td>
+<td style="text-align:left;">
+2021-08-09
+</td>
+<td style="text-align:left;">
+2023-11-04
+</td>
+<td style="text-align:left;">
+19610 hours
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Serena
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+5.0
+</td>
+<td style="text-align:right;">
+3702
+</td>
+<td style="text-align:left;">
+2023-08-18
+</td>
+<td style="text-align:left;">
+2023-11-02
+</td>
+<td style="text-align:left;">
+1826 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cheddar
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+5.3
+</td>
+<td style="text-align:right;">
+2248
+</td>
+<td style="text-align:left;">
+2023-09-15
+</td>
+<td style="text-align:left;">
+2023-11-02
+</td>
+<td style="text-align:left;">
+1153 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Calebinho
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(67, 191, 113, 1) !important;">
+9.0
+</td>
+<td style="text-align:right;">
+324
+</td>
+<td style="text-align:left;">
+2023-10-23
+</td>
+<td style="text-align:left;">
+2023-10-29
+</td>
+<td style="text-align:left;">
+150 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Gold
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(42, 176, 127, 1) !important;">
+22.3
+</td>
+<td style="text-align:right;">
+2761
+</td>
+<td style="text-align:left;">
+2023-08-15
+</td>
+<td style="text-align:left;">
+2023-10-16
+</td>
+<td style="text-align:left;">
+1479 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Morgan
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(39, 173, 129, 1) !important;">
+24.0
+</td>
+<td style="text-align:right;">
+1783
+</td>
+<td style="text-align:left;">
+2023-09-19
+</td>
+<td style="text-align:left;">
+2023-10-14
+</td>
+<td style="text-align:left;">
+602 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Puka
+</td>
+<td style="text-align:left;">
+Cathartes aura
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(37, 171, 130, 1) !important;">
+25.4
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+2023-10-12
+</td>
+<td style="text-align:left;">
+2023-10-13
+</td>
+<td style="text-align:left;">
+10 hours
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Yellow
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(31, 161, 135, 1) !important;">
+32.0
+</td>
+<td style="text-align:right;">
+2026
+</td>
+<td style="text-align:left;">
+2023-08-14
+</td>
+<td style="text-align:left;">
+2023-10-06
+</td>
+<td style="text-align:left;">
+1271 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Manu
+</td>
+<td style="text-align:left;">
+Atelocynus microtis
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: rgba(55, 90, 140, 1) !important;">
+77.2
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+2023-08-21
+</td>
+<td style="text-align:left;">
+2023-08-22
+</td>
+<td style="text-align:left;">
+19 hours
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OC7
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: #BBBBBB !important;">
+363.3
+</td>
+<td style="text-align:right;">
+6876
+</td>
+<td style="text-align:left;">
+2021-07-06
+</td>
+<td style="text-align:left;">
+2022-11-09
+</td>
+<td style="text-align:left;">
+11779 hours
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OC2
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: #BBBBBB !important;">
+428.2
+</td>
+<td style="text-align:right;">
+15203
+</td>
+<td style="text-align:left;">
+2021-08-08
+</td>
+<td style="text-align:left;">
+2022-09-05
+</td>
+<td style="text-align:left;">
+9424 hours
+</td>
+<td style="text-align:right;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OC6
+</td>
+<td style="text-align:left;">
+Cathartes melambrotus
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: #BBBBBB !important;">
+627.2
+</td>
+<td style="text-align:right;">
+9070
+</td>
+<td style="text-align:left;">
+2021-06-11
+</td>
+<td style="text-align:left;">
+2022-02-18
+</td>
+<td style="text-align:left;">
+6047 hours
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OC5
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: #BBBBBB !important;">
+781.1
+</td>
+<td style="text-align:right;">
+1070
+</td>
+<td style="text-align:left;">
+2021-07-05
+</td>
+<td style="text-align:left;">
+2021-09-17
+</td>
+<td style="text-align:left;">
+1777 hours
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OC4
+</td>
+<td style="text-align:left;">
+Sarcoramphus papa
+</td>
+<td style="text-align:left;">
+peru
+</td>
+<td style="text-align:right;color: white !important;background-color: #BBBBBB !important;">
+817.2
+</td>
+<td style="text-align:right;">
+2462
+</td>
+<td style="text-align:left;">
+2021-07-03
+</td>
+<td style="text-align:left;">
+2021-08-12
+</td>
+<td style="text-align:left;">
+965 hours
+</td>
+<td style="text-align:right;">
+3
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="vultures---costa-rica.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

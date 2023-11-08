@@ -19,6 +19,14 @@ tmp$name <- as.character(tmp$name)
 tmp_vulture <- tmp[tmp$taxon_canonical_name %in% c("Cathartes aura", "Cathartes melambrotus", "Coragyps atratus", "Sarcoramphus papa"),]
 tmp_mammal <- tmp[!(tmp$taxon_canonical_name %in% c("Cathartes aura", "Cathartes melambrotus", "Coragyps atratus", "Sarcoramphus papa")),]
 
+
+# Update the stupid ecuador birds
+tmp_vulture$name[tmp_vulture$name=="Quil"] <- "X2.Quil"
+tmp_vulture$name[tmp_vulture$name=="Guayas"] <- "X1.Guayas"
+tmp_vulture$name[tmp_vulture$name=="Pigio"] <- "X3.Pigio"
+tmp_vulture$name[tmp_vulture$name=="Guasmo"] <- "X4.Guasmo"
+
+
 clean_vulture <- list()
 clean_mammal <- list()
 

@@ -2,7 +2,7 @@ raw-data
 costa-rica
 peru
 ecuador
-data-cleaning
+data-cleaning---vultures
 vultures
 oc8---cathartes-melambrotus
 oc6---cathartes-melambrotus
@@ -87,7 +87,7 @@ puka---cathartes-aura
 calebinho---sarcoramphus-papa
 rolim---sarcoramphus-papa
 picasso---coragyps-atratus
-psyduck---cathartes-melambrotus-1
 sirius---coragyps-atratus
 yana---coragyps-atratus
 chilombiano---coragyps-atratus
+salvador---sarcoramphus-papa

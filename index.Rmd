@@ -239,6 +239,7 @@ pe_locs<- data.frame(location_code=c("VT_MANU01"),
            latitude=c(-12.887758)	,
            longitude=c( -71.403264) )
 
+
 ```
 
 *Last data request: `r now(tzone = "America/Costa_Rica")`*
@@ -302,6 +303,18 @@ colnames(tmp)[colnames(tmp)=="timestamp"] <- "last_timestamp"
 check_in_summary <- tmp[order(tmp$country, tmp$days_since_checkin),]
 
 
+# For chris - just vultures
+# trans <- dat[!(dat$height_above_ellipsoid>5000 & is.na(dat$height_above_ellipsoid)==F) ,]
+# trans <- trans[trans$taxon_canonical_name %in% c("Cathartes aura", "Cathartes melambrotus",      "Coragyps atratus" ,"Sarcoramphus papa") ,]
+# trans$name <- factor(trans$name)
+# lfc <- do.call(st_sfc,
+#               lapply(split(trans, trans$name),
+#                      function(d){st_linestring(as.matrix(d[,c("location_long", "location_lat")]))}))
+# trans_shp <- st_sf(data.frame(name=levels(factor(trans[,"name"])), geom=lfc))
+# st_write(trans_shp,"C:/Users/cwbei/Dropbox/Osa Conservation/Data analysis/current_vulture_data/all_vulture_tracks.shp", append=FALSE )
+# write.csv(trans, "C:/Users/cwbei/Dropbox/Osa Conservation/Data analysis/current_vulture_data/all_vulture_points.csv", row.names=F)
+#table(dat$taxon_canonical_name, dat$country)
+
 ```
 
 The number of species by country is:
@@ -331,7 +344,6 @@ fig
 ```{r c04, echo=F}
 tmp_cr <- dat[dat$country=="costa_rica",]
 tmp_cr_shp <- dat_shp[dat_shp$country=="costa_rica",]
-
 
 # First lets choose a category to colour
 tmp_cr[,"name"] <- factor(tmp_cr[,"name"])

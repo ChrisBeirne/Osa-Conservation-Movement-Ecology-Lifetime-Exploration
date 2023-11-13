@@ -87,7 +87,7 @@ puka---cathartes-aura
 calebinho---sarcoramphus-papa
 rolim---sarcoramphus-papa
 picasso---coragyps-atratus
+salvador---sarcoramphus-papa
 sirius---coragyps-atratus
 yana---coragyps-atratus
 chilombiano---coragyps-atratus
-salvador---sarcoramphus-papa

@@ -91,3 +91,7 @@ salvador---sarcoramphus-papa
 sirius---coragyps-atratus
 yana---coragyps-atratus
 chilombiano---coragyps-atratus
+data-cleaning---mammals
+tapirs
+juancito
+tuva

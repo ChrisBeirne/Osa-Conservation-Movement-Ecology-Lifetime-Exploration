@@ -9,7 +9,7 @@ For each individual we prodice a lifetime heatmap, and a last 4 weeks heatmap - 
 **LIFETIME**
 
 
-```{r, mt_1}
+```{r, mt_1, message=F, warning=F}
 m2 = mt_as_move2(clean_mammal[[1]], track_id_columna = tmp_mammal$name[1])
 dat_lines <- m2 %>%
   mt_track_lines()
@@ -85,7 +85,7 @@ m
 
 **LAST MONTH**
 
-```{r mt_2}
+```{r mt_2, message=F, warning=F}
 t <- Sys.time()
 sub_dat <- m2[m2$timestamp > (t - ddays(31)),]
 dat_lines <- sub_dat %>%
@@ -159,7 +159,7 @@ m
 **LIFETIME**
 
 
-```{r, mt_3}
+```{r, mt_3, message=F, warning=F}
 m2 = mt_as_move2(clean_mammal[[2]], track_id_columna = tmp_mammal$name[2])
 dat_lines <- m2 %>%
   mt_track_lines()
@@ -235,7 +235,7 @@ m
 
 **LAST MONTH**
 
-```{r mt_4}
+```{r mt_4, message=F, warning=F}
 t <- Sys.time()
 sub_dat <- m2[m2$timestamp > (t - ddays(31)),]
 dat_lines <- sub_dat %>%

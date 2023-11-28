@@ -155,7 +155,7 @@ fig <- plot_ly(tmp, y = ~gps_hdop, color = ~gps_fix_type_raw, type = "box")
 fig
 ```
 
-So we have a huge spread in error. Lets subset to anything with a hdop <10,and resolved. This substantially reduced the spread but still leaves a couple of issues. 
+So we have a huge spread in error. Lets subset to anything with a hdop <10,and resolved. This substantially reduced the spread but still leaves a couple of issues - notable outliers. 
 
 ```{r m1f}
 
@@ -200,7 +200,7 @@ m %>% addPolylines(data = dat_lines,
     addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Unresolved QFP"],
                    lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Unresolved QFP"], 
                    color="#f00", stroke=F,radius=2,fillOpacity=1,
-                   popup="Resolved QFP (Uncertain)")
+                   popup="Resolved QFP (Uncertain)") %>% 
   
   # Add a legend
   addLayersControl(
@@ -538,7 +538,7 @@ m %>% addPolylines(data = dat_lines,
     addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Unresolved QFP"],
                    lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Unresolved QFP"], 
                    color="#f00", stroke=F,radius=2,fillOpacity=1,
-                   popup="Resolved QFP (Uncertain)")
+                   popup="Resolved QFP (Uncertain)") %>% 
   # Add a legend
   addLayersControl(
     baseGroups = c("OS", "Simple", "Satellite")) %>%

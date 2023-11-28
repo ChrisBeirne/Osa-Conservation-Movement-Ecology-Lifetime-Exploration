@@ -558,6 +558,22 @@ i <- i + 1
 ```
 
 
+### Upload clean data
+
+```{r mammal_upload}
+# Create.csv
+mammal_stack <- moveStack(clean_mammal)
+tmp_csv <- rbind(mammal_stack)
+tmp_csv <- as.data.frame(tmp_csv)
+write.csv(tmp_csv, "tmp/mammal_clean.csv")
+saveRDS(mov_dat, "tmp/mammal_stack.RDS")
+
+
+# Create .RDS
+#googledrive
+drive_update(media = 'tmp/mammal_clean.csv',file=as_id("1DcZInxgArXdpQFslKljqlw21rsCXSBuQ"))
+drive_update(media = 'tmp/mammal_stack.RDS',file=as_id("1MocaLuXKW51jJxXUlPPIwn39irZWs-Cg"))
+```
 
 
 

@@ -12169,5 +12169,23 @@ plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i])
 i <- i + 1
 ```
 
+### Upload clean data
+
+```{r vulture_upload}
+dir.create("tmp")
+# Create.csv
+vulture_stack <- moveStack(clean_vulture)
+tmp_csv <- rbind(vulture_stack)
+tmp_csv <- as.data.frame(tmp_csv)
+write.csv(tmp_csv, "tmp/vulture_clean.csv")
+saveRDS(mov_dat, "tmp/vulture_stack.RDS")
+
+
+# Create .RDS
+#googledrive
+drive_update(media = 'tmp/vulture_clean.csv',file=as_id("1aNOCLrhzqH1CJF_CTPfZEfQQVMYJmQ-l"))
+drive_update(media = 'tmp/vulture_stack.RDS',file=as_id("1tHtZYF56I9Ch40Rurtmdul2CvqRnH504"))
+```
+
 
 

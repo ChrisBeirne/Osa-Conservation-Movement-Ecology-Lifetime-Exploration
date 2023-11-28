@@ -94,7 +94,7 @@ We can then explore how these different fix types introduce error into the locat
 
 *NOTE* ZOOM IN!
 
-```{r}
+```{r m1c}
 
 m <- leaflet() %>%
   # Add a satellite image layer
@@ -141,13 +141,13 @@ Lets explore the error around each type of fix (if it has an estimate present):
 
 Only GPS data has an error in meters (max 127m):
 
-```{r m1c}
+```{r m1d}
 
 boxplot(m_df$location_error_numerical~as.factor(m_df$gps_fix_type_raw))
 ```
 
 QFP data has error in doplar estimates:
-```{r m1c}
+```{r m1e}
 #boxplot(m_df$gps_hdop~as.factor(m_df$gps_fix_type_raw))
 tmp <- m_df[m_df$gps_fix_type_raw!="Succeeded",]
 fig <- plot_ly(tmp, y = ~gps_hdop, color = ~gps_fix_type_raw, type = "box")
@@ -157,7 +157,7 @@ fig
 
 So we have a huge spread in error. Lets subset to anything with a hdop <10,and resolved. This substantially reduced the spread but still leaves a couple of issues. 
 
-```{r}
+```{r m1f}
 
 # Filter
 filtered <- m1[m1$gps_fix_type_raw=="Succeeded" | ((m1$gps_hdop < 10) & m1$gps_fix_type_raw %in% c("Resolved QFP", "Resolved QFP (Uncertain)")),]
@@ -210,7 +210,7 @@ m %>% addPolylines(data = dat_lines,
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m1d}
+```{r m1g}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE
@@ -279,7 +279,7 @@ i <- i + 1
 
 #### Tuva
 
-```{r m1}
+```{r m2}
 ################################################################################
 m1 <- mov_dat[[tmp_mammal$name[i]]]
 
@@ -293,7 +293,7 @@ tmp <- data.frame(table(m_df$gps_fix_type_raw))
 
 To date we have `r nrow(m_df)` fixes from Tuva. Of those, they are of the following types. 
 
-```{r m1a}
+```{r m2a}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
 tmp %>%
   kbl(row.names = FALSE) %>%
@@ -304,7 +304,7 @@ Which means even less "resolved" locations.
 
 Plot of the raw data:
 
-```{r m1b}
+```{r m2b}
 # Height above elipsoid check
 # summary(m_df$gps_satellite_count)
 # summary(m_df$height_above_ellipsoid)
@@ -351,7 +351,7 @@ We can then explore how these different fix types introduce error into the locat
 
 *NOTE* ZOOM IN!
 
-```{r}
+```{r m2c}
 
 m <- leaflet() %>%
   # Add a satellite image layer
@@ -398,14 +398,14 @@ Lets explore the error around each type of fix (if it has an estimate present):
 
 Only GPS data has an error in meters (max 127m):
 
-```{r m1c}
+```{r m2d}
 
 boxplot(m_df$location_error_numerical~as.factor(m_df$gps_fix_type_raw))
 ```
 
 QFP data has error in dopler estimates:
 
-```{r m1c}
+```{r m2e}
 #boxplot(m_df$gps_hdop~as.factor(m_df$gps_fix_type_raw))
 tmp <- m_df[m_df$gps_fix_type_raw!="Succeeded",]
 fig <- plot_ly(tmp, y = ~gps_hdop, color = ~gps_fix_type_raw, type = "box")
@@ -415,7 +415,7 @@ fig
 
 So we have a huge spread in error. Lets subset to anything with a hdop <10,and resolved. This substantially reduced the spread but still leaves a couple of issues. 
 
-```{r}
+```{r m2f}
 
 # Filter
 filtered <- m1[m1$gps_fix_type_raw=="Succeeded" | ((m1$gps_hdop < 10) & m1$gps_fix_type_raw %in% c("Resolved QFP", "Resolved QFP (Uncertain)")),]
@@ -473,7 +473,7 @@ m %>% addPolylines(data = dat_lines,
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m1d}
+```{r m2g}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE

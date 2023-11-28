@@ -12177,14 +12177,13 @@ dir.create("tmp")
 vulture_stack <- moveStack(clean_vulture)
 tmp_csv <- rbind(vulture_stack)
 tmp_csv <- as.data.frame(tmp_csv)
-write.csv(tmp_csv, "tmp/vulture_clean.csv")
+write.csv(tmp_csv, "tmp/vulture_clean.csv", row.names=F)
 saveRDS(mov_dat, "tmp/vulture_stack.RDS")
-
 
 # Create .RDS
 #googledrive
-drive_update(media = 'tmp/vulture_clean.csv',file=as_id("1aNOCLrhzqH1CJF_CTPfZEfQQVMYJmQ-l"))
-drive_update(media = 'tmp/vulture_stack.RDS',file=as_id("1tHtZYF56I9Ch40Rurtmdul2CvqRnH504"))
+drive_update(media = 'tmp/vulture_clean.csv',file=as_id("15xrhSRqUwSBWiesEYDdE5-4Hui4mdSJg"))
+drive_update(media = 'tmp/vulture_stack.RDS',file=as_id("1s-C7sgp7sOZ7KkoCXqaAeASEiYIAPmo3"))
 ```
 
 

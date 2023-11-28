@@ -1,2 +1,563 @@
 # Data cleaning - Mammals
 
+All tracking devices come with errors, and each track must be checked visual and cleaned of outliers before analysis.
+
+This page shows this process for each mammal within the project. It has been automated so that we always have access to a stardardised and cleaned locations database. 
+
+### Tapirs
+
+For the tapir collars we use the Telonics - TGW-4577-4 model, wioth data sent through the Iridium system.  
+
+They have low voltage and mortality alerts. 
+
+There are two types of location data these collars collect - regular GPS and QFP. QFP's are Quick Fix Positions and use less battery than a standard GPS fix. Units can be configured to collect GPS, QFP, or a mix of the two location types - we collect a mix. 
+
+Our collars collect QFP's when there is *no GPS signal available*. 
+
+`Succeded` = a successful GPS location
+`Resolved QFP` = a successful QFP location
+`Resolved QFP` = an uncertain QFP location (lower quality)
+`Unresolved QFP` = A poor quality QFP 
+
+Lets explore the implications of these different fix types for one individual - Juancito.
+
+#### Juancito
+
+```{r m1}
+################################################################################
+i <- 1
+m1 <- mov_dat[[tmp_mammal$name[i]]]
+
+#head(m1)
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+#head(m_df)
+tmp <- data.frame(table(m_df$gps_fix_type_raw))
+```
+
+To date we have `r nrow(m_df)` fixes from Juancito. Of those, they are of the following types. 
+
+```{r m1a}
+tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
+tmp %>%
+  kbl(row.names = FALSE) %>%
+  kable_styling() 
+```
+
+Plot of the raw data:
+
+```{r m1b}
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+```
+
+We can then explore how these different fix types introduce error into the locations:
+
+*NOTE* ZOOM IN!
+
+```{r}
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[m_df$gps_fix_type_raw=="Succeeded"],
+                   lat=m_df$location_lat[m_df$gps_fix_type_raw=="Succeeded"], 
+                   color="#000", stroke=F,radius=2,fillOpacity=1,
+                   popup="Succeeded") %>%
+    addCircleMarkers(lng=m_df$location_long[m_df$gps_fix_type_raw=="Resolved QFP"],
+                   lat=m_df$location_lat[m_df$gps_fix_type_raw=="Resolved QFP"], 
+                   color="#1ff", stroke=F,radius=2,fillOpacity=1,
+                   popup="Resolved QFP") %>%
+    addCircleMarkers(lng=m_df$location_long[m_df$gps_fix_type_raw=="Resolved QFP (Uncertain)"],
+                   lat=m_df$location_lat[m_df$gps_fix_type_raw=="Resolved QFP (Uncertain)"], 
+                   color="#f80", stroke=F,radius=2,fillOpacity=1,
+                   popup="Resolved QFP (Uncertain)") %>%
+    addCircleMarkers(lng=m_df$location_long[m_df$gps_fix_type_raw=="Unresolved QFP"],
+                   lat=m_df$location_lat[m_df$gps_fix_type_raw=="Unresolved QFP"], 
+                   color="#f00", stroke=F,radius=2,fillOpacity=1,
+                   popup="Unresolved QFP (Uncertain)")%>% addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft") %>% 
+    addLegend("topleft",
+              labels = c("GPS", "Resolved QFP", "Uncertain QFP", "Unresolved QFP"),
+              colors=c("black", "#1ff", "#f80", "#f00"),
+            title = "Fix type",
+            opacity=1)
+
+```
+
+So there is unreliability in all of the QFP estimates, but the GPS look great (not much spread). 
+
+Lets explore the error around each type of fix (if it has an estimate present):
+
+Only GPS data has an error in meters (max 127m):
+
+```{r m1c}
+
+boxplot(m_df$location_error_numerical~as.factor(m_df$gps_fix_type_raw))
+```
+
+QFP data has error in doplar estimates:
+```{r m1c}
+#boxplot(m_df$gps_hdop~as.factor(m_df$gps_fix_type_raw))
+tmp <- m_df[m_df$gps_fix_type_raw!="Succeeded",]
+fig <- plot_ly(tmp, y = ~gps_hdop, color = ~gps_fix_type_raw, type = "box")
+
+fig
+```
+
+So we have a huge spread in error. Lets subset to anything with a hdop <10,and resolved. This substantially reduced the spread but still leaves a couple of issues. 
+
+```{r}
+
+# Filter
+filtered <- m1[m1$gps_fix_type_raw=="Succeeded" | ((m1$gps_hdop < 10) & m1$gps_fix_type_raw %in% c("Resolved QFP", "Resolved QFP (Uncertain)")),]
+
+# Make a dataframe
+filtered_df <- as.data.frame(filtered)
+
+# move2
+m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Succeeded"],
+                   lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Succeeded"], 
+                   color="#000", stroke=F,radius=2,fillOpacity=1,
+                   popup="Succeeded") %>%
+    addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Resolved QFP"],
+                   lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Resolved QFP"], 
+                   color="#1ff", stroke=F,radius=2,fillOpacity=1,
+                   popup="Resolved QFP") %>%
+    addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Resolved QFP (Uncertain)"],
+                   lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Resolved QFP (Uncertain)"], 
+                   color="#f80", stroke=F,radius=2,fillOpacity=1,
+                   popup="Resolved QFP (Uncertain)") %>%
+    addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Unresolved QFP"],
+                   lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Unresolved QFP"], 
+                   color="#f00", stroke=F,radius=2,fillOpacity=1,
+                   popup="Resolved QFP (Uncertain)")
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+```
+
+We should also use ctmm (as in the vultures) to find errors:
+
+```{r m1d}
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
+#                              y = "location_lat", x_range = c(-88, -60), 
+#                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(filtered_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE)
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+     ylab="Minimum speed (m/s)",
+     xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(v=8, lty=2, col="red")
+abline(h=0.5, lty=2, col="red")
+
+# Delete extreme values 
+
+clean_mammal[[i]] <- filtered[OUT$distance<8000,]
+# Check the outlier is gone [Only if required]
+
+m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
+dat_lines <- m2 %>%
+  mt_track_lines()
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# Add the shapefiles
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   #color = dat_lines$colours,
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>%
+  addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_mammal[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+
+i <- i + 1
+```
+
+#### Tuva
+
+```{r m1}
+################################################################################
+m1 <- mov_dat[[tmp_mammal$name[i]]]
+
+#head(m1)
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+#head(m_df)
+tmp <- data.frame(table(m_df$gps_fix_type_raw))
+```
+
+To date we have `r nrow(m_df)` fixes from Tuva. Of those, they are of the following types. 
+
+```{r m1a}
+tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
+tmp %>%
+  kbl(row.names = FALSE) %>%
+  kable_styling() 
+```
+
+Which means even less "resolved" locations.
+
+Plot of the raw data:
+
+```{r m1b}
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+```
+
+We can then explore how these different fix types introduce error into the locations:
+
+*NOTE* ZOOM IN!
+
+```{r}
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[m_df$gps_fix_type_raw=="Succeeded"],
+                   lat=m_df$location_lat[m_df$gps_fix_type_raw=="Succeeded"], 
+                   color="#000", stroke=F,radius=2,fillOpacity=1,
+                   popup="Succeeded") %>%
+    addCircleMarkers(lng=m_df$location_long[m_df$gps_fix_type_raw=="Resolved QFP"],
+                   lat=m_df$location_lat[m_df$gps_fix_type_raw=="Resolved QFP"], 
+                   color="#1ff", stroke=F,radius=2,fillOpacity=1,
+                   popup="Resolved QFP") %>%
+    addCircleMarkers(lng=m_df$location_long[m_df$gps_fix_type_raw=="Resolved QFP (Uncertain)"],
+                   lat=m_df$location_lat[m_df$gps_fix_type_raw=="Resolved QFP (Uncertain)"], 
+                   color="#f80", stroke=F,radius=2,fillOpacity=1,
+                   popup="Resolved QFP (Uncertain)") %>%
+    addCircleMarkers(lng=m_df$location_long[m_df$gps_fix_type_raw=="Unresolved QFP"],
+                   lat=m_df$location_lat[m_df$gps_fix_type_raw=="Unresolved QFP"], 
+                   color="#f00", stroke=F,radius=2,fillOpacity=1,
+                   popup="Unresolved QFP (Uncertain)")%>% addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft") %>% 
+    addLegend("topleft",
+              labels = c("GPS", "Resolved QFP", "Uncertain QFP", "Unresolved QFP"),
+              colors=c("black", "#1ff", "#f80", "#f00"),
+            title = "Fix type",
+            opacity=1)
+
+```
+
+So there is unreliability in all of the QFP estimates, but the GPS look great (not much spread). 
+
+Lets explore the error around each type of fix (if it has an estimate present):
+
+Only GPS data has an error in meters (max 127m):
+
+```{r m1c}
+
+boxplot(m_df$location_error_numerical~as.factor(m_df$gps_fix_type_raw))
+```
+
+QFP data has error in dopler estimates:
+
+```{r m1c}
+#boxplot(m_df$gps_hdop~as.factor(m_df$gps_fix_type_raw))
+tmp <- m_df[m_df$gps_fix_type_raw!="Succeeded",]
+fig <- plot_ly(tmp, y = ~gps_hdop, color = ~gps_fix_type_raw, type = "box")
+
+fig
+```
+
+So we have a huge spread in error. Lets subset to anything with a hdop <10,and resolved. This substantially reduced the spread but still leaves a couple of issues. 
+
+```{r}
+
+# Filter
+filtered <- m1[m1$gps_fix_type_raw=="Succeeded" | ((m1$gps_hdop < 10) & m1$gps_fix_type_raw %in% c("Resolved QFP", "Resolved QFP (Uncertain)")),]
+
+# Make a dataframe
+filtered_df <- as.data.frame(filtered)
+
+# move2
+m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Succeeded"],
+                   lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Succeeded"], 
+                   color="#000", stroke=F,radius=2,fillOpacity=1,
+                   popup="Succeeded") %>%
+    addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Resolved QFP"],
+                   lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Resolved QFP"], 
+                   color="#1ff", stroke=F,radius=2,fillOpacity=1,
+                   popup="Resolved QFP") %>%
+    addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Resolved QFP (Uncertain)"],
+                   lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Resolved QFP (Uncertain)"], 
+                   color="#f80", stroke=F,radius=2,fillOpacity=1,
+                   popup="Resolved QFP (Uncertain)") %>%
+    addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Unresolved QFP"],
+                   lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Unresolved QFP"], 
+                   color="#f00", stroke=F,radius=2,fillOpacity=1,
+                   popup="Resolved QFP (Uncertain)") %>% 
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")%>% 
+    addLegend("topleft",
+              labels = c("GPS", "Resolved QFP", "Uncertain QFP", "Unresolved QFP"),
+              colors=c("black", "#1ff", "#f80", "#f00"),
+            title = "Fix type",
+            opacity=1)
+```
+
+We should also use ctmm (as in the vultures) to find errors:
+
+```{r m1d}
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
+#                              y = "location_lat", x_range = c(-88, -60), 
+#                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(filtered_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE)
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+     ylab="Minimum speed (m/s)",
+     xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(v=3, lty=2, col="red")
+abline(h=0.5, lty=2, col="red")
+
+# Delete extreme values 
+
+clean_mammal[[i]] <- filtered[OUT$distance<3000,]
+# Check the outlier is gone [Only if required]
+
+m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
+filtered_df <- as.data.frame(clean_mammal[[i]])
+dat_lines <- m2 %>%
+  mt_track_lines()
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# Add the shapefiles
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   #color = dat_lines$colours,
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Succeeded"],
+                   lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Succeeded"], 
+                   color="#000", stroke=F,radius=2,fillOpacity=1,
+                   popup="Succeeded") %>%
+    addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Resolved QFP"],
+                   lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Resolved QFP"], 
+                   color="#1ff", stroke=F,radius=2,fillOpacity=1,
+                   popup="Resolved QFP") %>%
+    addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Resolved QFP (Uncertain)"],
+                   lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Resolved QFP (Uncertain)"], 
+                   color="#f80", stroke=F,radius=2,fillOpacity=1,
+                   popup="Resolved QFP (Uncertain)") %>%
+    addCircleMarkers(lng=filtered_df$location_long[filtered_df$gps_fix_type_raw=="Unresolved QFP"],
+                   lat=filtered_df$location_lat[filtered_df$gps_fix_type_raw=="Unresolved QFP"], 
+                   color="#f00", stroke=F,radius=2,fillOpacity=1,
+                   popup="Resolved QFP (Uncertain)")
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>%
+  addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_mammal[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+
+i <- i + 1
+```
+
+
+
+
+

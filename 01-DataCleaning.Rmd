@@ -1,7 +1,7 @@
 # Data cleaning - Vultures
 
 All tracking devices come with errors, and each track must be checked visual and cleaned of outliers before analysis.
-
+ 
 This page shows this process for each animal within the project. It has been automated so that we always have access to a stardardised and cleaned locations database. 
 ```{r}
 library(atlastools)
@@ -12179,7 +12179,7 @@ tmp_csv <- rbind(vulture_stack)
 tmp_csv <- as.data.frame(tmp_csv)
 write.csv(tmp_csv, "tmp/vulture_clean.csv", row.names=F)
 saveRDS(mov_dat, "tmp/vulture_stack.RDS")
-
+as_id("https://drive.google.com/file/d/15xrhSRqUwSBWiesEYDdE5-4Hui4mdSJg/view?usp=drive_link")
 # Create .RDS
 #googledrive
 drive_update(media = 'tmp/vulture_clean.csv',file=as_id("15xrhSRqUwSBWiesEYDdE5-4Hui4mdSJg"))

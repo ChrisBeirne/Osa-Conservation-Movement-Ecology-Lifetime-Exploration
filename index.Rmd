@@ -133,7 +133,7 @@ mov_dat$name <- trackId(mov_dat)
 
 # Convert timezone
 mov_dat$timestamp <- with_tz(timestamps(mov_dat), tz="America/Costa_Rica")
-
+ 
 # all data
 #dat <- getMovebankData(study=1573471517, login=loginStored,  removeDuplicatedTimestamps=TRUE)
 

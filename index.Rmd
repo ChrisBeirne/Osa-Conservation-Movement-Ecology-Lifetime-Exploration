@@ -42,7 +42,7 @@ library(ggplot2)
 library(atlastools)
 library(ctmm)
 library(move2)
-
+ 
 options(googledrive_quiet = TRUE)
 
 # For when the trapping effort file is sorted

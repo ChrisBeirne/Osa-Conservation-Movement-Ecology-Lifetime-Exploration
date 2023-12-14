@@ -280,7 +280,7 @@ level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
 plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
 
-i <- i + 1
+#i <- i + 1
 ```
 
 #### Tuva
@@ -568,7 +568,7 @@ level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
 plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
  
-i <- i + 1
+#i <- i + 1
 ```
 
 ### Carnivores
@@ -711,9 +711,17 @@ tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
 
 barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
         cex.names=0.7)
-
 ```
 
+No cleaning done to date:
+
+```{r}
+# Filter
+filtered <- m1
+# Make a dataframe
+filtered_df <- as.data.frame(filtered)
+
+```
 
 
 We should also use ctmm (as in the vultures) to find errors:
@@ -748,33 +756,33 @@ abline(h=0.5, lty=2, col="red")
 
 # Delete extreme values 
 
-clean_mammal[[i]] <- filtered[OUT$distance<8000,]
+clean_mammal[[3]] <- filtered
 # Check the outlier is gone [Only if required]
 
-m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
-dat_lines <- m2 %>%
-  mt_track_lines()
-m <- leaflet() %>%
-  # Add a satellite image layer
-  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
-  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
-  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
-# Add the shapefiles
-m %>% addPolylines(data = dat_lines,
-                   # Colour by individual
-                   #color = dat_lines$colours,
-                   # The line properties
-                   weight = 1,#opacity = 0.6,
-                   # hover label
-                   label = dat_lines$local_identifier) %>%
-  # Add a legend
-  addLayersControl(
-    baseGroups = c("OS", "Simple", "Satellite")) %>%
-  addScaleBar(position = "topleft")
-
-# Recreate the telemtry object
-m_df <- as.data.frame(clean_mammal[[i]])
-tel <- as.telemetry(m_df)
+# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
+# dat_lines <- m2 %>%
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# # Add the shapefiles
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 1,#opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>%
+#   addScaleBar(position = "topleft")
+# 
+# # Recreate the telemtry object
+# m_df <- as.data.frame(clean_mammal[[i]])
+# tel <- as.telemetry(m_df)
 
 # Check range-residency (i.e home range)
 svf = variogram(tel, res = 1)
@@ -782,11 +790,8 @@ level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
 plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
 
-i <- i + 1
+
 ```
-
-
-
 
 
 
@@ -800,6 +805,7 @@ tmp_csv <- rbind(mammal_stack)
 tmp_csv <- as.data.frame(tmp_csv)
 write.csv(tmp_csv, "tmp/mammal_clean.csv", row.names=F)
 saveRDS(mov_dat, "tmp/mammal_stack.RDS")
+
 
 # Create .RDS
 

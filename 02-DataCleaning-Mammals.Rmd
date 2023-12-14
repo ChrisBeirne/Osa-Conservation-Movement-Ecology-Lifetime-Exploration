@@ -798,7 +798,21 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 
 ```
 
+**Current battery level:**
 
+Be worried if it goes below 3000!
+
+```{r}
+p <- plot_ly(filtered_df, x = ~timestamp, y = ~tag_voltage, mode = 'line') %>% 
+  layout(
+    yaxis = list(
+      range=c(2500,3500)
+    )
+  )  
+
+p
+
+```
 
 
 ### Upload clean data

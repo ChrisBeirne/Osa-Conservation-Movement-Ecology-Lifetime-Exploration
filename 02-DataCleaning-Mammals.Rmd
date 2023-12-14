@@ -695,7 +695,12 @@ m %>% addPolylines(data = dat_lines,
 
 ```
 
-We don't get error estimates in these data.
+We get doppler error estimates on these data, and they are all fairly small!:
+
+```{r}
+boxplot(m_df$gps_dop~m_df$gps_fix_type_raw, las=1)
+```
+
 
 The average number of fixes per day to date **`r round(nrow(m_df)/as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1)`** per day.
 

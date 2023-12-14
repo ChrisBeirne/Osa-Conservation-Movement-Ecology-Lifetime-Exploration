@@ -83,10 +83,10 @@ m
 ```
 
 
-**LAST MONTH**
+**LAST MONTH OF COLLAR LIFE**
 
 ```{r mt_2, message=F, warning=F}
-t <- Sys.time()
+t <- last(m2$timestamp)
 sub_dat <- m2[m2$timestamp > (t - ddays(31)),]
 dat_lines <- sub_dat %>%
   mt_track_lines()
@@ -118,8 +118,6 @@ lines$col <- colfunc(nrow(lines))
 #   scale_color_gradient(name = "timestamp", position="bottom" , low = "blue", high = "red")+
 #   geom_sf(data = lines, aes(color =col ))+#, aes(color = numeric(points$Time[1:(length(points$Time)-1)])))+ #did not work
 #   
-
-lines
 
 m <- leaflet() %>%
   # Add a satellite image layer
@@ -236,7 +234,7 @@ m
 **LAST MONTH**
 
 ```{r mt_4, message=F, warning=F}
-t <- Sys.time()
+t <- last(m2$timestamp)
 sub_dat <- m2[m2$timestamp > (t - ddays(31)),]
 dat_lines <- sub_dat %>%
   mt_track_lines()
@@ -269,7 +267,7 @@ lines$col <- colfunc(nrow(lines))
 #   geom_sf(data = lines, aes(color =col ))+#, aes(color = numeric(points$Time[1:(length(points$Time)-1)])))+ #did not work
 #   
 
-lines
+
 
 m <- leaflet() %>%
   # Add a satellite image layer

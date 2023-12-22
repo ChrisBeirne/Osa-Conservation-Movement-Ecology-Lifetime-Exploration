@@ -128,7 +128,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -267,7 +267,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -406,7 +406,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -545,7 +545,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -683,7 +683,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -823,7 +823,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -961,7 +961,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -1100,7 +1100,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -1240,7 +1240,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -1379,7 +1379,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -1519,7 +1519,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -1658,7 +1658,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -1798,7 +1798,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -1937,7 +1937,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -2084,7 +2084,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-m2 = mt_as_move2(clean_vulture[[i]], track_id_columna = tmp_vulturename[i])
+m2 <- clean_vulture[[i]]
 dat_lines <- m2 %>%
   mt_track_lines()
 m <- leaflet() %>%
@@ -2223,7 +2223,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -2361,7 +2361,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -2501,7 +2501,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -2639,7 +2639,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -2778,7 +2778,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -2918,7 +2918,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -3057,7 +3057,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -3197,7 +3197,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -3337,7 +3337,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -3484,7 +3484,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-m2 = mt_as_move2(clean_vulture[[i]], track_id_columna = tmp_vulturename[i])
+m2 <- clean_vulture[[i]]
 dat_lines <- m2 %>%
   mt_track_lines()
 m <- leaflet() %>%
@@ -3623,7 +3623,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -3762,7 +3762,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -3901,7 +3901,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -4041,7 +4041,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 #nrow(m_df)
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -4181,7 +4181,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -4324,7 +4324,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -4469,7 +4469,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -4609,7 +4609,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -4748,7 +4748,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -4888,7 +4888,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -5027,7 +5027,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -5166,7 +5166,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -5305,7 +5305,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -5444,7 +5444,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -5583,7 +5583,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -5721,7 +5721,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -5861,7 +5861,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -5999,7 +5999,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -6138,7 +6138,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -6278,7 +6278,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -6417,7 +6417,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -6557,7 +6557,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -6696,7 +6696,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -6835,7 +6835,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -6974,7 +6974,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -7113,7 +7113,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -7252,7 +7252,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -7390,7 +7390,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -7530,7 +7530,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -7668,7 +7668,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -7807,7 +7807,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -7947,7 +7947,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -8086,7 +8086,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -8226,7 +8226,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -8365,7 +8365,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -8504,7 +8504,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -8643,7 +8643,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -8782,7 +8782,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -8921,7 +8921,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -9059,7 +9059,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -9199,7 +9199,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -9337,7 +9337,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -9477,7 +9477,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -9617,7 +9617,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -9756,7 +9756,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -9896,7 +9896,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -10035,7 +10035,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -10174,7 +10174,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -10313,7 +10313,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -10452,7 +10452,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -10591,7 +10591,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -10729,7 +10729,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -10869,7 +10869,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -11007,7 +11007,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -11146,7 +11146,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -11286,7 +11286,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -11425,7 +11425,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -11565,7 +11565,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -11704,7 +11704,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -11843,7 +11843,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -11982,7 +11982,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -12121,7 +12121,7 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
+# m2 <- clean_vulture[[i]]
 # dat_lines <- m2 %>% 
 #   mt_track_lines()
 # m <- leaflet() %>%

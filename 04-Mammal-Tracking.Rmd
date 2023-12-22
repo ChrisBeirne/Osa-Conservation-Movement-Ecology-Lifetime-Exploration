@@ -10,7 +10,7 @@ For each individual we prodice a lifetime heatmap, and a last 4 weeks heatmap - 
 
 
 ```{r, mt_1, message=F, warning=F}
-m2 = mt_as_move2(clean_mammal[[1]], track_id_columna = tmp_mammal$name[1])
+m2 = clean_mammal[[1]]
 dat_lines <- m2 %>%
   mt_track_lines()
 
@@ -158,7 +158,7 @@ m
 
 
 ```{r, mt_3, message=F, warning=F}
-m2 = mt_as_move2(clean_mammal[[2]], track_id_columna = tmp_mammal$name[2])
+m2 = clean_mammal[[2]]
 dat_lines <- m2 %>%
   mt_track_lines()
 

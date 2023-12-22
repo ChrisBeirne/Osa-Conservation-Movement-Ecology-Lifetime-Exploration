@@ -32,6 +32,8 @@ m1 <- mov_dat[[tmp_mammal$name[i]]]
 
 # Make a dataframe
 m_df <- as.data.frame(m1)
+
+
 #head(m_df)
 tmp <- data.frame(table(m_df$gps_fix_type_raw))
 ```
@@ -246,10 +248,10 @@ abline(h=0.5, lty=2, col="red")
 
 # Delete extreme values 
 
-clean_mammal[[i]] <- filtered[OUT$distance<8000,]
+clean_mammal[[i]] <- m2[OUT$distance<8000,]
 # Check the outlier is gone [Only if required]
 
-m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
+m2 = clean_mammal[[i]]
 dat_lines <- m2 %>%
   mt_track_lines()
 m <- leaflet() %>%
@@ -517,10 +519,10 @@ abline(h=0.5, lty=2, col="red")
 
 # Delete extreme values 
 
-clean_mammal[[i]] <- filtered[OUT$distance<3000,]
+clean_mammal[[i]] <- m2[OUT$distance<3000,]
 # Check the outlier is gone [Only if required]
 
-m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
+m2 = clean_mammal[[i]]
 filtered_df <- as.data.frame(clean_mammal[[i]])
 dat_lines <- m2 %>%
   mt_track_lines()
@@ -722,7 +724,7 @@ No cleaning done to date:
 
 ```{r}
 # Filter
-filtered <- m1
+filtered <- m2
 # Make a dataframe
 filtered_df <- as.data.frame(filtered)
 
@@ -819,9 +821,8 @@ p
 
 ```{r mammal_upload}
 # Create.csv
-mammal_stack <- moveStack(clean_mammal)
-tmp_csv <- rbind(mammal_stack)
-tmp_csv <- as.data.frame(tmp_csv)
+mammal_stack <- mt_stack(clean_mammal)
+tmp_csv <- as.data.frame(mammal_stack)
 write.csv(tmp_csv, "tmp/mammal_clean.csv", row.names=F)
 saveRDS(mov_dat, "tmp/mammal_stack.RDS")
 

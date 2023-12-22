@@ -124,7 +124,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -263,7 +263,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -402,7 +402,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -541,7 +541,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -679,7 +679,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -819,7 +819,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -957,7 +957,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -1096,7 +1096,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -1236,7 +1236,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -1375,7 +1375,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -1515,7 +1515,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -1654,7 +1654,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -1794,7 +1794,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -1933,7 +1933,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -2080,7 +2080,7 @@ Check it has gone:
 
 ```{r}
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -2219,7 +2219,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -2357,7 +2357,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -2497,7 +2497,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -2635,7 +2635,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -2774,7 +2774,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -2914,7 +2914,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -3053,7 +3053,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -3193,7 +3193,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -3333,7 +3333,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -3480,7 +3480,7 @@ The point in red has been removed!
 ```{r}
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -3619,7 +3619,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -3758,7 +3758,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -3897,7 +3897,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -4035,8 +4035,10 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
+#nrow(mov_dat[[tmp_vulture$name[i]]])
+#nrow(m_df)
 # Check the outlier is gone [Only if required]
 
 # m2 = mt_as_move2(clean_mov[[i]], track_id_columna = tmp_vulturename[i])
@@ -4175,7 +4177,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -4318,7 +4320,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -4463,7 +4465,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -4603,7 +4605,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -4742,7 +4744,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -4882,7 +4884,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -5021,7 +5023,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -5160,7 +5162,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -5299,7 +5301,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -5438,7 +5440,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -5577,7 +5579,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -5715,7 +5717,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -5855,7 +5857,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -5993,7 +5995,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -6132,7 +6134,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -6272,7 +6274,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -6411,7 +6413,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -6551,7 +6553,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -6690,7 +6692,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -6829,7 +6831,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -6968,7 +6970,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -7107,7 +7109,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -7246,7 +7248,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -7384,7 +7386,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -7524,7 +7526,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -7662,7 +7664,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -7801,7 +7803,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -7941,7 +7943,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -8080,7 +8082,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -8220,7 +8222,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -8359,7 +8361,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -8498,7 +8500,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -8637,7 +8639,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -8776,7 +8778,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -8915,7 +8917,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -9053,7 +9055,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -9193,7 +9195,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -9331,7 +9333,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -9471,7 +9473,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -9611,7 +9613,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -9750,7 +9752,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -9890,7 +9892,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -10029,7 +10031,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -10168,7 +10170,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -10307,7 +10309,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -10446,7 +10448,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -10585,7 +10587,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -10723,7 +10725,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -10863,7 +10865,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -11001,7 +11003,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -11140,7 +11142,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -11280,7 +11282,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -11419,7 +11421,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -11559,7 +11561,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -11698,7 +11700,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -11837,7 +11839,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -11976,7 +11978,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -12115,7 +12117,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- mov_dat[[tmp_vulture$name[i]]][OUT$speed<50]
+clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
@@ -12174,11 +12176,11 @@ i <- i + 1
 ```{r vulture_upload}
 dir.create("tmp")
 # Create.csv
-vulture_stack <- moveStack(clean_vulture)
-tmp_csv <- rbind(vulture_stack)
-tmp_csv <- as.data.frame(tmp_csv)
+
+vulture_stack <- mt_stack(clean_vulture)
+tmp_csv <- as.data.frame(vulture_stack)
 write.csv(tmp_csv, "tmp/vulture_clean.csv", row.names=F)
-saveRDS(mov_dat, "tmp/vulture_stack.RDS")
+saveRDS(clean_vulture, "tmp/vulture_stack.RDS")
 as_id("https://drive.google.com/file/d/15xrhSRqUwSBWiesEYDdE5-4Hui4mdSJg/view?usp=drive_link")
 # Create .RDS
 

@@ -7666,30 +7666,30 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- m2[OUT$speed<50,]
+clean_vulture[[i]] <- m2[OUT$speed<15,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 <- clean_vulture[[i]]
-# dat_lines <- m2 %>% 
-#   mt_track_lines()
-# m <- leaflet() %>%
-#   # Add a satellite image layer
-#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
-#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
-#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
-# # Add the shapefiles 
-# m %>% addPolylines(data = dat_lines,
-#                    # Colour by individual
-#                    #color = dat_lines$colours,
-#                    # The line properties
-#                    weight = 1,#opacity = 0.6,
-#                    # hover label
-#                    label = dat_lines$local_identifier) %>%
-#   # Add a legend
-#   addLayersControl(
-#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
-#   addScaleBar(position = "topleft")
+m2 <- clean_vulture[[i]]
+dat_lines <- m2 %>%
+  mt_track_lines()
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# Add the shapefiles
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   #color = dat_lines$colours,
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>%
+  addScaleBar(position = "topleft")
 
 # Recreate the telemtry object
 m_df <- as.data.frame(clean_vulture[[i]])

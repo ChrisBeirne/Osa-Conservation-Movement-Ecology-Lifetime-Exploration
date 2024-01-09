@@ -96,6 +96,7 @@ artemis---cathartes-melambrotus
 mendel---cathartes-melambrotus
 pepper---cathartes-aura
 chaski---sarcoramphus-papa
+x6.daule---sarcoramphus-papa
 number-of-vultures-processed
 upload-clean-data
 data-cleaning---mammals

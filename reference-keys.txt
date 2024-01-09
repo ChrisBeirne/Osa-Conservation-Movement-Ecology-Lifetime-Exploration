@@ -91,6 +91,12 @@ salvador---sarcoramphus-papa
 sirius---coragyps-atratus
 yana---coragyps-atratus
 chilombiano---coragyps-atratus
+toruk---sarcoramphus-papa
+artemis---cathartes-melambrotus
+mendel---cathartes-melambrotus
+pepper---cathartes-aura
+chaski---sarcoramphus-papa
+number-of-vultures-processed
 upload-clean-data
 data-cleaning---mammals
 tapirs

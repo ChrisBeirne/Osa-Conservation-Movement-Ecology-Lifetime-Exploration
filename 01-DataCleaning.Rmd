@@ -13149,7 +13149,7 @@ vulture_stack <- mt_stack(clean_vulture)
 tmp_csv <- as.data.frame(vulture_stack)
 tmp_csv$geometry <- NULL
 write.csv(tmp_csv, "tmp/vulture_clean.csv", row.names=F)
-saveRDS(clean_vulture, "tmp/vulture_stack.RDS")
+saveRDS(vulture_stack, "tmp/vulture_stack.RDS")
 as_id("https://drive.google.com/file/d/15xrhSRqUwSBWiesEYDdE5-4Hui4mdSJg/view?usp=drive_link")
 # Create .RDS
 

@@ -13134,7 +13134,7 @@ i <- i + 1
 
 
 ### Number of vultures processed
-
+ 
 We have `r length(unique(tmp_vulture$name))` vulture names.
 
 We have processed `r i-1` vultures.

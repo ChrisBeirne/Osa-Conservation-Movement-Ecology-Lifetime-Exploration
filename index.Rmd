@@ -330,6 +330,7 @@ fig <- fig %>% add_trace(y = ~data$`Cathartes aura`, name = 'Turkey vulture')
 fig <- fig %>% add_trace(y = ~data$`Coragyps atratus`, name = 'Black vulture')
 fig <- fig %>% add_trace(y = ~data$`Tapirus bairdii`, name = 'Tapir')
 fig <- fig %>% add_trace(y = ~data$`Panthera onca`, name = 'Jaguar')
+fig <- fig %>% add_trace(y = ~data$`Puma concolor`, name = 'Puma')
 fig <- fig %>% add_trace(y = ~data$`Atelocynus microtis`, name = 'SE dog')
 fig <- fig %>% layout(yaxis = list(title = 'Count'), barmode = 'stack')
 

@@ -821,7 +821,7 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 
 VERTEX Plus collar. 
 
-```{r m4}
+```{r m5}
 ################################################################################
 i <- 5
 #tmp_mammal$name
@@ -843,7 +843,7 @@ Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestam
 
 To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
 
-```{r m4a}
+```{r m5a}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
 tmp %>%
   kbl(row.names = FALSE) %>%
@@ -852,7 +852,7 @@ tmp %>%
 
 Plot of the raw data:
 
-```{r m4b}
+```{r m5b}
 # Height above elipsoid check
 # summary(m_df$gps_satellite_count)
 # summary(m_df$height_above_ellipsoid)
@@ -937,7 +937,7 @@ filtered_df <- as.data.frame(filtered)
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m4g}
+```{r m5g}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE
@@ -1024,7 +1024,7 @@ p
 
 VERTEX Plus collar. 
 
-```{r m4}
+```{r m6}
 ################################################################################
 i <- 6
 #tmp_mammal$name
@@ -1046,7 +1046,7 @@ Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestam
 
 To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
 
-```{r m4a}
+```{r m6a}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
 tmp %>%
   kbl(row.names = FALSE) %>%
@@ -1055,7 +1055,7 @@ tmp %>%
 
 Plot of the raw data:
 
-```{r m4b}
+```{r m6b}
 # Height above elipsoid check
 # summary(m_df$gps_satellite_count)
 # summary(m_df$height_above_ellipsoid)
@@ -1140,7 +1140,7 @@ filtered_df <- as.data.frame(filtered)
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m4g}
+```{r m6g}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE

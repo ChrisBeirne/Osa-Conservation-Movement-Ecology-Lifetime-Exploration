@@ -120,7 +120,6 @@ mov_dat <- moveStack(tmp1,
                      tmp3, 
                      tmp4, 
                      tmp5)
-?moveStack
 # Remove the random zeros
 summary(mov_dat$location_long)
 mov_dat <- mov_dat[mov_dat$location_long<0,]
@@ -249,6 +248,10 @@ The project currently contains **`r length(unique(dat$tag_id))` tag deployments*
 ```{r  c02, include=F}
 # Create data summaries 
 
+# Remove the crazy ocelot location in ecuador
+dat <- dat[!(dat$location_lat>(-6) & dat$location_lat<6 & dat$taxon_canonical_name=="Leopardus pardalis"),]
+dat <- dat[!(dat$location_lat>(-2) & dat$location_lat<(-1) & dat$taxon_canonical_name=="Coragyps atratus"),]
+
 # Add a country column
 dat$country <- NA
 dat$country[dat$location_lat>6] <- "costa_rica"
@@ -332,11 +335,21 @@ fig <- fig %>% add_trace(y = ~data$`Tapirus bairdii`, name = 'Tapir')
 fig <- fig %>% add_trace(y = ~data$`Panthera onca`, name = 'Jaguar')
 fig <- fig %>% add_trace(y = ~data$`Puma concolor`, name = 'Puma')
 fig <- fig %>% add_trace(y = ~data$`Atelocynus microtis`, name = 'SE dog')
+fig <- fig %>% add_trace(y = ~data$`Leopardus pardalis`, name = 'Ocelot')
 fig <- fig %>% layout(yaxis = list(title = 'Count'), barmode = 'stack')
 
 fig
 ```
 
+Locations per country and species:
+
+```{r c03, echo=F}
+tmp <- dat %>% group_by(country ,taxon_canonical_name) %>% summarise(n_locs=n(), n_inds=n_distinct(local_identifier)) 
+
+tmp %>%
+  kbl(caption = "Summary: Locations and individuals by country") %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+```
 
 ### Costa Rica
 

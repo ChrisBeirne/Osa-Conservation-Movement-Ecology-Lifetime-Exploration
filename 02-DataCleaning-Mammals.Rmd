@@ -1358,7 +1358,7 @@ filtered_df <- as.data.frame(filtered)
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m6g}
+```{r m7g}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE
@@ -1567,7 +1567,7 @@ filtered_df <- as.data.frame(filtered)
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m6g}
+```{r m8g}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE
@@ -1771,7 +1771,7 @@ filtered_df <- as.data.frame(filtered)
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m6g}
+```{r m9g}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE
@@ -1976,7 +1976,7 @@ filtered_df <- as.data.frame(filtered)
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m6g}
+```{r m10g}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE
@@ -2164,7 +2164,7 @@ filtered_df <- as.data.frame(filtered)
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m6g}
+```{r m11g}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE

@@ -343,7 +343,7 @@ fig
 
 Locations per country and species:
 
-```{r c03, echo=F}
+```{r c03a, echo=F}
 tmp <- dat %>% group_by(country ,taxon_canonical_name) %>% summarise(n_locs=n(), n_inds=n_distinct(local_identifier)) 
 
 tmp %>%

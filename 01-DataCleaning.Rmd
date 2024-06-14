@@ -13429,7 +13429,7 @@ Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
 
 Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
 
-```{r v96 }
+```{r v97 }
 #################################################################################
 i <- 96
 

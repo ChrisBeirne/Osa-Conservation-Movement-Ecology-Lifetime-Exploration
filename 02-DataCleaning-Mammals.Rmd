@@ -5,9 +5,13 @@ All tracking devices come with errors, and each track must be checked visual and
 This page shows this process for each mammal within the project. It has been automated so that we always have access to a stardardised and cleaned locations database. 
 
 
-```{r, include=F, eval=F}
+```{r, include=F, eval=T}
 # What animals do we need to do this for
-tmp_mammal
+#tmp_mammal
+
+# Remove MAnu because it didnt work
+tmp_mammal<- tmp_mammal[tmp_mammal$name!="Manu",] 
+
 
 ```
 
@@ -611,7 +615,7 @@ VERTEX Plus collar.
 
 ```{r m4}
 ################################################################################
-i <- 4
+i <- 3
 m1 <- mov_dat[mov_dat$name=="Killa",]
 
 #head(m1)
@@ -832,7 +836,7 @@ VERTEX Plus collar.
 
 ```{r m5}
 ################################################################################
-i <- 5
+i <- 4
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Tico",]
 
@@ -1035,7 +1039,7 @@ VERTEX Plus collar.
 
 ```{r m6}
 ################################################################################
-i <- 6
+i <- 5
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Coyunda",]
 
@@ -1239,7 +1243,7 @@ VERTEX Plus collar.
 
 ```{r m7}
 ################################################################################
-i <- 7
+i <- 6
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Shipetiari",]
 
@@ -1448,7 +1452,7 @@ VERTEX Plus collar.
 
 ```{r m8}
 ################################################################################
-i <- 8
+i <- 7
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Kirari",]
 
@@ -1656,7 +1660,7 @@ VERTEX Plus collar.
 
 ```{r m9}
 ################################################################################
-i <- 9
+i <- 8
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Kurá",]
 
@@ -1861,7 +1865,7 @@ VERTEX Plus collar.
 
 ```{r m10}
 ################################################################################
-i <- 10
+i <- 9
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Katsímari",]
 
@@ -2049,7 +2053,7 @@ VERTEX Plus collar.
 
 ```{r m11}
 ################################################################################
-i <- 11
+i <- 10
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Matsonsori",]
 
@@ -2260,7 +2264,6 @@ tmp_csv <- as.data.frame(mammal_stack)
 tmp_csv$geometry <- NULL
 write.csv(tmp_csv, "tmp/mammal_clean.csv", row.names=F)
 saveRDS(mov_dat, "tmp/mammal_stack.RDS")
-
 
 # Create .RDS
 

@@ -1,3 +1,4 @@
+tab:c03a
 raw-data
 costa-rica
 peru
@@ -97,6 +98,10 @@ mendel---cathartes-melambrotus
 pepper---cathartes-aura
 chaski---sarcoramphus-papa
 x6.daule---sarcoramphus-papa
+x7.ceibo---sarcoramphus-papa
+vulturnator---sarcoramphus-papa
+vulturnator---sarcoramphus-papa-1
+cleopatra---sarcoramphus-papa
 number-of-vultures-processed
 upload-clean-data
 data-cleaning---mammals
@@ -107,6 +112,11 @@ carnivores
 killa
 tico
 coyunda
+shipetiari
+kirari
+kurá
+katsímari
+matsonsori
 upload-clean-data-1
 mammal-tracking
 juancito-1

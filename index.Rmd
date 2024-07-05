@@ -351,6 +351,8 @@ tmp %>%
   kable_classic(full_width = F, html_font = "Cambria")
 ```
 
+
+
 ### Costa Rica
 
 **Note this is raw unfiltered data**

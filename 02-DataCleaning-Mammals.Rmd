@@ -9,15 +9,15 @@ This page shows this process for each mammal within the project. It has been aut
 # What animals do we need to do this for
 #tmp_mammal
 
-# Remove MAnu because it didnt work
+# Remove Manu because it didnt work
 tmp_mammal<- tmp_mammal[tmp_mammal$name!="Manu",] 
-
+tmp_mammal$number <- 1:nrow(tmp_mammal)
 
 ```
 
 
 
-### Tapirs
+## Tapirs
 
 For the tapir collars we use the Telonics - TGW-4577-4 model, wioth data sent through the Iridium system.  
 
@@ -34,7 +34,7 @@ Our collars collect QFP's when there is *no GPS signal available*.
 
 Lets explore the implications of these different fix types for one individual - Juancito.
 
-#### Juancito
+### Juancito
 
 ```{r m1}
 ################################################################################
@@ -307,7 +307,7 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 #i <- i + 1
 ```
 
-#### Tuva
+### Tuva
 
 ```{r m2}
 ################################################################################
@@ -603,13 +603,13 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 #i <- i + 1
 ```
 
-### Carnivores
+## Jaguars
 
 For carnivores we use Vectronic collars.
 
 Large carnivores we have VERTEX Plus (GPS + ACC) and VERTEX Vision (GPS + ACC + Video)
 
-#### Killa
+### Killa
 
 VERTEX Plus collar. 
 
@@ -830,414 +830,7 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 
 ```
 
-#### Tico
-
-VERTEX Plus collar. 
-
-```{r m5}
-################################################################################
-i <- 4
-#tmp_mammal$name
-m1 <- mov_dat[mov_dat$name=="Tico",]
-
-#head(m1)
-
-# Make a dataframe
-m_df <- as.data.frame(m1)
-#head(m_df)
-tmp <- data.frame(table(m_df$gps_fix_type_raw))
-```
-
-First observation: `r first(m_df$timestamp)`
-
-Last observation:  `r last(m_df$timestamp)`
-
-Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
-
-```{r m5a}
-tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
-tmp %>%
-  kbl(row.names = FALSE) %>%
-  kable_styling() 
-```
-
-Plot of the raw data:
-
-```{r m5b}
-# Height above elipsoid check
-# summary(m_df$gps_satellite_count)
-# summary(m_df$height_above_ellipsoid)
-# plot(m_df$location_long, m_df$location_lat)
-# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
-# points(test$location_long, test$location_lat, col="red")
-
-# move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
-
-# Convert to track
-dat_lines <- m2 %>% 
-  mt_track_lines()
-
-m <- leaflet() %>%
-  # Add a satellite image layer
-  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
-  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
-  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") %>% 
-# Add shapefile for trails
-addPolylines(data = trails, color = "black", weight=2,opacity=1)    
-  
-# Add the shapefiles 
-m %>% addPolylines(data = dat_lines,
-                   # Colour by individual
-                   color = "#FF10F0",
-                   # The line properties
-                   weight = 1,#opacity = 0.6,
-                   # hover label
-                   label = dat_lines$local_identifier) %>%
-    addCircleMarkers(lng=m_df$location_long,
-                   lat=m_df$location_lat, 
-                   color= "#FF10F0", radius=1) %>%
-    addCircleMarkers(lng=m_df$location_long[1],
-                   lat=m_df$location_lat[1], 
-                   color="#03F",
-                   popup="start") %>% 
-    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
-                   lat=m_df$location_lat[nrow(m_df)], 
-                   color="red",
-                   popup="end") %>% 
-  
-  # Add a legend
-  addLayersControl(
-    baseGroups = c("OS", "Simple", "Satellite")) %>% 
-  addScaleBar(position = "topleft")
-```
-
-We get doppler error estimates on these data, and they are all fairly small!:
-
-```{r}
-boxplot(m_df$gps_dop~m_df$gps_fix_type_raw, las=1)
-```
-
-
-The average number of fixes per day to date **`r round(nrow(m_df)/as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1)`** per day.
-
-Those are distributed through time as follows:
-
-```{r}
-par(mfrow=c(1,1))
-tmp2 <- m_df
-tmp2$day <- substr(m_df$timestamp,1,10)
-tmp2$day <- factor(tmp2$day, levels=as.character(seq(as.Date(first(tmp2$day)), as.Date(last(tmp2$day)), by="days")))
-
-tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
-
-barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
-        cex.names=0.7)
-```
-
-No cleaning done to date:
-
-```{r}
-# Filter
-filtered <- m2
-# Make a dataframe
-filtered_df <- as.data.frame(filtered)
-
-```
-
-
-We should also use ctmm (as in the vultures) to find errors:
-
-```{r m5g}
-# Finding outliers
-# There are several ways to remove them but I'm going to use atlastools and ctmm framework
-# METHOD 1 - GEOFENCE
-#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
-#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
-#                              y = "location_lat", x_range = c(-88, -60), 
-#                              y_range = c(-20, 20),remove_inside = FALSE)
-
-# Method 2 -
-# Create a telemtry object
-tel = as.telemetry(filtered_df)
-#Import: we can add the estimation of error for Shakira from above code 
-# However, the error is negligible, but as an example is useful
-uere(tel)-> UERE
-
-# Check outliers
-par(mfrow = c(1, 2))
-outlie(tel)-> OUT
-#plot(OUT, units = FALSE)
-plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
-     ylab="Minimum speed (m/s)",
-     xlab="Median deviation (km)")
-
-# SPECIES SPECIFIC THRESHOLD
-abline(v=8, lty=2, col="red")
-abline(h=0.5, lty=2, col="red")
-
-# Delete extreme values 
-
-clean_mammal[[i]] <- filtered
-# Check the outlier is gone [Only if required]
-
-# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
-# dat_lines <- m2 %>%
-#   mt_track_lines()
-# m <- leaflet() %>%
-#   # Add a satellite image layer
-#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
-#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
-#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
-# # Add the shapefiles
-# m %>% addPolylines(data = dat_lines,
-#                    # Colour by individual
-#                    #color = dat_lines$colours,
-#                    # The line properties
-#                    weight = 1,#opacity = 0.6,
-#                    # hover label
-#                    label = dat_lines$local_identifier) %>%
-#   # Add a legend
-#   addLayersControl(
-#     baseGroups = c("OS", "Simple", "Satellite")) %>%
-#   addScaleBar(position = "topleft")
-# 
-# # Recreate the telemtry object
-# m_df <- as.data.frame(clean_mammal[[i]])
-# tel <- as.telemetry(m_df)
-
-# Check range-residency (i.e home range)
-svf = variogram(tel, res = 1)
-level <- c(0.5, 0.95) # 50% and 95% CIs
-xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
-
-
-```
-
-**Current battery level:**
-
-Be worried if it goes below 3000!
-
-```{r}
-p <- plot_ly(filtered_df, x = ~timestamp, y = ~tag_voltage, mode = 'line') %>% 
-  layout(
-    yaxis = list(
-      range=c(2500,3500)
-    )
-  )  
-
-p
-
-```
-
-#### Coyunda
-
-VERTEX Plus collar. 
-
-```{r m6}
-################################################################################
-i <- 5
-#tmp_mammal$name
-m1 <- mov_dat[mov_dat$name=="Coyunda",]
-
-#head(m1)
-
-# Make a dataframe
-m_df <- as.data.frame(m1)
-#head(m_df)
-tmp <- data.frame(table(m_df$gps_fix_type_raw))
-```
-
-First observation: `r first(m_df$timestamp)`
-
-Last observation:  `r last(m_df$timestamp)`
-
-Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
-
-```{r m6a}
-tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
-tmp %>%
-  kbl(row.names = FALSE) %>%
-  kable_styling() 
-```
-
-Plot of the raw data:
-
-```{r m6b}
-# Height above elipsoid check
-# summary(m_df$gps_satellite_count)
-# summary(m_df$height_above_ellipsoid)
-# plot(m_df$location_long, m_df$location_lat)
-# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
-# points(test$location_long, test$location_lat, col="red")
-
-# move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
-
-# Convert to track
-dat_lines <- m2 %>% 
-  mt_track_lines()
-
-m <- leaflet() %>%
-  # Add a satellite image layer
-  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
-  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
-  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") %>% 
-# Add shapefile for trails
-addPolylines(data = trails, color = "black", weight=2,opacity=1)    
-  
-# Add the shapefiles 
-m %>% addPolylines(data = dat_lines,
-                   # Colour by individual
-                   color = "#FF10F0",
-                   # The line properties
-                   weight = 1,#opacity = 0.6,
-                   # hover label
-                   label = dat_lines$local_identifier) %>%
-    addCircleMarkers(lng=m_df$location_long,
-                   lat=m_df$location_lat, 
-                   color= "#FF10F0", radius=1) %>%
-    addCircleMarkers(lng=m_df$location_long[1],
-                   lat=m_df$location_lat[1], 
-                   color="#03F",
-                   popup="start") %>% 
-    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
-                   lat=m_df$location_lat[nrow(m_df)], 
-                   color="red",
-                   popup="end") %>% 
-  
-  # Add a legend
-  addLayersControl(
-    baseGroups = c("OS", "Simple", "Satellite")) %>% 
-  addScaleBar(position = "topleft")
-```
-
-We get doppler error estimates on these data, and they are all fairly small!:
-
-```{r}
-boxplot(m_df$gps_dop~m_df$gps_fix_type_raw, las=1)
-```
-
-
-The average number of fixes per day to date **`r round(nrow(m_df)/as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1)`** per day.
-
-Those are distributed through time as follows:
-
-```{r}
-par(mfrow=c(1,1))
-tmp2 <- m_df
-tmp2$day <- substr(m_df$timestamp,1,10)
-tmp2$day <- factor(tmp2$day, levels=as.character(seq(as.Date(first(tmp2$day)), as.Date(last(tmp2$day)), by="days")))
-
-tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
-
-barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
-        cex.names=0.7)
-```
-
-No cleaning done to date:
-
-```{r}
-# Filter
-filtered <- m2
-# Make a dataframe
-filtered_df <- as.data.frame(filtered)
-
-```
-
-
-We should also use ctmm (as in the vultures) to find errors:
-
-```{r m6g}
-# Finding outliers
-# There are several ways to remove them but I'm going to use atlastools and ctmm framework
-# METHOD 1 - GEOFENCE
-#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
-#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
-#                              y = "location_lat", x_range = c(-88, -60), 
-#                              y_range = c(-20, 20),remove_inside = FALSE)
-
-# Method 2 -
-# Create a telemtry object
-tel = as.telemetry(filtered_df)
-#Import: we can add the estimation of error for Shakira from above code 
-# However, the error is negligible, but as an example is useful
-uere(tel)-> UERE
-
-# Check outliers
-par(mfrow = c(1, 2))
-outlie(tel)-> OUT
-#plot(OUT, units = FALSE)
-plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
-     ylab="Minimum speed (m/s)",
-     xlab="Median deviation (km)")
-
-# SPECIES SPECIFIC THRESHOLD
-abline(v=8, lty=2, col="red")
-abline(h=0.5, lty=2, col="red")
-
-# Delete extreme values 
-
-clean_mammal[[i]] <- filtered
-# Check the outlier is gone [Only if required]
-
-# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
-# dat_lines <- m2 %>%
-#   mt_track_lines()
-# m <- leaflet() %>%
-#   # Add a satellite image layer
-#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
-#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
-#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
-# # Add the shapefiles
-# m %>% addPolylines(data = dat_lines,
-#                    # Colour by individual
-#                    #color = dat_lines$colours,
-#                    # The line properties
-#                    weight = 1,#opacity = 0.6,
-#                    # hover label
-#                    label = dat_lines$local_identifier) %>%
-#   # Add a legend
-#   addLayersControl(
-#     baseGroups = c("OS", "Simple", "Satellite")) %>%
-#   addScaleBar(position = "topleft")
-# 
-# # Recreate the telemtry object
-# m_df <- as.data.frame(clean_mammal[[i]])
-# tel <- as.telemetry(m_df)
-
-# Check range-residency (i.e home range)
-svf = variogram(tel, res = 1)
-level <- c(0.5, 0.95) # 50% and 95% CIs
-xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
-
-
-```
-
-**Current battery level:**
-
-Be worried if it goes below 3000!
-
-```{r}
-p <- plot_ly(filtered_df, x = ~timestamp, y = ~tag_voltage, mode = 'line') %>% 
-  layout(
-    yaxis = list(
-      range=c(2500,3500)
-    )
-  )  
-
-p
-
-```
-
-
-#### Shipetiari
+### Shipetiari
 
 VERTEX Plus collar. 
 
@@ -1445,8 +1038,624 @@ p
 
 ```
 
+### Matsonsori
 
-#### Kirari
+VERTEX Plus collar. 
+
+```{r m11}
+################################################################################
+i <- 10
+#tmp_mammal$name
+m1 <- mov_dat[mov_dat$name=="Matsonsori",]
+
+#head(m1)
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+#head(m_df)
+tmp <- data.frame(table(m_df$gps_fix_type_raw))
+
+```
+
+First observation: `r first(m_df$timestamp)`
+
+Last observation:  `r last(m_df$timestamp)`
+
+Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
+
+Distance moved: 
+
+To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+
+```{r m11a}
+tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
+tmp %>%
+  kbl(row.names = FALSE) %>%
+  kable_styling() 
+```
+
+Plot of the raw data:
+
+```{r m11b}
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") 
+
+#%>% 
+# Add shapefile for trails
+#addPolylines(data = trails, color = "black", weight=2,opacity=1)    
+  
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color= "#FF10F0", radius=1) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+```
+
+
+The average number of fixes per day to date **`r round(nrow(m_df)/as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1)`** per day.
+
+Those are distributed through time as follows:
+
+```{r}
+par(mfrow=c(1,1))
+tmp2 <- m_df
+tmp2$day <- substr(m_df$timestamp,1,10)
+tmp2$day <- factor(tmp2$day, levels=as.character(seq(as.Date(first(tmp2$day)), as.Date(last(tmp2$day)), by="days")))
+
+tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
+
+barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
+        cex.names=0.7)
+```
+
+Remove the crazy outlier. 
+
+```{r}
+# Filter
+filtered <- m2
+# Make a dataframe
+filtered_df <- as.data.frame(filtered)
+
+#m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+
+```
+
+
+We should also use ctmm (as in the vultures) to find errors:
+
+```{r m11g}
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
+#                              y = "location_lat", x_range = c(-88, -60), 
+#                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(filtered_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE)
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+     ylab="Minimum speed (m/s)",
+     xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(v=8, lty=2, col="red")
+abline(h=0.5, lty=2, col="red")
+
+# Delete extreme values 
+
+clean_mammal[[i]] <- filtered
+# Check the outlier is gone [Only if required]
+
+# m2 = mt_as_move2(clean_mammal[[i]], track_id_column = "track", time_column= "timestamp")
+# dat_lines <- m2 %>%
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# # Add the shapefiles
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 1,#opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>%
+#   addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_mammal[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+
+
+```
+
+**Current battery level:**
+
+Be worried if it goes below 3000!
+
+```{r}
+p <- plot_ly(filtered_df, x = ~timestamp, y = ~tag_voltage, mode = 'line') %>% 
+  layout(
+    yaxis = list(
+      range=c(2500,3500)
+    )
+  )  
+
+p
+
+```
+
+
+## Pumas
+
+
+### Tico
+
+VERTEX Plus collar. 
+
+```{r m5}
+################################################################################
+i <- 4
+#tmp_mammal$name
+m1 <- mov_dat[mov_dat$name=="Tico",]
+
+#head(m1)
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+#head(m_df)
+tmp <- data.frame(table(m_df$gps_fix_type_raw))
+```
+
+First observation: `r first(m_df$timestamp)`
+
+Last observation:  `r last(m_df$timestamp)`
+
+Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
+
+To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+
+```{r m5a}
+tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
+tmp %>%
+  kbl(row.names = FALSE) %>%
+  kable_styling() 
+```
+
+Plot of the raw data:
+
+```{r m5b}
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") %>% 
+# Add shapefile for trails
+addPolylines(data = trails, color = "black", weight=2,opacity=1)    
+  
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color= "#FF10F0", radius=1) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+```
+
+We get doppler error estimates on these data, and they are all fairly small!:
+
+```{r}
+boxplot(m_df$gps_dop~m_df$gps_fix_type_raw, las=1)
+```
+
+
+The average number of fixes per day to date **`r round(nrow(m_df)/as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1)`** per day.
+
+Those are distributed through time as follows:
+
+```{r}
+par(mfrow=c(1,1))
+tmp2 <- m_df
+tmp2$day <- substr(m_df$timestamp,1,10)
+tmp2$day <- factor(tmp2$day, levels=as.character(seq(as.Date(first(tmp2$day)), as.Date(last(tmp2$day)), by="days")))
+
+tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
+
+barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
+        cex.names=0.7)
+```
+
+No cleaning done to date:
+
+```{r}
+# Filter
+filtered <- m2
+# Make a dataframe
+filtered_df <- as.data.frame(filtered)
+
+```
+
+
+We should also use ctmm (as in the vultures) to find errors:
+
+```{r m5g}
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
+#                              y = "location_lat", x_range = c(-88, -60), 
+#                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(filtered_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE)
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+     ylab="Minimum speed (m/s)",
+     xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(v=8, lty=2, col="red")
+abline(h=0.5, lty=2, col="red")
+
+# Delete extreme values 
+
+clean_mammal[[i]] <- filtered
+# Check the outlier is gone [Only if required]
+
+# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
+# dat_lines <- m2 %>%
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# # Add the shapefiles
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 1,#opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>%
+#   addScaleBar(position = "topleft")
+# 
+# # Recreate the telemtry object
+# m_df <- as.data.frame(clean_mammal[[i]])
+# tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+
+
+```
+
+**Current battery level:**
+
+Be worried if it goes below 3000!
+
+```{r}
+p <- plot_ly(filtered_df, x = ~timestamp, y = ~tag_voltage, mode = 'line') %>% 
+  layout(
+    yaxis = list(
+      range=c(2500,3500)
+    )
+  )  
+
+p
+
+```
+
+### Coyunda
+
+VERTEX Plus collar. 
+
+```{r m6}
+################################################################################
+i <- 5
+#tmp_mammal$name
+m1 <- mov_dat[mov_dat$name=="Coyunda",]
+
+#head(m1)
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+#head(m_df)
+tmp <- data.frame(table(m_df$gps_fix_type_raw))
+```
+
+First observation: `r first(m_df$timestamp)`
+
+Last observation:  `r last(m_df$timestamp)`
+
+Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
+
+To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+
+```{r m6a}
+tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
+tmp %>%
+  kbl(row.names = FALSE) %>%
+  kable_styling() 
+```
+
+Plot of the raw data:
+
+```{r m6b}
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") %>% 
+# Add shapefile for trails
+addPolylines(data = trails, color = "black", weight=2,opacity=1)    
+  
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color= "#FF10F0", radius=1) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+```
+
+We get doppler error estimates on these data, and they are all fairly small!:
+
+```{r}
+boxplot(m_df$gps_dop~m_df$gps_fix_type_raw, las=1)
+```
+
+
+The average number of fixes per day to date **`r round(nrow(m_df)/as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1)`** per day.
+
+Those are distributed through time as follows:
+
+```{r}
+par(mfrow=c(1,1))
+tmp2 <- m_df
+tmp2$day <- substr(m_df$timestamp,1,10)
+tmp2$day <- factor(tmp2$day, levels=as.character(seq(as.Date(first(tmp2$day)), as.Date(last(tmp2$day)), by="days")))
+
+tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
+
+barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
+        cex.names=0.7)
+```
+
+No cleaning done to date:
+
+```{r}
+# Filter
+filtered <- m2
+# Make a dataframe
+filtered_df <- as.data.frame(filtered)
+
+```
+
+
+We should also use ctmm (as in the vultures) to find errors:
+
+```{r m6g}
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
+#                              y = "location_lat", x_range = c(-88, -60), 
+#                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(filtered_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE)
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+     ylab="Minimum speed (m/s)",
+     xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(v=8, lty=2, col="red")
+abline(h=0.5, lty=2, col="red")
+
+# Delete extreme values 
+
+clean_mammal[[i]] <- filtered
+# Check the outlier is gone [Only if required]
+
+# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
+# dat_lines <- m2 %>%
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# # Add the shapefiles
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 1,#opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>%
+#   addScaleBar(position = "topleft")
+# 
+# # Recreate the telemtry object
+# m_df <- as.data.frame(clean_mammal[[i]])
+# tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+
+
+```
+
+**Current battery level:**
+
+Be worried if it goes below 3000!
+
+```{r}
+p <- plot_ly(filtered_df, x = ~timestamp, y = ~tag_voltage, mode = 'line') %>% 
+  layout(
+    yaxis = list(
+      range=c(2500,3500)
+    )
+  )  
+
+p
+
+```
+
+
+
+
+### Kirari
 
 VERTEX Plus collar. 
 
@@ -1654,7 +1863,9 @@ p
 
 ```
 
-#### Kurá
+## Ocelots
+
+### Kurá
 
 VERTEX Plus collar. 
 
@@ -1842,24 +2053,8 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 
 ```
 
-**Current battery level:**
 
-Be worried if it goes below 3000!
-
-```{r}
-p <- plot_ly(filtered_df, x = ~timestamp, y = ~tag_voltage, mode = 'line') %>% 
-  layout(
-    yaxis = list(
-      range=c(2500,3500)
-    )
-  )  
-
-p
-
-```
-
-
-#### Katsímari
+### Katsímari
 
 VERTEX Plus collar. 
 
@@ -2047,15 +2242,15 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 
 ```
 
-#### Matsonsori
+### Jerry
 
 VERTEX Plus collar. 
 
-```{r m11}
+```{r m10}
 ################################################################################
-i <- 10
+i <- 11
 #tmp_mammal$name
-m1 <- mov_dat[mov_dat$name=="Matsonsori",]
+m1 <- mov_dat[mov_dat$name=="Jerry",]
 
 #head(m1)
 
@@ -2076,7 +2271,7 @@ Distance moved:
 
 To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
 
-```{r m11a}
+```{r m10a}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
 tmp %>%
   kbl(row.names = FALSE) %>%
@@ -2085,7 +2280,7 @@ tmp %>%
 
 Plot of the raw data:
 
-```{r m11b}
+```{r m10b}
 # Height above elipsoid check
 # summary(m_df$gps_satellite_count)
 # summary(m_df$height_above_ellipsoid)
@@ -2153,11 +2348,12 @@ barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
         cex.names=0.7)
 ```
 
-Remove the crazy outlier. 
+
+Remove the crazy outliers. 
 
 ```{r}
 # Filter
-filtered <- m2
+filtered <- m2[m2$gps_fix_type_raw!="Unresolved QFP",]
 # Make a dataframe
 filtered_df <- as.data.frame(filtered)
 
@@ -2168,7 +2364,7 @@ filtered_df <- as.data.frame(filtered)
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m11g}
+```{r m10g}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE
@@ -2197,30 +2393,30 @@ abline(v=8, lty=2, col="red")
 abline(h=0.5, lty=2, col="red")
 
 # Delete extreme values 
-
+#plot(filtered)
 clean_mammal[[i]] <- filtered
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mammal[[i]], track_id_column = "track", time_column= "timestamp")
-# dat_lines <- m2 %>%
-#   mt_track_lines()
-# m <- leaflet() %>%
-#   # Add a satellite image layer
-#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
-#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
-#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
-# # Add the shapefiles
-# m %>% addPolylines(data = dat_lines,
-#                    # Colour by individual
-#                    #color = dat_lines$colours,
-#                    # The line properties
-#                    weight = 1,#opacity = 0.6,
-#                    # hover label
-#                    label = dat_lines$local_identifier) %>%
-#   # Add a legend
-#   addLayersControl(
-#     baseGroups = c("OS", "Simple", "Satellite")) %>%
-#   addScaleBar(position = "topleft")
+m2 = mt_as_move2(clean_mammal[[i]], track_id_column = "track", time_column= "timestamp")
+dat_lines <- m2 %>%
+  mt_track_lines()
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# Add the shapefiles
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   #color = dat_lines$colours,
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$track) %>%
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>%
+  addScaleBar(position = "topleft")
 
 # Recreate the telemtry object
 m_df <- as.data.frame(clean_mammal[[i]])
@@ -2232,26 +2428,574 @@ level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
 plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
 
+```
+
+
+### Pasooki (Peru)
+
+VERTEX Plus collar. 
+
+```{r m10}
+################################################################################
+i <- 13
+#tmp_mammal$name
+m1 <- mov_dat[mov_dat$name=="Pasooki",]
+
+#head(m1)
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+#head(m_df)
+tmp <- data.frame(table(m_df$gps_fix_type_raw))
 
 ```
 
-**Current battery level:**
+First observation: `r first(m_df$timestamp)`
 
-Be worried if it goes below 3000!
+Last observation:  `r last(m_df$timestamp)`
+
+Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
+
+Distance moved: 
+
+To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+
+```{r m10a}
+tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
+tmp %>%
+  kbl(row.names = FALSE) %>%
+  kable_styling() 
+```
+
+Plot of the raw data:
+
+```{r m10b}
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") 
+
+#%>% 
+# Add shapefile for trails
+#addPolylines(data = trails, color = "black", weight=2,opacity=1)    
+  
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color= "#FF10F0", radius=1) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+```
+
+
+The average number of fixes per day to date **`r round(nrow(m_df)/as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1)`** per day.
+
+Those are distributed through time as follows:
 
 ```{r}
-p <- plot_ly(filtered_df, x = ~timestamp, y = ~tag_voltage, mode = 'line') %>% 
-  layout(
-    yaxis = list(
-      range=c(2500,3500)
-    )
-  )  
+par(mfrow=c(1,1))
+tmp2 <- m_df
+tmp2$day <- substr(m_df$timestamp,1,10)
+tmp2$day <- factor(tmp2$day, levels=as.character(seq(as.Date(first(tmp2$day)), as.Date(last(tmp2$day)), by="days")))
 
-p
+tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
+
+barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
+        cex.names=0.7)
+```
+
+
+Remove the crazy outliers. 
+
+```{r}
+# Filter
+filtered <- m2[m2$gps_fix_type_raw=="Succeeded",]
+# Make a dataframe
+filtered_df <- as.data.frame(filtered)
+
+#m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
 
 ```
 
- 
+
+We should also use ctmm (as in the vultures) to find errors:
+
+```{r m10g}
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
+#                              y = "location_lat", x_range = c(-88, -60), 
+#                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(filtered_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE)
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+     ylab="Minimum speed (m/s)",
+     xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(v=8, lty=2, col="red")
+abline(h=0.5, lty=2, col="red")
+
+# Delete extreme values 
+#plot(filtered)
+clean_mammal[[i]] <- filtered
+# Check the outlier is gone [Only if required]
+
+m2 = mt_as_move2(clean_mammal[[i]], track_id_column = "track", time_column= "timestamp")
+dat_lines <- m2 %>%
+  mt_track_lines()
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# Add the shapefiles
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   #color = dat_lines$colours,
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$track) %>%
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>%
+  addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_mammal[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+
+```
+
+### Echo (Costa Rica)
+
+VERTEX Plus collar. 
+
+```{r m10}
+################################################################################
+i <- 14
+#tmp_mammal$name
+m1 <- mov_dat[mov_dat$name=="Echo",]
+
+#head(m1)
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+#head(m_df)
+tmp <- data.frame(table(m_df$gps_fix_type_raw))
+
+```
+
+First observation: `r first(m_df$timestamp)`
+
+Last observation:  `r last(m_df$timestamp)`
+
+Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
+
+Distance moved: 
+
+To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+
+```{r m10a}
+tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
+tmp %>%
+  kbl(row.names = FALSE) %>%
+  kable_styling() 
+```
+
+Plot of the raw data:
+
+```{r m10b}
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") 
+
+#%>% 
+# Add shapefile for trails
+#addPolylines(data = trails, color = "black", weight=2,opacity=1)    
+  
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color= "#FF10F0", radius=1) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+```
+
+
+The average number of fixes per day to date **`r round(nrow(m_df)/as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1)`** per day.
+
+Those are distributed through time as follows:
+
+```{r}
+par(mfrow=c(1,1))
+tmp2 <- m_df
+tmp2$day <- substr(m_df$timestamp,1,10)
+tmp2$day <- factor(tmp2$day, levels=as.character(seq(as.Date(first(tmp2$day)), as.Date(last(tmp2$day)), by="days")))
+
+tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
+
+barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
+        cex.names=0.7)
+```
+
+
+Remove the crazy outliers. 
+
+```{r}
+# Filter
+filtered <- m2[m2$gps_fix_type_raw=="Succeeded",]
+# Make a dataframe
+filtered_df <- as.data.frame(filtered)
+
+#m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+
+```
+
+
+We should also use ctmm (as in the vultures) to find errors:
+
+```{r m10g}
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
+#                              y = "location_lat", x_range = c(-88, -60), 
+#                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(filtered_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE)
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+     ylab="Minimum speed (m/s)",
+     xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(v=8, lty=2, col="red")
+abline(h=0.5, lty=2, col="red")
+
+# Delete extreme values 
+#plot(filtered)
+clean_mammal[[i]] <- filtered
+# Check the outlier is gone [Only if required]
+
+m2 = mt_as_move2(clean_mammal[[i]], track_id_column = "track", time_column= "timestamp")
+dat_lines <- m2 %>%
+  mt_track_lines()
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# Add the shapefiles
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   #color = dat_lines$colours,
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$track) %>%
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>%
+  addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_mammal[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+
+```
+
+## Short eared dogs
+
+### Otinkami (peru)
+
+VERTEX Plus collar. 
+
+```{r m10}
+################################################################################
+i <- 12
+#tmp_mammal$name
+m1 <- mov_dat[mov_dat$name=="Otinkami",]
+
+#head(m1)
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+#head(m_df)
+tmp <- data.frame(table(m_df$gps_fix_type_raw))
+
+```
+
+First observation: `r first(m_df$timestamp)`
+
+Last observation:  `r last(m_df$timestamp)`
+
+Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
+
+Distance moved: 
+
+To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+
+```{r m10a}
+tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
+tmp %>%
+  kbl(row.names = FALSE) %>%
+  kable_styling() 
+```
+
+Plot of the raw data:
+
+```{r m10b}
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") 
+
+#%>% 
+# Add shapefile for trails
+#addPolylines(data = trails, color = "black", weight=2,opacity=1)    
+  
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color= "#FF10F0", radius=1) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+```
+
+
+The average number of fixes per day to date **`r round(nrow(m_df)/as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1)`** per day.
+
+Those are distributed through time as follows:
+
+```{r}
+par(mfrow=c(1,1))
+tmp2 <- m_df
+tmp2$day <- substr(m_df$timestamp,1,10)
+tmp2$day <- factor(tmp2$day, levels=as.character(seq(as.Date(first(tmp2$day)), as.Date(last(tmp2$day)), by="days")))
+
+tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
+
+barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
+        cex.names=0.7)
+```
+
+
+Remove the crazy outliers. 
+
+```{r}
+# Filter
+filtered <- m2[m2$gps_fix_type_raw=="Succeeded",]
+# Make a dataframe
+filtered_df <- as.data.frame(filtered)
+
+#m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+
+```
+
+
+We should also use ctmm (as in the vultures) to find errors:
+
+```{r m10g}
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
+#                              y = "location_lat", x_range = c(-88, -60), 
+#                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(filtered_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE)
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+     ylab="Minimum speed (m/s)",
+     xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(v=8, lty=2, col="red")
+abline(h=0.5, lty=2, col="red")
+
+# Delete extreme values 
+#plot(filtered)
+clean_mammal[[i]] <- filtered
+# Check the outlier is gone [Only if required]
+
+m2 = mt_as_move2(clean_mammal[[i]], track_id_column = "track", time_column= "timestamp")
+dat_lines <- m2 %>%
+  mt_track_lines()
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# Add the shapefiles
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   #color = dat_lines$colours,
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$track) %>%
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>%
+  addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_mammal[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+
+```
 
 
 

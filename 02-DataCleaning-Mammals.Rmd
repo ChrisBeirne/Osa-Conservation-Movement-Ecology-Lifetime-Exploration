@@ -34,7 +34,7 @@ Our collars collect QFP's when there is *no GPS signal available*.
 
 Lets explore the implications of these different fix types for one individual - Juancito.
 
-### Juancito
+### Juancito (CR)
 
 ```{r m1}
 ################################################################################
@@ -307,7 +307,7 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 #i <- i + 1
 ```
 
-### Tuva
+### Tuva (CR)
 
 ```{r m2}
 ################################################################################
@@ -609,7 +609,7 @@ For carnivores we use Vectronic collars.
 
 Large carnivores we have VERTEX Plus (GPS + ACC) and VERTEX Vision (GPS + ACC + Video)
 
-### Killa
+### Killa (PE)
 
 VERTEX Plus collar. 
 
@@ -830,7 +830,7 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 
 ```
 
-### Shipetiari
+### Shipetiari (PE)
 
 VERTEX Plus collar. 
 
@@ -1246,7 +1246,7 @@ p
 ## Pumas
 
 
-### Tico
+### Tico (CR)
 
 VERTEX Plus collar. 
 
@@ -1449,7 +1449,7 @@ p
 
 ```
 
-### Coyunda
+### Coyunda (CR)
 
 VERTEX Plus collar. 
 
@@ -1865,7 +1865,7 @@ p
 
 ## Ocelots
 
-### Kurá
+### Kurá (CR)
 
 VERTEX Plus collar. 
 
@@ -2054,7 +2054,7 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 ```
 
 
-### Katsímari
+### Katsímari (PE)
 
 VERTEX Plus collar. 
 
@@ -2242,11 +2242,11 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 
 ```
 
-### Jerry
+### Jerry (CR)
 
 VERTEX Plus collar. 
 
-```{r m10}
+```{r mJerry}
 ################################################################################
 i <- 11
 #tmp_mammal$name
@@ -2271,7 +2271,7 @@ Distance moved:
 
 To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
 
-```{r m10a}
+```{r mJerrya}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
 tmp %>%
   kbl(row.names = FALSE) %>%
@@ -2280,7 +2280,7 @@ tmp %>%
 
 Plot of the raw data:
 
-```{r m10b}
+```{r mJerryb}
 # Height above elipsoid check
 # summary(m_df$gps_satellite_count)
 # summary(m_df$height_above_ellipsoid)
@@ -2364,7 +2364,7 @@ filtered_df <- as.data.frame(filtered)
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m10g}
+```{r mJerryg}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE
@@ -2435,7 +2435,7 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 
 VERTEX Plus collar. 
 
-```{r m10}
+```{r mPasooki}
 ################################################################################
 i <- 13
 #tmp_mammal$name
@@ -2460,7 +2460,7 @@ Distance moved:
 
 To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
 
-```{r m10a}
+```{r mPasookia}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
 tmp %>%
   kbl(row.names = FALSE) %>%
@@ -2469,7 +2469,7 @@ tmp %>%
 
 Plot of the raw data:
 
-```{r m10b}
+```{r mPasookib}
 # Height above elipsoid check
 # summary(m_df$gps_satellite_count)
 # summary(m_df$height_above_ellipsoid)
@@ -2553,7 +2553,7 @@ filtered_df <- as.data.frame(filtered)
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m10g}
+```{r mPasookig}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE
@@ -2619,11 +2619,11 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 
 ```
 
-### Echo (Costa Rica)
+### Echo (CR)
 
 VERTEX Plus collar. 
 
-```{r m10}
+```{r mEcho}
 ################################################################################
 i <- 14
 #tmp_mammal$name
@@ -2648,7 +2648,7 @@ Distance moved:
 
 To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
 
-```{r m10a}
+```{r mEchoa}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
 tmp %>%
   kbl(row.names = FALSE) %>%
@@ -2657,7 +2657,7 @@ tmp %>%
 
 Plot of the raw data:
 
-```{r m10b}
+```{r mEchob}
 # Height above elipsoid check
 # summary(m_df$gps_satellite_count)
 # summary(m_df$height_above_ellipsoid)
@@ -2741,7 +2741,7 @@ filtered_df <- as.data.frame(filtered)
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m10g}
+```{r mEchog}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE
@@ -2813,7 +2813,7 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 
 VERTEX Plus collar. 
 
-```{r m10}
+```{r mOtinkami}
 ################################################################################
 i <- 12
 #tmp_mammal$name
@@ -2838,7 +2838,7 @@ Distance moved:
 
 To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
 
-```{r m10a}
+```{r mOtinkamia}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
 tmp %>%
   kbl(row.names = FALSE) %>%
@@ -2847,7 +2847,7 @@ tmp %>%
 
 Plot of the raw data:
 
-```{r m10b}
+```{r mOtinkamib}
 # Height above elipsoid check
 # summary(m_df$gps_satellite_count)
 # summary(m_df$height_above_ellipsoid)
@@ -2931,7 +2931,7 @@ filtered_df <- as.data.frame(filtered)
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r m10g}
+```{r mOtinkamig}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE

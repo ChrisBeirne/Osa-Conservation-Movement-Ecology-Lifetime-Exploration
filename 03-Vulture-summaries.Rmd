@@ -12,7 +12,6 @@
 #dat_shp <- readRDS("tmp/vulture_clean.RDS")
 dat_shp <- vulture_stack
 
-
 # Just peru
 peru_shp <- dat_shp[dat_shp$location_lat<(-6),]
 # Just CR
@@ -184,7 +183,7 @@ m <- leaflet() %>%
       m <- m %>%
         addPolylines(data = tmp, color = tracks_data$colours[i], group = ids[i], weight=0.5,opacity=0.5)  
     }
-    
+   
   m <- m %>%
       addScaleBar(position="topleft", 
                   options=scaleBarOptions(maxWidth = 100, metric = TRUE, imperial = FALSE, updateWhenIdle = TRUE)) %>%
@@ -193,7 +192,7 @@ m <- leaflet() %>%
         overlayGroups = ids,
         options = layersControlOptions(collapsed = FALSE)
       ) %>%
-  addFullseceenControl()
+  addFullscreenControl()
   
 m 
 
@@ -243,5 +242,36 @@ all_summary %>%
   kableExtra::scroll_box(width = "100%") 
 
 ```
+
+#### Tags still functioning by country and species
+
+Any tag reporting in the last thirty days is classed as working. 
+
+
+```{r}
+tmp <- table(all_summary$country, all_summary$taxon_canonical_name, (interval(ymd_hms(paste(all_summary$timestamp_end, "00:00:00")), Sys.time()) %/% days(1))<30)
+
+tmp <- as.data.frame(tmp)
+colnames(tmp) <- c("country", "species", "functioning", "freq")
+d1 <- tmp[tmp$functioning==TRUE,]
+d1$functioning <- NULL
+colnames(d1) <- c("country","species","working")
+d1$not_working <- tmp$freq[tmp$functioning==FALSE]
+
+# Remove double zeros
+d1 <- d1[!(d1$working==0 & d1$not_working==0),]
+d1 <- d1[order(d1$country, d1$species),]
+d1$percentage_working <- round(((d1$working)/(d1$working+ d1$not_working)*100),1)
+
+d1 %>%
+  kbl(row.names=F) %>%
+  kable_styling()
+
+```
+
+
+
+
+
 
 

@@ -9,7 +9,9 @@
 #tmp_csv$timestamp <- ymd_hms(tmp_csv$timestamp)
 
 # Read RDS
-dat_shp <- readRDS("tmp/vulture_clean.RDS")
+#dat_shp <- readRDS("tmp/vulture_clean.RDS")
+dat_shp <- vulture_stack
+
 
 # Just peru
 peru_shp <- dat_shp[dat_shp$location_lat<(-6),]

@@ -20,45 +20,43 @@ cr_shp <- dat_shp[dat_shp$location_lat>(2),]
 # Just Ecuador
 ec_shp <- dat_shp[dat_shp$location_lat<(2) & dat_shp$location_lat>(-6),]
 
-str(peru_shp)
-# Just those after that initial bout
-peru_shp_sub <- peru_shp[!(peru_shp$name %in% c("OC8","OC6","OC3","OC4","OC5","OC7","OC9","OC2","OC1","OC10")),]
-peru_tracks <- mt_track_data(peru_shp_sub)
-
-peru_summary <- peru_tracks[, c("local_identifier", "taxon_canonical_name", "timestamp_start", "timestamp_end", "number_of_events")]
-peru_summary$timestamp_start <- ymd_hms(peru_summary$timestamp_start)
-peru_summary$timestamp_end <- ymd_hms(peru_summary$timestamp_end)
-
-peru_summary$days <- round(as.numeric(peru_summary$timestamp_end- peru_summary$timestamp_start)/24,0)
-
-####
-# Subset to just the new birds in peru for the report
-track_shp <- mt_track_lines(peru_shp_sub)
-peru_summary$distance_moved_km <- as.numeric(round(st_length(track_shp)/1000,1))
-peru_summary$avg_daily_dist_km <- as.numeric(round(peru_summary$distance_moved_km/ peru_summary$days,1))
-
-boxplot(peru_summary$avg_daily_dist_km~peru_summary$taxon_canonical_name, las=1, 
-        xlab="Species", ylab="Average daily distance per day (km)")
-
-write.table(peru_summary, "clipboard", sep="\t", row.names=FALSE, col.names=T)
-
-plot(dat$timestamp[dat$location_lat>0], dat$eobs_temperature[dat$location_lat>0],
-     pch=16, col=rgb(0,0,0,0.01), las=1)
-
-
-plot(dat$timestamp[dat$location_lat>0 & dat$ground_speed>4], dat$eobs_temperature[dat$location_lat>0 & dat$ground_speed>4],
-     pch=16, col=rgb(0,0,0,0.01), las=1)
-
-# Just flying
-plot(dat$timestamp[dat$location_lat>0 & dat$ground_speed>4], dat$eobs_temperature[dat$location_lat>0 & dat$ground_speed>4],
-     pch=16, col=rgb(0,0,0,0.01), las=1)
-
-
-# Time of day
-
-
-plot(as.numeric(substr(dat$timestamp[dat$location_lat>0],12,13)), dat$eobs_temperature[dat$location_lat>0],
-     pch=16, col=rgb(0,0,0,0.01), las=1)
+# str(peru_shp)
+# # Just those after that initial bout
+# peru_shp_sub <- peru_shp[!(peru_shp$name %in% c("OC8","OC6","OC3","OC4","OC5","OC7","OC9","OC2","OC1","OC10")),]
+# peru_tracks <- mt_track_data(peru_shp_sub)
+# 
+# peru_summary <- peru_tracks[, c("local_identifier", "taxon_canonical_name", "timestamp_start", "timestamp_end", "number_of_events")]
+# peru_summary$timestamp_start <- ymd_hms(peru_summary$timestamp_start)
+# peru_summary$timestamp_end <- ymd_hms(peru_summary$timestamp_end)
+# 
+# peru_summary$days <- round(as.numeric(peru_summary$timestamp_end- peru_summary$timestamp_start)/24,0)
+# 
+# ####
+# # Subset to just the new birds in peru for the report
+# track_shp <- mt_track_lines(peru_shp_sub)
+# peru_summary$distance_moved_km <- as.numeric(round(st_length(track_shp)/1000,1))
+# peru_summary$avg_daily_dist_km <- as.numeric(round(peru_summary$distance_moved_km/ peru_summary$days,1))
+# 
+# boxplot(peru_summary$avg_daily_dist_km~peru_summary$taxon_canonical_name, las=1, 
+#         xlab="Species", ylab="Average daily distance per day (km)")
+# 
+# plot(dat$timestamp[dat$location_lat>0], dat$eobs_temperature[dat$location_lat>0],
+#      pch=16, col=rgb(0,0,0,0.01), las=1)
+# 
+# 
+# plot(dat$timestamp[dat$location_lat>0 & dat$ground_speed>4], dat$eobs_temperature[dat$location_lat>0 & dat$ground_speed>4],
+#      pch=16, col=rgb(0,0,0,0.01), las=1)
+# 
+# # Just flying
+# plot(dat$timestamp[dat$location_lat>0 & dat$ground_speed>4], dat$eobs_temperature[dat$location_lat>0 & dat$ground_speed>4],
+#      pch=16, col=rgb(0,0,0,0.01), las=1)
+# 
+# 
+# # Time of day
+# 
+# 
+# plot(as.numeric(substr(dat$timestamp[dat$location_lat>0],12,13)), dat$eobs_temperature[dat$location_lat>0],
+#      pch=16, col=rgb(0,0,0,0.01), las=1)
 
 
 ```

@@ -1,4 +1,5 @@
 tab:c03a
+tab:unnamed-chunk-44
 raw-data
 costa-rica
 peru
@@ -125,6 +126,13 @@ echo-cr
 short-eared-dogs
 otinkami-peru
 upload-clean-data-1
+vulture-summaries
+clean-maps
+peru-1
+costa-rica-1
+ecuador-1
+summary-table
+tags-still-functioning-by-country-and-species
 mammal-tracking
 juancito
 tuva

@@ -1,5 +1,4 @@
 tab:c03a
-tab:unnamed-chunk-44
 raw-data
 costa-rica
 peru

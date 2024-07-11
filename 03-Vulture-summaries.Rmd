@@ -228,9 +228,6 @@ all_summary <- all_summary[,c("country", "taxon_canonical_name", "local_identifi
 ```
 
 ```{r}
-all_summary %>%
-  kbl(caption = "Summary: Locations and individuals by country", row.names=F) %>%
-  kable_classic(full_width = F, html_font = "Cambria")
 
 all_summary %>%
   kbl(row.names=F) %>%
@@ -265,7 +262,8 @@ d1$percentage_working <- round(((d1$working)/(d1$working+ d1$not_working)*100),1
 
 d1 %>%
   kbl(row.names=F) %>%
-  kable_styling()
+  kable_styling() %>%
+  kableExtra::scroll_box(width = "100%") 
 
 ```
 

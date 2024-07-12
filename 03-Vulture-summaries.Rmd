@@ -90,7 +90,7 @@ m <- leaflet() %>%
     {
       tmp <- tracks_tmp[tracks_tmp$track == ids[i],]
       m <- m %>%
-        addPolylines(data = tmp, color = tracks_data$colours[i], group = ids[i], weight=0.5,opacity=0.5)  
+        addPolylines(data = tmp, color = tracks_data$colours[i], group = ids[i], weight=0.5,opacity=0.5, popup=ids[i])  
     }
     
   m <- m %>%
@@ -136,7 +136,7 @@ m <- leaflet() %>%
     {
       tmp <- tracks_tmp[tracks_tmp$track == ids[i],]
       m <- m %>%
-        addPolylines(data = tmp, color = tracks_data$colours[i], group = ids[i], weight=0.5,opacity=0.5)  
+        addPolylines(data = tmp, color = tracks_data$colours[i], group = ids[i], weight=0.5,opacity=0.5, popup=ids[i])  
     }
     
   m <- m %>%
@@ -181,7 +181,7 @@ m <- leaflet() %>%
     {
       tmp <- tracks_tmp[tracks_tmp$track == ids[i],]
       m <- m %>%
-        addPolylines(data = tmp, color = tracks_data$colours[i], group = ids[i], weight=0.5,opacity=0.5)  
+        addPolylines(data = tmp, color = tracks_data$colours[i], group = ids[i], weight=0.5,opacity=0.5, popup=ids[i])  
     }
    
   m <- m %>%

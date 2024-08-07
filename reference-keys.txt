@@ -124,6 +124,7 @@ pasooki-peru
 echo-cr
 short-eared-dogs
 otinkami-peru
+otsiti-peru
 upload-clean-data-1
 vulture-summaries
 clean-maps

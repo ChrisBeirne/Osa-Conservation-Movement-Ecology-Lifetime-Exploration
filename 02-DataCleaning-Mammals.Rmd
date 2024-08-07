@@ -3003,9 +3003,9 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 
 VERTEX Plus collar. 
 
-```{r mOtinkami}
+```{r mOtsiti}
 ################################################################################
-i <- 13
+i <- 15
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Otsiti",]
 
@@ -3028,7 +3028,7 @@ Distance moved:
 
 To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
 
-```{r mOtinkamia}
+```{r mOtsitia}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
 tmp %>%
   kbl(row.names = FALSE) %>%
@@ -3037,7 +3037,7 @@ tmp %>%
 
 Plot of the raw data:
 
-```{r mOtinkamib}
+```{r mOtsitib}
 # Height above elipsoid check
 # summary(m_df$gps_satellite_count)
 # summary(m_df$height_above_ellipsoid)
@@ -3119,7 +3119,7 @@ filtered_df <- as.data.frame(filtered)
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r mOtinkamig}
+```{r mOtsitig}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE

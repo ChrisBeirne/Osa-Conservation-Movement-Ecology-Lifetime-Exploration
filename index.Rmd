@@ -142,10 +142,10 @@ dat <- as.data.frame(mov_dat)
 # Convert dat to costa rica time
 dat$timestamp <- with_tz(dat$timestamp, tzone = "America/Costa_Rica")
 
-# Add the location data
-dat <- left_join(dat, animals[, c("tag_id", "animalName")])
-# Sort the names out
 
+# Add the location data
+dat <- left_join(dat, animals[, c("deployment_id", "animalName")])
+# Sort the names out
 dat$animalName <- sub('\\_.*', '', dat$animalName)
 
 # Add in the taxonomic group

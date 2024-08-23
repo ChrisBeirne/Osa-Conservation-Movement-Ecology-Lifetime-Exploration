@@ -12,7 +12,7 @@ This page shows this process for each mammal within the project. It has been aut
 # Remove Manu because it didnt work
 tmp_mammal<- tmp_mammal[tmp_mammal$name!="Manu",] 
 tmp_mammal$number <- 1:nrow(tmp_mammal)
-
+i <- 1
 ```
 
 
@@ -38,7 +38,6 @@ Lets explore the implications of these different fix types for one individual - 
 
 ```{r m1}
 ################################################################################
-i <- 1
 m1 <- mov_dat[mov_dat$name=="Juancito",]
 #head(m1)
 
@@ -81,7 +80,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -196,7 +195,7 @@ filtered <- m1[m1$gps_fix_type_raw=="Succeeded" | ((m1$gps_hdop < 10) & m1$gps_f
 filtered_df <- as.data.frame(filtered)
 
 # move2
-m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -272,10 +271,10 @@ abline(h=0.5, lty=2, col="red")
 
 # Delete extreme values 
 
-clean_mammal[[i]] <- m2[OUT$distance<8000,]
+clean_mammal[[1]] <- m2[OUT$distance<8000,]
 # Check the outlier is gone [Only if required]
 
-m2 = clean_mammal[[i]]
+m2 = clean_mammal[[1]]
 dat_lines <- m2 %>%
   mt_track_lines()
 m <- leaflet() %>%
@@ -304,16 +303,17 @@ tel <- as.telemetry(m_df)
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
-#i <- i + 1
+
 ```
 
 ### Tuva (CR)
 
 ```{r m2}
+i <- i+1
+
 ################################################################################
-i <- 2
 m1 <- mov_dat[mov_dat$name=="Tuva",]
 
 #head(m1)
@@ -353,7 +353,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -468,7 +468,7 @@ filtered <- m1[m1$gps_fix_type_raw=="Succeeded" | ((m1$gps_hdop < 10) & m1$gps_f
 filtered_df <- as.data.frame(filtered)
 
 # move2
-m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -549,11 +549,11 @@ abline(h=0.5, lty=2, col="red")
 
 # Delete extreme values 
 
-clean_mammal[[i]] <- m2[OUT$distance<3000,]
+clean_mammal[[2]] <- m2[OUT$distance<3000,]
 # Check the outlier is gone [Only if required]
 
-m2 = clean_mammal[[i]]
-filtered_df <- as.data.frame(clean_mammal[[i]])
+m2 = clean_mammal[[2]]
+filtered_df <- as.data.frame(clean_mammal[[2]])
 dat_lines <- m2 %>%
   mt_track_lines()
 m <- leaflet() %>%
@@ -593,14 +593,14 @@ m %>% addPolylines(data = dat_lines,
   addScaleBar(position = "topleft")
 
 # Recreate the telemtry object
-m_df <- as.data.frame(clean_mammal[[i]])
+m_df <- as.data.frame(clean_mammal[[2]])
 tel <- as.telemetry(m_df)
 
 # Check range-residency (i.e home range)
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
  
 #i <- i + 1
 ```
@@ -616,8 +616,9 @@ Large carnivores we have VERTEX Plus (GPS + ACC) and VERTEX Vision (GPS + ACC + 
 VERTEX Plus collar. 
 
 ```{r m4}
+i <- i+1
+
 ################################################################################
-i <- 3
 m1 <- mov_dat[mov_dat$name=="Killa",]
 
 #head(m1)
@@ -634,7 +635,7 @@ Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
 
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
 ```{r m4a}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
@@ -654,7 +655,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -798,7 +799,7 @@ abline(h=0.5, lty=2, col="red")
 clean_mammal[[i]] <- filtered
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
+# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = m1$name[1])
 # dat_lines <- m2 %>%
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -827,7 +828,7 @@ clean_mammal[[i]] <- filtered
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
 
 ```
@@ -837,8 +838,9 @@ plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i])
 VERTEX Plus collar. 
 
 ```{r m7}
+i <- i+1
+
 ################################################################################
-i <- 6
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Shipetiari",]
 
@@ -859,7 +861,7 @@ Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestam
 
 Distance moved: 
 
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
 ```{r m7a}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
@@ -879,7 +881,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -990,7 +992,7 @@ abline(h=0.5, lty=2, col="red")
 clean_mammal[[i]] <- filtered
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
+# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = m1$name[1])
 # dat_lines <- m2 %>%
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -1019,7 +1021,7 @@ clean_mammal[[i]] <- filtered
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
 
 ```
@@ -1046,7 +1048,8 @@ VERTEX Plus collar.
 
 ```{r m11}
 ################################################################################
-i <- 10
+i <- i+1
+
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Matsonsori",]
 
@@ -1067,7 +1070,7 @@ Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestam
 
 Distance moved: 
 
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
 ```{r m11a}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
@@ -1087,7 +1090,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -1154,7 +1157,7 @@ filtered <- m2
 # Make a dataframe
 filtered_df <- as.data.frame(filtered)
 
-#m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+#m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
 
 ```
 
@@ -1223,7 +1226,7 @@ tel <- as.telemetry(m_df)
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
 
 ```
@@ -1254,7 +1257,7 @@ VERTEX Plus collar.
 
 ```{r m5}
 ################################################################################
-i <- 4
+i <- i+1
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Tico",]
 
@@ -1272,7 +1275,7 @@ Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
 
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
 ```{r m5a}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
@@ -1292,7 +1295,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -1401,7 +1404,7 @@ abline(h=0.5, lty=2, col="red")
 clean_mammal[[i]] <- filtered
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
+# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = m1$name[1])
 # dat_lines <- m2 %>%
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -1430,7 +1433,7 @@ clean_mammal[[i]] <- filtered
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
 
 ```
@@ -1457,7 +1460,7 @@ VERTEX Plus collar.
 
 ```{r m6}
 ################################################################################
-i <- 5
+i <- i+1
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Coyunda",]
 
@@ -1475,7 +1478,7 @@ Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
 
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
 ```{r m6a}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
@@ -1495,7 +1498,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -1604,7 +1607,7 @@ abline(h=0.5, lty=2, col="red")
 clean_mammal[[i]] <- filtered
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
+# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = m1$name[1])
 # dat_lines <- m2 %>%
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -1633,7 +1636,7 @@ clean_mammal[[i]] <- filtered
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
 
 ```
@@ -1663,7 +1666,7 @@ VERTEX Plus collar.
 
 ```{r m8}
 ################################################################################
-i <- 7
+i <- i+1
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Kirari",]
 
@@ -1684,7 +1687,7 @@ Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestam
 
 Distance moved: 
 
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
 ```{r m8a}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
@@ -1704,7 +1707,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -1815,7 +1818,7 @@ abline(h=0.5, lty=2, col="red")
 clean_mammal[[i]] <- filtered
 # Check the outlier is gone [Only if required]
 
-# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = tmp_mammal$name[i])
+# m2 = mt_as_move2(clean_mammal[[i]], track_id_columna = m1$name[1])
 # dat_lines <- m2 %>%
 #   mt_track_lines()
 # m <- leaflet() %>%
@@ -1844,7 +1847,7 @@ clean_mammal[[i]] <- filtered
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
 
 ```
@@ -1873,7 +1876,7 @@ VERTEX Plus collar.
 
 ```{r m9}
 ################################################################################
-i <- 8
+i <- i+1
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Kurá",]
 
@@ -1894,7 +1897,7 @@ Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestam
 
 Distance moved: 
 
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
 ```{r m9a}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
@@ -1914,7 +1917,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -1981,7 +1984,7 @@ filtered <- m2[m2$location_lat>6,]
 # Make a dataframe
 filtered_df <- as.data.frame(filtered)
 
-#m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+#m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
 
 ```
 
@@ -2050,7 +2053,7 @@ tel <- as.telemetry(m_df)
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
 
 ```
@@ -2062,7 +2065,7 @@ VERTEX Plus collar.
 
 ```{r m10}
 ################################################################################
-i <- 9
+i <- i+1
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Katsímari",]
 
@@ -2083,7 +2086,7 @@ Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestam
 
 Distance moved: 
 
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
 ```{r m10a}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
@@ -2103,7 +2106,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -2170,7 +2173,7 @@ filtered <- m2[m2$location_long<(-65),]
 # Make a dataframe
 filtered_df <- as.data.frame(filtered)
 
-#m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+#m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
 
 ```
 
@@ -2239,7 +2242,7 @@ tel <- as.telemetry(m_df)
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
 
 ```
@@ -2250,7 +2253,7 @@ VERTEX Plus collar.
 
 ```{r mJerry}
 ################################################################################
-i <- 11
+i <- i+1
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Jerry",]
 
@@ -2271,7 +2274,7 @@ Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestam
 
 Distance moved: 
 
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
 ```{r mJerrya}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
@@ -2291,7 +2294,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -2359,7 +2362,7 @@ filtered <- m2[m2$gps_fix_type_raw!="Unresolved QFP",]
 # Make a dataframe
 filtered_df <- as.data.frame(filtered)
 
-#m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+#m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
 
 ```
 
@@ -2428,7 +2431,7 @@ tel <- as.telemetry(m_df)
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
 ```
 
@@ -2439,7 +2442,7 @@ VERTEX Plus collar.
 
 ```{r mPasooki}
 ################################################################################
-i <- 13
+i <- i+1
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Pasooki",]
 
@@ -2460,7 +2463,7 @@ Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestam
 
 Distance moved: 
 
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
 ```{r mPasookia}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
@@ -2480,7 +2483,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -2548,7 +2551,7 @@ filtered <- m2[m2$gps_fix_type_raw=="Succeeded",]
 # Make a dataframe
 filtered_df <- as.data.frame(filtered)
 
-#m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+#m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
 
 ```
 
@@ -2617,7 +2620,7 @@ tel <- as.telemetry(m_df)
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
 ```
 
@@ -2627,7 +2630,7 @@ VERTEX Plus collar.
 
 ```{r mEcho}
 ################################################################################
-i <- 14
+i <- i+1
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Echo",]
 
@@ -2648,7 +2651,7 @@ Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestam
 
 Distance moved: 
 
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
 ```{r mEchoa}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
@@ -2668,7 +2671,196 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") 
+
+#%>% 
+# Add shapefile for trails
+#addPolylines(data = trails, color = "black", weight=2,opacity=1)    
+  
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color= "#FF10F0", radius=1) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+```
+
+
+The average number of fixes per day to date **`r round(nrow(m_df)/as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1)`** per day.
+
+Those are distributed through time as follows:
+
+```{r}
+par(mfrow=c(1,1))
+tmp2 <- m_df
+tmp2$day <- substr(m_df$timestamp,1,10)
+tmp2$day <- factor(tmp2$day, levels=as.character(seq(as.Date(first(tmp2$day)), as.Date(last(tmp2$day)), by="days")))
+
+tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
+
+barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
+        cex.names=0.7)
+```
+
+
+Remove the crazy outliers. 
+
+```{r}
+
+# Filter
+filtered <- m2#[m2$gps_fix_type_raw!="Unresolved QFP",]
+# Make a dataframe
+filtered_df <- as.data.frame(filtered)
+
+#m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
+
+```
+
+
+We should also use ctmm (as in the vultures) to find errors:
+
+```{r mEchog}
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
+#                              y = "location_lat", x_range = c(-88, -60), 
+#                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(filtered_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE)
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+     ylab="Minimum speed (m/s)",
+     xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(v=8, lty=2, col="red")
+abline(h=0.5, lty=2, col="red")
+
+# Delete extreme values 
+#plot(filtered)
+clean_mammal[[i]] <- filtered[(OUT$distance/1000)<25,]
+# Check the outlier is gone [Only if required]
+
+m2 = mt_as_move2(clean_mammal[[i]], track_id_column = "track", time_column= "timestamp")
+dat_lines <- m2 %>%
+  mt_track_lines()
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# Add the shapefiles
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   #color = dat_lines$colours,
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$track) %>%
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>%
+  addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_mammal[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
+
+```
+
+### Emilia (CR)
+
+VERTEX Plus collar. 
+
+```{r mEmilia}
+################################################################################
+i <- i+1
+#tmp_mammal$name
+m1 <- mov_dat[mov_dat$name=="Emilia",]
+
+#head(m1)
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+#head(m_df)
+tmp <- data.frame(table(m_df$gps_fix_type_raw))
+
+```
+
+First observation: `r first(m_df$timestamp)`
+
+Last observation:  `r last(m_df$timestamp)`
+
+Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
+
+Distance moved: 
+
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
+
+```{r mEmiliaa}
+tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
+tmp %>%
+  kbl(row.names = FALSE) %>%
+  kable_styling() 
+```
+
+Plot of the raw data:
+
+```{r mEmiliab}
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -2732,18 +2924,18 @@ Remove the crazy outliers.
 
 ```{r}
 # Filter
-filtered <- m2[m2$gps_fix_type_raw=="Succeeded",]
+filtered <- m2[m2$gps_fix_type_raw!="Unresolved QFP",]
 # Make a dataframe
 filtered_df <- as.data.frame(filtered)
 
-#m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+#m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
 
 ```
 
 
 We should also use ctmm (as in the vultures) to find errors:
 
-```{r mEchog}
+```{r mEmiliag}
 # Finding outliers
 # There are several ways to remove them but I'm going to use atlastools and ctmm framework
 # METHOD 1 - GEOFENCE
@@ -2805,9 +2997,579 @@ tel <- as.telemetry(m_df)
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
 ```
+
+
+### Tunche (PE)
+
+VERTEX Plus collar. 
+
+```{r mTunche}
+################################################################################
+i <- i+1
+#tmp_mammal$name
+m1 <- mov_dat[mov_dat$name=="Tunche",]
+
+#head(m1)
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+#head(m_df)
+tmp <- data.frame(table(m_df$gps_fix_type_raw))
+
+```
+
+First observation: `r first(m_df$timestamp)`
+
+Last observation:  `r last(m_df$timestamp)`
+
+Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
+
+Distance moved: 
+
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
+
+```{r mTunchea}
+tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
+tmp %>%
+  kbl(row.names = FALSE) %>%
+  kable_styling() 
+```
+
+Plot of the raw data:
+
+```{r mTuncheb}
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") 
+
+#%>% 
+# Add shapefile for trails
+#addPolylines(data = trails, color = "black", weight=2,opacity=1)    
+  
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color= "#FF10F0", radius=1) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+```
+
+
+The average number of fixes per day to date **`r round(nrow(m_df)/as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1)`** per day.
+
+Those are distributed through time as follows:
+
+```{r}
+par(mfrow=c(1,1))
+tmp2 <- m_df
+tmp2$day <- substr(m_df$timestamp,1,10)
+tmp2$day <- factor(tmp2$day, levels=as.character(seq(as.Date(first(tmp2$day)), as.Date(last(tmp2$day)), by="days")))
+
+tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
+
+barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
+        cex.names=0.7)
+```
+
+
+Remove the crazy outliers. 
+
+```{r}
+# Filter
+filtered <- m2#[m2$gps_fix_type_raw=="Succeeded",]
+# Make a dataframe
+filtered_df <- as.data.frame(filtered)
+
+#m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
+
+```
+
+
+We should also use ctmm (as in the vultures) to find errors:
+
+```{r mTuncheg}
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
+#                              y = "location_lat", x_range = c(-88, -60), 
+#                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(filtered_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE)
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+     ylab="Minimum speed (m/s)",
+     xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(v=8, lty=2, col="red")
+abline(h=0.5, lty=2, col="red")
+
+# Delete extreme values 
+#plot(filtered)
+clean_mammal[[i]] <- filtered
+# Check the outlier is gone [Only if required]
+
+m2 = mt_as_move2(clean_mammal[[i]], track_id_column = "track", time_column= "timestamp")
+dat_lines <- m2 %>%
+  mt_track_lines()
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# Add the shapefiles
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   #color = dat_lines$colours,
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$track) %>%
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>%
+  addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_mammal[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
+
+```
+
+
+
+### Cecina (PE)
+
+VERTEX Plus collar. 
+
+```{r mCecina}
+################################################################################
+i <- i+1
+#tmp_mammal$name
+m1 <- mov_dat[mov_dat$name=="Cecina",]
+
+#head(m1)
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+#head(m_df)
+tmp <- data.frame(table(m_df$gps_fix_type_raw))
+
+```
+
+First observation: `r first(m_df$timestamp)`
+
+Last observation:  `r last(m_df$timestamp)`
+
+Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
+
+Distance moved: 
+
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
+
+```{r mCecinaa}
+tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
+tmp %>%
+  kbl(row.names = FALSE) %>%
+  kable_styling() 
+```
+
+Plot of the raw data:
+
+```{r mCecinab}
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") 
+
+#%>% 
+# Add shapefile for trails
+#addPolylines(data = trails, color = "black", weight=2,opacity=1)    
+  
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color= "#FF10F0", radius=1) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+```
+
+
+The average number of fixes per day to date **`r round(nrow(m_df)/as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1)`** per day.
+
+Those are distributed through time as follows:
+
+```{r}
+par(mfrow=c(1,1))
+tmp2 <- m_df
+tmp2$day <- substr(m_df$timestamp,1,10)
+tmp2$day <- factor(tmp2$day, levels=as.character(seq(as.Date(first(tmp2$day)), as.Date(last(tmp2$day)), by="days")))
+
+tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
+
+barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
+        cex.names=0.7)
+```
+
+
+Remove the crazy outliers. 
+
+```{r}
+# Filter
+filtered <- m2#[m2$gps_fix_type_raw=="Succeeded",]
+# Make a dataframe
+filtered_df <- as.data.frame(filtered)
+
+#m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
+
+```
+
+
+We should also use ctmm (as in the vultures) to find errors:
+
+```{r mCecinag}
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
+#                              y = "location_lat", x_range = c(-88, -60), 
+#                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(filtered_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE)
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+     ylab="Minimum speed (m/s)",
+     xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(v=8, lty=2, col="red")
+abline(h=0.5, lty=2, col="red")
+
+# Delete extreme values 
+#plot(filtered)
+clean_mammal[[i]] <- filtered
+# Check the outlier is gone [Only if required]
+
+m2 = mt_as_move2(clean_mammal[[i]], track_id_column = "track", time_column= "timestamp")
+dat_lines <- m2 %>%
+  mt_track_lines()
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# Add the shapefiles
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   #color = dat_lines$colours,
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$track) %>%
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>%
+  addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_mammal[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
+
+```
+
+
+### Ranga (PE)
+
+VERTEX Plus collar. 
+
+```{r mRanga}
+################################################################################
+i <- i+1
+#tmp_mammal$name
+m1 <- mov_dat[mov_dat$name=="Ranga",]
+
+#head(m1)
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+#head(m_df)
+tmp <- data.frame(table(m_df$gps_fix_type_raw))
+
+```
+
+First observation: `r first(m_df$timestamp)`
+
+Last observation:  `r last(m_df$timestamp)`
+
+Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
+
+Distance moved: 
+
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
+
+```{r mRangaa}
+tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
+tmp %>%
+  kbl(row.names = FALSE) %>%
+  kable_styling() 
+```
+
+Plot of the raw data:
+
+```{r mRangab}
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") 
+
+#%>% 
+# Add shapefile for trails
+#addPolylines(data = trails, color = "black", weight=2,opacity=1)    
+  
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color= "#FF10F0", radius=1) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+```
+
+
+The average number of fixes per day to date **`r round(nrow(m_df)/as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1)`** per day.
+
+Those are distributed through time as follows:
+
+```{r}
+par(mfrow=c(1,1))
+tmp2 <- m_df
+tmp2$day <- substr(m_df$timestamp,1,10)
+tmp2$day <- factor(tmp2$day, levels=as.character(seq(as.Date(first(tmp2$day)), as.Date(last(tmp2$day)), by="days")))
+
+tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
+
+barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
+        cex.names=0.7)
+```
+
+
+Remove the crazy outliers. 
+
+```{r}
+# Filter
+filtered <- m2#[m2$gps_fix_type_raw=="Succeeded",]
+# Make a dataframe
+filtered_df <- as.data.frame(filtered)
+
+#m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
+
+```
+
+
+We should also use ctmm (as in the vultures) to find errors:
+
+```{r mRangag}
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
+#                              y = "location_lat", x_range = c(-88, -60), 
+#                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(filtered_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE)
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+     ylab="Minimum speed (m/s)",
+     xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(v=8, lty=2, col="red")
+abline(h=0.5, lty=2, col="red")
+
+# Delete extreme values 
+#plot(filtered)
+clean_mammal[[i]] <- filtered
+# Check the outlier is gone [Only if required]
+
+m2 = mt_as_move2(clean_mammal[[i]], track_id_column = "track", time_column= "timestamp")
+dat_lines <- m2 %>%
+  mt_track_lines()
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# Add the shapefiles
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   #color = dat_lines$colours,
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$track) %>%
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>%
+  addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_mammal[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
+
+```
+
+
 
 ## Short eared dogs
 
@@ -2817,7 +3579,7 @@ VERTEX Plus collar.
 
 ```{r mOtinkami}
 ################################################################################
-i <- 12
+i <- i+1
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Otinkami",]
 
@@ -2838,7 +3600,7 @@ Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestam
 
 Distance moved: 
 
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
 ```{r mOtinkamia}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
@@ -2858,7 +3620,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -2926,7 +3688,7 @@ filtered <- m2[m2$gps_fix_type_raw=="Succeeded",]
 # Make a dataframe
 filtered_df <- as.data.frame(filtered)
 
-#m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+#m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
 
 ```
 
@@ -2995,7 +3757,7 @@ tel <- as.telemetry(m_df)
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
 ```
 
@@ -3005,7 +3767,7 @@ VERTEX Plus collar.
 
 ```{r mOtsiti}
 ################################################################################
-i <- 15
+i <- i+1
 #tmp_mammal$name
 m1 <- mov_dat[mov_dat$name=="Otsiti",]
 
@@ -3026,7 +3788,7 @@ Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestam
 
 Distance moved: 
 
-To date we have `r nrow(m_df)` fixes from `r print(tmp_mammal$name[i])`. Of those, they are of the following types. 
+To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
 ```{r mOtsitia}
 tmp$Percentage <- round(tmp$Freq/nrow(m_df),2)
@@ -3046,7 +3808,7 @@ Plot of the raw data:
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_mammal$name[i])
+m2 = mt_as_move2(m1, track_id_columna = m1$name[1])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -3112,7 +3874,7 @@ filtered <- m2[m2$gps_fix_type_raw!="Unresolved QFP",]
 # Make a dataframe
 filtered_df <- as.data.frame(filtered)
 
-#m2 = mt_as_move2(filtered, track_id_columna = tmp_mammal$name[i])
+#m2 = mt_as_move2(filtered, track_id_columna = m1$name[1])
 
 ```
 
@@ -3181,7 +3943,7 @@ tel <- as.telemetry(m_df)
 svf = variogram(tel, res = 1)
 level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = tmp_mammal$name[i]) 
+plot(svf, fraction = 0.65, level = level, main = m1$name[1], units="km") 
 
 ```
 

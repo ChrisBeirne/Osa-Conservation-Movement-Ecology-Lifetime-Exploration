@@ -3125,68 +3125,68 @@ filtered_df <- as.data.frame(filtered)
 We should also use ctmm (as in the vultures) to find errors:
 
 ```{r mTuncheg}
-# Finding outliers
-# There are several ways to remove them but I'm going to use atlastools and ctmm framework
-# METHOD 1 - GEOFENCE
-#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
-#m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
-#                              y = "location_lat", x_range = c(-88, -60), 
-#                              y_range = c(-20, 20),remove_inside = FALSE)
-
-# Method 2 -
-# Create a telemtry object
-tel = as.telemetry(filtered_df)
-#Import: we can add the estimation of error for Shakira from above code 
-# However, the error is negligible, but as an example is useful
-uere(tel)-> UERE
-
-# Check outliers
-par(mfrow = c(1, 2))
-outlie(tel)-> OUT
-#plot(OUT, units = FALSE)
-plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
-     ylab="Minimum speed (m/s)",
-     xlab="Median deviation (km)")
-
-# SPECIES SPECIFIC THRESHOLD
-abline(v=8, lty=2, col="red")
-abline(h=0.5, lty=2, col="red")
-
-# Delete extreme values 
-#plot(filtered)
-clean_mammal[[i]] <- filtered
-# Check the outlier is gone [Only if required]
-
-m2 = mt_as_move2(clean_mammal[[i]], track_id_column = "track", time_column= "timestamp")
-dat_lines <- m2 %>%
-  mt_track_lines()
-m <- leaflet() %>%
-  # Add a satellite image layer
-  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
-  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
-  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
-# Add the shapefiles
-m %>% addPolylines(data = dat_lines,
-                   # Colour by individual
-                   #color = dat_lines$colours,
-                   # The line properties
-                   weight = 1,#opacity = 0.6,
-                   # hover label
-                   label = dat_lines$track) %>%
-  # Add a legend
-  addLayersControl(
-    baseGroups = c("OS", "Simple", "Satellite")) %>%
-  addScaleBar(position = "topleft")
-
-# Recreate the telemtry object
-m_df <- as.data.frame(clean_mammal[[i]])
-tel <- as.telemetry(m_df)
-
-# Check range-residency (i.e home range)
-svf = variogram(tel, res = 1)
-level <- c(0.5, 0.95) # 50% and 95% CIs
-xlim <- c(0,24 %#% "hours") # 0-12 hour window
-plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
+# # Finding outliers
+# # There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# # METHOD 1 - GEOFENCE
+# #plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+# #m_df <- atl_filter_bounds(filtered_df, x = "location_long", 
+# #                              y = "location_lat", x_range = c(-88, -60), 
+# #                              y_range = c(-20, 20),remove_inside = FALSE)
+# 
+# # Method 2 -
+# # Create a telemtry object
+# tel = as.telemetry(filtered_df)
+# #Import: we can add the estimation of error for Shakira from above code 
+# # However, the error is negligible, but as an example is useful
+# uere(tel)-> UERE
+# 
+# # Check outliers
+# par(mfrow = c(1, 2))
+# outlie(tel)-> OUT
+# #plot(OUT, units = FALSE)
+# plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+#      ylab="Minimum speed (m/s)",
+#      xlab="Median deviation (km)")
+# 
+# # SPECIES SPECIFIC THRESHOLD
+# abline(v=8, lty=2, col="red")
+# abline(h=0.5, lty=2, col="red")
+# 
+# # Delete extreme values 
+# #plot(filtered)
+# clean_mammal[[i]] <- filtered
+# # Check the outlier is gone [Only if required]
+# 
+# m2 = mt_as_move2(clean_mammal[[i]], track_id_column = "track", time_column= "timestamp")
+# dat_lines <- m2 %>%
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# # Add the shapefiles
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 1,#opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$track) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>%
+#   addScaleBar(position = "topleft")
+# 
+# # Recreate the telemtry object
+# m_df <- as.data.frame(clean_mammal[[i]])
+# tel <- as.telemetry(m_df)
+# 
+# # Check range-residency (i.e home range)
+# svf = variogram(tel, res = 1)
+# level <- c(0.5, 0.95) # 50% and 95% CIs
+# xlim <- c(0,24 %#% "hours") # 0-12 hour window
+# plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
 ```
 

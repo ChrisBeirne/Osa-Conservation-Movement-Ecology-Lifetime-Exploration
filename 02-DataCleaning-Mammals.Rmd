@@ -1559,7 +1559,19 @@ tmp2 <- tmp2 %>% group_by(day, .drop=FALSE) %>% summarise(fixes=n())
 
 barplot(tmp2$fixes, names.arg=tmp2$day, las=2,
         cex.names=0.7)
+
+
 ```
+
+How is she moving through time:
+
+```{r}
+plot(mt_time(m2),(mt_distance(m2)/(mt_time_lags(m2)/60))/1000, las=1,
+     pch=19, cex=0.3, ylab="km per hour", xlab="")
+```
+
+
+
 
 No cleaning done to date:
 

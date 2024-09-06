@@ -3405,7 +3405,7 @@ VERTEX Plus collar.
 ################################################################################
 i <- i+1
 #tmp_mammal$name
-m1 <- mov_dat[mov_dat$name=="Ranga",]
+m1 <- mov_dat[mov_dat$name=="Cocona",]
 
 #head(m1)
 

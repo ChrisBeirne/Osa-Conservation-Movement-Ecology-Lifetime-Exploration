@@ -123,7 +123,9 @@ jerry-cr
 pasooki-peru
 echo-cr
 emilia-cr
+orianna-cr
 tunche-pe
+tunche-pe-1
 cecina-pe
 ranga-pe
 cocona-pe

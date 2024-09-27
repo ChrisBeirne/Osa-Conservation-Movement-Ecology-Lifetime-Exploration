@@ -5,13 +5,13 @@ peru
 ecuador
 data-cleaning---vultures
 vultures
-oc8---cathartes-melambrotus
+oc9---sarcoramphus-papa
 oc6---cathartes-melambrotus
-oc3---sarcoramphus-papa
+oc6---cathartes-melambrotus-1
 oc4---sarcoramphus-papa
 oc5---sarcoramphus-papa
 oc7---sarcoramphus-papa
-oc9---sarcoramphus-papa
+oc9---sarcoramphus-papa-1
 oc2---cathartes-melambrotus
 oc1---cathartes-melambrotus
 oc10---cathartes-melambrotus
@@ -100,7 +100,6 @@ chaski---sarcoramphus-papa
 x6.daule---sarcoramphus-papa
 x7.ceibo---sarcoramphus-papa
 vulturnator---sarcoramphus-papa
-vulturnator---sarcoramphus-papa-1
 cleopatra---sarcoramphus-papa
 number-of-vultures-processed
 upload-clean-data
@@ -140,6 +139,11 @@ costa-rica-1
 ecuador-1
 summary-table
 tags-still-functioning-by-country-and-species
-mammal-tracking
+mammal-summaries
+cats
+peru-2
+costa-rica-2
+dogs
+tapirs-1
 juancito
 tuva

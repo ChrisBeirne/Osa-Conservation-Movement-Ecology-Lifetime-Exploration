@@ -3002,7 +3002,7 @@ m %>% addPolylines(data = dat_lines,
   addLayersControl(
     baseGroups = c("OS", "Simple", "Satellite")) %>%
   addScaleBar(position = "topleft")
-
+ 
 # Recreate the telemtry object
 m_df <- as.data.frame(clean_mammal[[i]])
 tel <- as.telemetry(m_df)

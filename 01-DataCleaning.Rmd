@@ -1,5 +1,5 @@
 # Data cleaning - Vultures
-
+ 
 All tracking devices come with errors, and each track must be checked visual and cleaned of outliers before analysis.
  
 This page shows this process for each animal within the project. It has been automated so that we always have access to a stardardised and cleaned locations database. 

@@ -30,10 +30,12 @@ tmp_vulture$name[tmp_vulture$name=="Daule"] <- "X6.Daule"
 tmp_vulture$name[tmp_vulture$name=="Ceibo"] <- "X7.Ceibo"
 
 tmp_vulture <- tmp_vulture[tmp_vulture$name !="Colonche",] 
+row.names(tmp_vulture) <- 1:nrow(tmp_vulture)
 nrow(tmp_vulture)
 
 clean_vulture <- list()
 clean_mammal <- list()
+
 
 ```
 
@@ -1456,6 +1458,9 @@ Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
 
 Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
 
+
+The 'sticking'outlier' point is real - the sensor was only reporting once per day and was on its last legs. 
+
 ```{r v11, }
 i <- 11
 #################################################################################
@@ -1494,8 +1499,8 @@ m %>% addPolylines(data = dat_lines,
                    # The line properties
                    weight = 1,#opacity = 0.6,
                    # hover label
-                   label = dat_lines$local_identifier) %>%
-    addCircleMarkers(lng=m_df$location_long[1],
+                   label = dat_lines$local_identifier)  %>%
+      addCircleMarkers(lng=m_df$location_long[1],
                    lat=m_df$location_lat[1], 
                    color="#03F",
                    popup="start") %>% 
@@ -1503,6 +1508,11 @@ m %>% addPolylines(data = dat_lines,
                    lat=m_df$location_lat[nrow(m_df)], 
                    color="red",
                    popup="end") %>% 
+    addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color="#FF10F000",
+                   popup=m_df$timestamp, radius=0.2) %>% 
+  
   # Add a legend
   addLayersControl(
     baseGroups = c("Satellite","OS", "Simple")) %>% 
@@ -1515,6 +1525,11 @@ m %>% addPolylines(data = dat_lines,
 m_df <- atl_filter_bounds(m_df, x = "location_long", 
                               y = "location_lat", x_range = c(-88, -60), 
                               y_range = c(-20, 20),remove_inside = FALSE)
+
+# Check the random point - it is plausible
+#test <- m_df[m_df$timestamp<ymd_hms("2024-02-18 21:00:49")+days(10) & m_df$timestamp>ymd_hms("2024-02-18 21:00:49")-days(3) ,]
+
+
 
 # Method 2 -
 # Create a telemtry object
@@ -1644,6 +1659,10 @@ m %>% addPolylines(data = dat_lines,
                    lat=m_df$location_lat[nrow(m_df)], 
                    color="red",
                    popup="end") %>% 
+    addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color="#FF10F000",
+                   popup=m_df$timestamp, radius=0.2) %>%   
   # Add a legend
   addLayersControl(
     baseGroups = c("Satellite","OS", "Simple")) %>% 
@@ -1656,6 +1675,7 @@ m %>% addPolylines(data = dat_lines,
 m_df <- atl_filter_bounds(m_df, x = "location_long", 
                               y = "location_lat", x_range = c(-88, -60), 
                               y_range = c(-20, 20),remove_inside = FALSE)
+
 
 # Method 2 -
 # Create a telemtry object
@@ -1678,26 +1698,26 @@ clean_vulture[[i]] <- m2[OUT$speed<50,]
 
 # Check the outlier is gone [Only if required]
 
-# m2 <- clean_vulture[[i]]
-# dat_lines <- m2 %>% 
-#   mt_track_lines()
-# m <- leaflet() %>%
-#   # Add a satellite image layer
-#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
-#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
-#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
-# # Add the shapefiles 
-# m %>% addPolylines(data = dat_lines,
-#                    # Colour by individual
-#                    #color = dat_lines$colours,
-#                    # The line properties
-#                    weight = 1,#opacity = 0.6,
-#                    # hover label
-#                    label = dat_lines$local_identifier) %>%
-#   # Add a legend
-#   addLayersControl(
-#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
-#   addScaleBar(position = "topleft")
+m2 <- clean_vulture[[i]]
+dat_lines <- m2 %>%
+  mt_track_lines()
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%
+# Add the shapefiles
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   #color = dat_lines$colours,
+                   # The line properties
+                   weight = 1,#opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>%
+  addScaleBar(position = "topleft")
 
 # Recreate the telemtry object
 m_df <- as.data.frame(clean_vulture[[i]])
@@ -3205,7 +3225,11 @@ m %>% addPolylines(data = dat_lines,
                    lat=m_df$location_lat[nrow(m_df)], 
                    color="red",
                    popup="end") %>% 
-  # Add a legend
+      addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color="#FF10F000",
+                   popup=as.character(m_df$location_long)) %>% 
+    # Add a legend
   addLayersControl(
     baseGroups = c("Satellite","OS", "Simple")) %>% 
   addScaleBar(position = "topleft")
@@ -3217,6 +3241,9 @@ m %>% addPolylines(data = dat_lines,
 m_df <- atl_filter_bounds(m_df, x = "location_long", 
                               y = "location_lat", x_range = c(-88, -60), 
                               y_range = c(-20, 20),remove_inside = FALSE)
+# Remove the ocean location
+m_df <- m_df[m_df$location_long!=-83.24109,]
+
 
 # Method 2 -
 # Create a telemtry object
@@ -9715,6 +9742,10 @@ m %>% addPolylines(data = dat_lines,
                    lat=m_df$location_lat[nrow(m_df)], 
                    color="red",
                    popup="end") %>% 
+      addCircleMarkers(lng=m_df$location_long,
+                   lat=m_df$location_lat, 
+                   color="#FF10F000",
+                   popup=m_df$location_lat) %>% 
   # Add a legend
   addLayersControl(
     baseGroups = c("Satellite","OS", "Simple")) %>% 
@@ -9727,6 +9758,9 @@ m %>% addPolylines(data = dat_lines,
 m_df <- atl_filter_bounds(m_df, x = "location_long", 
                               y = "location_lat", x_range = c(-88, -60), 
                               y_range = c(-20, 20),remove_inside = FALSE)
+
+m_df <- m_df[m_df$location_long!=m_df$location_long[2358],]
+
 
 # Method 2 -
 # Create a telemtry object

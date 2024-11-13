@@ -1709,7 +1709,7 @@ tmp_1 <- mt_as_move2(tmp_1,
 )
 
 # Delete extreme values 
-clean_vulture[[i]] <- tmp1
+clean_vulture[[i]] <- tmp_1
 
 # Check the outlier is gone [Only if required]
 
@@ -1718,6 +1718,7 @@ m2 <- clean_vulture[[i]]
 
 dat_lines <- m2 %>%
   mt_track_lines()
+
 m <- leaflet() %>%
   # Add a satellite image layer
   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%

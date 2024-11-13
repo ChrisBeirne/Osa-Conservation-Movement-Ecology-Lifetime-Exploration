@@ -1693,23 +1693,11 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 # SPECIES SPECIFIC THRESHOLD
 abline(h=50, lty=2, col="red")
 
-tmp_1 <- m_df[OUT$speed<50,]
-tmp_1 <- tmp_1[substr(tmp_1$timestamp,1,19) != "2023-12-08 15:05:05",]
-
-
-###################################
-# I NEED TO REMAKE THE M2
-# Delete extreme values 
-#clean_vulture[[i]] <- m2[OUT$speed<50,]
-tmp_1 <- mt_as_move2(tmp_1,
-  coords = c("location_long", "location_lat"),
-  na.fail = FALSE,
-  time_column = "timestamp",
-  track_id_column = "name"
-)
+tmp_red <- m2[OUT$speed<50,]
+tmp_red <- tmp_red[substr(tmp_red$timestamp,1,19) != "2023-12-08 15:05:05",]
 
 # Delete extreme values 
-clean_vulture[[i]] <- tmp_1
+clean_vulture[[i]] <- tmp_red
 
 # Check the outlier is gone [Only if required]
 
@@ -1739,6 +1727,7 @@ m %>% addPolylines(data = dat_lines,
 
 # Recreate the telemtry object
 m_df <- as.data.frame(clean_vulture[[i]])
+
 tel <- as.telemetry(m_df)
 
 # Check range-residency (i.e home range)

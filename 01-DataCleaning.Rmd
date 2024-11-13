@@ -1632,7 +1632,7 @@ m_df <- as.data.frame(m1)
 # points(test$location_long, test$location_lat, col="red")
 
 # move2
-m2 = mt_as_move2(m1, track_id_columna = tmp_vulturename[i])
+m2 = mt_as_move2(m1, track_id_columna = tmp_vulture[i])
 
 # Convert to track
 dat_lines <- m2 %>% 
@@ -1693,12 +1693,29 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 # SPECIES SPECIFIC THRESHOLD
 abline(h=50, lty=2, col="red")
 
+tmp_1 <- m_df[OUT$speed<50,]
+tmp_1 <- tmp_1[substr(tmp_1$timestamp,1,19) != "2023-12-08 15:05:05",]
+
+
+###################################
+# I NEED TO REMAKE THE M2
 # Delete extreme values 
-clean_vulture[[i]] <- m2[OUT$speed<50,]
+#clean_vulture[[i]] <- m2[OUT$speed<50,]
+tmp_1 <- mt_as_move2(tmp_1,
+  coords = c("location_long", "location_lat"),
+  na.fail = FALSE,
+  time_column = "timestamp",
+  track_id_column = "name"
+)
+
+# Delete extreme values 
+clean_vulture[[i]] <- tmp1
 
 # Check the outlier is gone [Only if required]
 
+ 
 m2 <- clean_vulture[[i]]
+
 dat_lines <- m2 %>%
   mt_track_lines()
 m <- leaflet() %>%
@@ -1836,7 +1853,7 @@ plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum
 abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
-clean_vulture[[i]] <- m2[OUT$speed<50,]
+clean_vulture[[i]] <- m2
 
 # Check the outlier is gone [Only if required]
 
@@ -7233,6 +7250,10 @@ abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
 clean_vulture[[i]] <- m2[OUT$speed<50,]
+
+
+
+
 
 # Check the outlier is gone [Only if required]
 

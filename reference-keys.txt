@@ -121,11 +121,11 @@ jerry-cr
 echo-cr
 emilia-cr
 orianna-cr
+maathai-cr
 katsímari-pe
 pasooki-pe
 tunche-pe
 cecina-pe
-maathai-pe
 ranga-pe
 cocona-pe
 short-eared-dogs

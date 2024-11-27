@@ -4357,7 +4357,7 @@ mammal_stack <- mt_stack(clean_mammal)
 tmp_csv <- as.data.frame(mammal_stack)
 tmp_csv$geometry <- NULL
 write.csv(tmp_csv, "tmp/mammal_clean.csv", row.names=F)
-saveRDS(mov_dat, "tmp/mammal_stack.RDS")
+saveRDS(mammal_stack, "tmp/mammal_stack.RDS")
 
 # Create .RDS
 

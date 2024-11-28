@@ -3198,6 +3198,25 @@ abline(h=0.5, lty=2, col="red")
 clean_mammal[[i]] <- filtered[OUT$speed<0.5,]
 # Check the outlier is gone [Only if required]
 
+# # Create a telemtry object
+# tel = as.telemetry(as.data.frame(clean_mammal[[i]]))
+# #Import: we can add the estimation of error for Shakira from above code 
+# # However, the error is negligible, but as an example is useful
+# uere(tel)-> UERE
+# 
+# # Check outliers
+# par(mfrow = c(1, 2))
+# outlie(tel)-> OUT
+# #plot(OUT, units = FALSE)
+# plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),
+#      ylab="Minimum speed (m/s)",
+#      xlab="Median deviation (km)")
+# 
+# # SPECIES SPECIFIC THRESHOLD
+# abline(v=8, lty=2, col="red")
+# abline(h=0.5, lty=2, col="red")
+
+
 
 # tel = as.telemetry(as.data.frame((clean_mammal[[i]])))
 # #Import: we can add the estimation of error for Shakira from above code 
@@ -3603,7 +3622,7 @@ abline(h=0.5, lty=2, col="red")
 
 # Delete extreme values 
 #plot(filtered)
-clean_mammal[[i]] <- filtered
+clean_mammal[[i]] <- filtered[OUT$speed<0.5,]
 # Check the outlier is gone [Only if required]
 
 m2 = mt_as_move2(clean_mammal[[i]], track_id_column = "track", time_column= "timestamp")
@@ -4419,12 +4438,9 @@ tmp_csv$geometry <- NULL
 write.csv(tmp_csv, "tmp/mammal_clean.csv", row.names=F)
 saveRDS(mammal_stack, "tmp/mammal_stack.RDS")
 
-# Create .RDS
-
 #OC googledrive
-drive_update(media = 'tmp/mammal_clean.csv',file=as_id("1DcZInxgArXdpQFslKljqlw21rsCXSBuQ"))
-drive_update(media = 'tmp/mammal_stack.RDS',file=as_id("1MocaLuXKW51jJxXUlPPIwn39irZWs-Cg"))
-
+drive_update(media = 'tmp/mammal_clean.csv',file=as_id("1HoyWJFhpFRyF_CYj_YStFu-BCXgBTP_T"))
+drive_update(media = 'tmp/mammal_stack.RDS',file=as_id("13jUPdZjhT3ua0CHUCvaQvant12c6Zf2y"))
 
 #Chris' googledrive
 #drive_update(media = 'tmp/mammal_clean.csv',file=as_id("1J5cE3CFitFbUUg1wA0GLYvONEcybSi56"))

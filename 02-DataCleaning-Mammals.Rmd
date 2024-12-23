@@ -4437,7 +4437,7 @@ tmp_csv <- as.data.frame(mammal_stack)
 tmp_csv$geometry <- NULL
 write.csv(tmp_csv, "tmp/mammal_clean.csv", row.names=F)
 saveRDS(mammal_stack, "tmp/mammal_stack.RDS")
-
+ 
 #OC googledrive
 drive_update(media = 'tmp/mammal_clean.csv',file=as_id("1HoyWJFhpFRyF_CYj_YStFu-BCXgBTP_T"))
 drive_update(media = 'tmp/mammal_stack.RDS',file=as_id("13jUPdZjhT3ua0CHUCvaQvant12c6Zf2y"))

@@ -351,6 +351,32 @@ tmp %>%
   kable_classic(full_width = F, html_font = "Cambria")
 ```
 
+Temporal patterns in species tag deployments:
+
+*note* if an animal is recaptured and a new device is installed this will count as two deployments. 
+
+```{r}
+# head(animals)
+# 
+# table(animals$taxon_canonical_name)
+
+i <- 1
+time_sum <- data.frame(year=unique(substr(animals$timestamp_start,1,4)), total_tags_deployed=NA, mammal_tags=NA, vulture_tags=NA)
+
+for(i in 1:nrow(time_sum))
+{
+  tmp <- animals[substr(animals$timestamp_start,1,4)==time_sum$year[i],]
+  time_sum$total_tags_deployed[i] <- nrow(tmp)
+  time_sum$mammal_tags[i] <- nrow(tmp[!(tmp$taxon_canonical_name %in% c("Cathartes melambrotus", "Sarcoramphus papa","Cathartes aura", "Coragyps atratus")),])
+  time_sum$vulture_tags[i] <- nrow(tmp[tmp$taxon_canonical_name %in% c("Cathartes melambrotus", "Sarcoramphus papa","Cathartes aura", "Coragyps atratus"),])
+}
+
+time_sum %>%
+  kbl(caption = "Summary: tag deployments through time") %>%
+  kable_classic(full_width = F, html_font = "Cambria")
+
+
+```
 
 
 ### Costa Rica

@@ -305,8 +305,11 @@ level <- c(0.5, 0.95) # 50% and 95% CIs
 xlim <- c(0,24 %#% "hours") # 0-12 hour window
 plot(svf, fraction = 0.65, level = level, main = m1$name[1]) 
 
-
 ```
+
+
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[1]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
+
 
 ### Tuva (CR)
 
@@ -605,6 +608,9 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 #i <- i + 1
 ```
 
+
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[2]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
+
 ## Jaguars
 
 For carnivores we use Vectronic collars.
@@ -833,6 +839,9 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 
 ```
 
+
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
+
 ### Shipetiari (PE)
 
 VERTEX Plus collar. 
@@ -858,8 +867,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -1042,6 +1049,9 @@ p
 
 ```
 
+
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
+
 ### Matsonsori (PE)
 
 VERTEX Plus collar. 
@@ -1067,8 +1077,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -1247,6 +1255,8 @@ p
 
 ```
 
+
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
 
 ## Pumas
 
@@ -1453,6 +1463,9 @@ p <- plot_ly(filtered_df, x = ~timestamp, y = ~tag_voltage, mode = 'line') %>%
 p
 
 ```
+
+
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
 
 ### Coyunda (CR)
 
@@ -1669,7 +1682,7 @@ p
 
 ```
 
-
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
 
 
 ### Kirari (PE)
@@ -1696,8 +1709,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -1880,6 +1891,9 @@ p
 
 ```
 
+
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
+
 ## Ocelots
 
 ### Kurá (CR)
@@ -1906,8 +1920,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -2070,7 +2082,7 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 
 ```
 
-
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
 
 ### Jerry (CR)
 
@@ -2096,8 +2108,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -2260,7 +2270,7 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 
 ```
 
-
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
 
 ### Echo (CR)
 
@@ -2286,8 +2296,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -2451,6 +2459,8 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 
 ```
 
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
+
 ### Emilia (CR)
 
 VERTEX Plus collar. 
@@ -2475,8 +2485,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -2665,6 +2673,7 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 
 ```
 
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
 
 ### Orianna (CR)
 
@@ -2690,8 +2699,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -2854,6 +2861,7 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 
 ```
 
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
 
 ### Maathai (CR)
 
@@ -2879,8 +2887,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -3043,6 +3049,7 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 
 ```
 
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
 
 ### Katsímari (PE)
 
@@ -3068,8 +3075,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -3273,6 +3278,7 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 
 ```
 
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
 
 ### Pasooki (PE)
 
@@ -3298,8 +3304,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -3464,6 +3468,7 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 
 ```
 
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
 
 ### Tunche (PE)
 
@@ -3494,8 +3499,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -3659,9 +3662,7 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 ```
 
 
-
-
-
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
 
 ### Ranga (PE)
 
@@ -3690,8 +3691,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types.
 
@@ -3860,6 +3859,9 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 
 ```
 
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
+
+
 ### Cocona (PE)
 
 VERTEX Plus collar. 
@@ -3884,8 +3886,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -4049,7 +4049,7 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 ```
 
 
-
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
 
 ## Short eared dogs
 
@@ -4077,8 +4077,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -4241,6 +4239,8 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 
 ```
 
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
+
 ### Otsiti (PE)
 
 VERTEX Plus collar. 
@@ -4265,8 +4265,6 @@ First observation: `r first(m_df$timestamp)`
 Last observation:  `r last(m_df$timestamp)`
 
 Active for: `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`
-
-Distance moved: 
 
 To date we have `r nrow(m_df)` fixes from `r print(m1$name[1])`. Of those, they are of the following types. 
 
@@ -4427,6 +4425,8 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 
 ```
 
+
+Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
 
 ### Upload clean data
 

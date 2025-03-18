@@ -116,6 +116,8 @@ pumas
 tico-cr
 coyunda-cr
 kirari-pe
+valentina-cr
+kosni-pe
 ocelots
 kurá-cr
 jerry-cr

@@ -8,7 +8,7 @@ This page shows this process for each mammal within the project. It has been aut
 ```{r, include=F, eval=T}
 # What animals do we need to do this for
 #tmp_mammal
-
+ 
 # Remove Manu because it didnt work
 tmp_mammal<- tmp_mammal[tmp_mammal$name!="Manu",] 
 tmp_mammal$number <- 1:nrow(tmp_mammal)

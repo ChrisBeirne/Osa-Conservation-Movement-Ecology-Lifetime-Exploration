@@ -126,6 +126,8 @@ mov_dat <- mov_dat[mov_dat$location_long<0,]
 
 
 
+
+
 #Add the names
 mov_dat$name <- trackId(mov_dat)
 

@@ -6,13 +6,13 @@ peru
 ecuador
 data-cleaning---vultures
 vultures
-oc9---sarcoramphus-papa
+oc8---cathartes-melambrotus
 oc6---cathartes-melambrotus
-oc6---cathartes-melambrotus-1
+oc3---sarcoramphus-papa
 oc4---sarcoramphus-papa
 oc5---sarcoramphus-papa
 oc7---sarcoramphus-papa
-oc9---sarcoramphus-papa-1
+oc9---sarcoramphus-papa
 oc2---cathartes-melambrotus
 oc1---cathartes-melambrotus
 oc10---cathartes-melambrotus

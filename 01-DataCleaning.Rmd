@@ -5,7 +5,7 @@ All tracking devices come with errors, and each track must be checked visual and
 This page shows this process for each animal within the project. It has been automated so that we always have access to a stardardised and cleaned locations database. 
 ```{r}
 # remotes::install_github('pratikunterwegs/atlastools')
-library(atlastools)
+#library(atlastools)
 library(ctmm)
 library(move2)
 
@@ -13638,9 +13638,703 @@ plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i])
 # # Plot the 95% Utilization Distribution 
 # plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
 # summary(Hr, level.UD = 0.95)
-
+i <- i +1
 ```
 
+### `r paste(tmp_vulture$name[i], "-" ,tmp_vulture$taxon_canonical_name[i])`
+
+First observation: `r first(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
+
+```{r v97 }
+#################################################################################
+i <- 97
+
+m1 <- mov_dat[[tmp_vulture$name[i]]]
+
+# Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
+# Filter these out straight away
+m1 <- m1[!(m1$height_above_ellipsoid>5000 & is.na(m1$height_above_ellipsoid)==F) ,]
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_vulturename[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+m_df <- atl_filter_bounds(m_df, x = "location_long", 
+                              y = "location_lat", x_range = c(-88, -60), 
+                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(m_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE) 
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(h=50, lty=2, col="red")
+
+# Delete extreme values 
+clean_vulture[[i]] <- m2[OUT$speed<50,]
+
+# Check the outlier is gone [Only if required]
+
+# m2 <- clean_vulture[[i]]
+# dat_lines <- m2 %>% 
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# # Add the shapefiles 
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 0.5,opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
+#   addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_vulture[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i]) 
+
+# # Variogram fitting
+# # In ctmm.guess put "save to GUESS" or change "interactive = FALSE"
+# # Estimation of actual error is add in "error = TRUE"
+# GUESS <- ctmm.guess(Shakc, CTMM = ctmm(error = FALSE),variogram = NULL, name ="GUESS", interactive = TRUE)
+# vadj = ctmm.select(Shakc, CTMM = GUESS, verbose = TRUE, core = 0, MSPE = "position", level = 1)
+# ?ctmm.select
+# # Summary
+# summary(vadj)
+# ouf = vadj[[1]]
+# summary(ouf)
+# # Home range 
+# Hr = akde(Spaw, CTMM = ouf, weights = TRUE, debias = TRUE)
+# # Plot the 95% Utilization Distribution 
+# plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
+# summary(Hr, level.UD = 0.95)
+i <- i +1
+```
+
+### `r paste(tmp_vulture$name[i], "-" ,tmp_vulture$taxon_canonical_name[i])`
+
+First observation: `r first(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
+
+```{r v98 }
+#################################################################################
+i <- 98
+
+m1 <- mov_dat[[tmp_vulture$name[i]]]
+
+# Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
+# Filter these out straight away
+m1 <- m1[!(m1$height_above_ellipsoid>5000 & is.na(m1$height_above_ellipsoid)==F) ,]
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_vulturename[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+m_df <- atl_filter_bounds(m_df, x = "location_long", 
+                              y = "location_lat", x_range = c(-88, -60), 
+                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(m_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE) 
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(h=50, lty=2, col="red")
+
+# Delete extreme values 
+clean_vulture[[i]] <- m2[OUT$speed<50,]
+
+# Check the outlier is gone [Only if required]
+
+# m2 <- clean_vulture[[i]]
+# dat_lines <- m2 %>% 
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# # Add the shapefiles 
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 0.5,opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
+#   addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_vulture[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i]) 
+
+# # Variogram fitting
+# # In ctmm.guess put "save to GUESS" or change "interactive = FALSE"
+# # Estimation of actual error is add in "error = TRUE"
+# GUESS <- ctmm.guess(Shakc, CTMM = ctmm(error = FALSE),variogram = NULL, name ="GUESS", interactive = TRUE)
+# vadj = ctmm.select(Shakc, CTMM = GUESS, verbose = TRUE, core = 0, MSPE = "position", level = 1)
+# ?ctmm.select
+# # Summary
+# summary(vadj)
+# ouf = vadj[[1]]
+# summary(ouf)
+# # Home range 
+# Hr = akde(Spaw, CTMM = ouf, weights = TRUE, debias = TRUE)
+# # Plot the 95% Utilization Distribution 
+# plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
+# summary(Hr, level.UD = 0.95)
+i <- i +1
+```
+
+### `r paste(tmp_vulture$name[i], "-" ,tmp_vulture$taxon_canonical_name[i])`
+
+First observation: `r first(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
+
+```{r v99 }
+#################################################################################
+i <- 99
+
+m1 <- mov_dat[[tmp_vulture$name[i]]]
+
+# Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
+# Filter these out straight away
+m1 <- m1[!(m1$height_above_ellipsoid>5000 & is.na(m1$height_above_ellipsoid)==F) ,]
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_vulturename[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+m_df <- atl_filter_bounds(m_df, x = "location_long", 
+                              y = "location_lat", x_range = c(-88, -60), 
+                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(m_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE) 
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(h=50, lty=2, col="red")
+
+# Delete extreme values 
+clean_vulture[[i]] <- m2[OUT$speed<50,]
+
+# Check the outlier is gone [Only if required]
+
+# m2 <- clean_vulture[[i]]
+# dat_lines <- m2 %>% 
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# # Add the shapefiles 
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 0.5,opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
+#   addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_vulture[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i]) 
+
+# # Variogram fitting
+# # In ctmm.guess put "save to GUESS" or change "interactive = FALSE"
+# # Estimation of actual error is add in "error = TRUE"
+# GUESS <- ctmm.guess(Shakc, CTMM = ctmm(error = FALSE),variogram = NULL, name ="GUESS", interactive = TRUE)
+# vadj = ctmm.select(Shakc, CTMM = GUESS, verbose = TRUE, core = 0, MSPE = "position", level = 1)
+# ?ctmm.select
+# # Summary
+# summary(vadj)
+# ouf = vadj[[1]]
+# summary(ouf)
+# # Home range 
+# Hr = akde(Spaw, CTMM = ouf, weights = TRUE, debias = TRUE)
+# # Plot the 95% Utilization Distribution 
+# plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
+# summary(Hr, level.UD = 0.95)
+i <- i +1
+```
+
+### `r paste(tmp_vulture$name[i], "-" ,tmp_vulture$taxon_canonical_name[i])`
+
+First observation: `r first(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
+
+```{r v100 }
+#################################################################################
+i <-100
+
+m1 <- mov_dat[[tmp_vulture$name[i]]]
+
+# Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
+# Filter these out straight away
+m1 <- m1[!(m1$height_above_ellipsoid>5000 & is.na(m1$height_above_ellipsoid)==F) ,]
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_vulturename[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+m_df <- atl_filter_bounds(m_df, x = "location_long", 
+                              y = "location_lat", x_range = c(-88, -60), 
+                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(m_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE) 
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(h=50, lty=2, col="red")
+
+# Delete extreme values 
+clean_vulture[[i]] <- m2[OUT$speed<50,]
+
+# Check the outlier is gone [Only if required]
+
+# m2 <- clean_vulture[[i]]
+# dat_lines <- m2 %>% 
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# # Add the shapefiles 
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 0.5,opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
+#   addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_vulture[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i]) 
+
+# # Variogram fitting
+# # In ctmm.guess put "save to GUESS" or change "interactive = FALSE"
+# # Estimation of actual error is add in "error = TRUE"
+# GUESS <- ctmm.guess(Shakc, CTMM = ctmm(error = FALSE),variogram = NULL, name ="GUESS", interactive = TRUE)
+# vadj = ctmm.select(Shakc, CTMM = GUESS, verbose = TRUE, core = 0, MSPE = "position", level = 1)
+# ?ctmm.select
+# # Summary
+# summary(vadj)
+# ouf = vadj[[1]]
+# summary(ouf)
+# # Home range 
+# Hr = akde(Spaw, CTMM = ouf, weights = TRUE, debias = TRUE)
+# # Plot the 95% Utilization Distribution 
+# plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
+# summary(Hr, level.UD = 0.95)
+i <- i +1
+```
+
+### `r paste(tmp_vulture$name[i], "-" ,tmp_vulture$taxon_canonical_name[i])`
+
+First observation: `r first(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
+
+```{r v101 }
+#################################################################################
+i <-101
+
+m1 <- mov_dat[[tmp_vulture$name[i]]]
+
+# Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
+# Filter these out straight away
+m1 <- m1[!(m1$height_above_ellipsoid>5000 & is.na(m1$height_above_ellipsoid)==F) ,]
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_vulturename[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+m_df <- atl_filter_bounds(m_df, x = "location_long", 
+                              y = "location_lat", x_range = c(-88, -60), 
+                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(m_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE) 
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(h=50, lty=2, col="red")
+
+# Delete extreme values 
+clean_vulture[[i]] <- m2[OUT$speed<50,]
+
+# Check the outlier is gone [Only if required]
+
+# m2 <- clean_vulture[[i]]
+# dat_lines <- m2 %>% 
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# # Add the shapefiles 
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 0.5,opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
+#   addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_vulture[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i]) 
+
+# # Variogram fitting
+# # In ctmm.guess put "save to GUESS" or change "interactive = FALSE"
+# # Estimation of actual error is add in "error = TRUE"
+# GUESS <- ctmm.guess(Shakc, CTMM = ctmm(error = FALSE),variogram = NULL, name ="GUESS", interactive = TRUE)
+# vadj = ctmm.select(Shakc, CTMM = GUESS, verbose = TRUE, core = 0, MSPE = "position", level = 1)
+# ?ctmm.select
+# # Summary
+# summary(vadj)
+# ouf = vadj[[1]]
+# summary(ouf)
+# # Home range 
+# Hr = akde(Spaw, CTMM = ouf, weights = TRUE, debias = TRUE)
+# # Plot the 95% Utilization Distribution 
+# plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
+# summary(Hr, level.UD = 0.95)
+i <- i +1
+```
 
 
 ### Number of vultures processed

@@ -1500,7 +1500,7 @@ tmp %>%
 
 Plot of the raw data:
 
-```{r m11b}
+```{r m111b}
 # Height above elipsoid check
 # summary(m_df$gps_satellite_count)
 # summary(m_df$height_above_ellipsoid)
@@ -1705,7 +1705,7 @@ tmp %>%
 
 Plot of the raw data:
 
-```{r m11b}
+```{r m112b}
 # Height above elipsoid check
 # summary(m_df$gps_satellite_count)
 # summary(m_df$height_above_ellipsoid)

@@ -102,6 +102,10 @@ x6.daule---sarcoramphus-papa
 x7.ceibo---sarcoramphus-papa
 vulturnator---sarcoramphus-papa
 cleopatra---sarcoramphus-papa
+kerrigan---sarcoramphus-papa
+galadriel---sarcoramphus-papa
+samus---sarcoramphus-papa
+tyrael---sarcoramphus-papa
 number-of-vultures-processed
 upload-clean-data
 data-cleaning---mammals
@@ -112,12 +116,17 @@ jaguars
 killa-pe
 shipetiari-pe
 matsonsori-pe
+amigo-pe
+chimuelo-pe
+ricolas-pe
 pumas
 tico-cr
 coyunda-cr
 kirari-pe
 valentina-cr
 kosni-pe
+macho2-cr
+maximo-cr
 ocelots
 kurá-cr
 jerry-cr
@@ -131,6 +140,7 @@ tunche-pe
 cecina-pe
 ranga-pe
 cocona-pe
+namu-pe
 short-eared-dogs
 otinkami-pe
 otsiti-pe

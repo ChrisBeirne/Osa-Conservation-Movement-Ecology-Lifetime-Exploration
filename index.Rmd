@@ -73,12 +73,17 @@ tmp2 <- getMovebankAnimals(study=1954804459,login=loginStored)
 tmp3 <- getMovebankAnimals(study=2957292408,login=loginStored)
 # andean condor foundation
 tmp4 <- getMovebankAnimals(study=2885579493,login=loginStored)
+# Peccary
+tmp5 <- getMovebankAnimals(study=		5956356622,login=loginStored)
+tmp5 <- tmp5[tmp5$local_identifier!="TEST",]
+
+
 
 # Move nickname to locak_identifier
 tmp4$local_identifier <- tmp4$nick_name
 tmp4$animalName <- tmp4$nick_name
 
-animals <- rbind(animals, tmp,tmp2, tmp3, tmp4)
+animals <- rbind(animals, tmp,tmp2, tmp3, tmp4, tmp5)
 
 # They are duplicated as there are two types of data - subset to GPS
 # They vary by the field "sensor_type_id"
@@ -92,10 +97,9 @@ animals$name <- sub('\\_.*', '', animals$animalName)
 animals$timestamp_start <- ymd_hms(animals$timestamp_start)
 animals$timestamp_end <- ymd_hms(animals$timestamp_end)
 
-# Get last 2 weeks
 t <- now("America/Costa_Rica")
-start_t <- t-as.difftime(14,units='days')
-start_mammal <- t-as.difftime(48,units='days')
+#start_t <- t-as.difftime(14,units='days')
+#start_mammal <- t-as.difftime(48,units='days')
 
 # Vultures
 tmp1 <- getMovebankData(study=1573471517, login=loginStored,  removeDuplicatedTimestamps=TRUE)
@@ -114,12 +118,17 @@ tmp4 <- getMovebankData(study=2957292408, login=loginStored,  removeDuplicatedTi
 #Andean condor foundation
 tmp5 <- getMovebankData(study=2885579493, login=loginStored,  removeDuplicatedTimestamps=TRUE)
 
+#Peccary project
+tmp6 <- getMovebankData(study=5956356622, login=loginStored,  removeDuplicatedTimestamps=TRUE)
+
+
 ec_names <- data.frame(code=row.names(tmp5@idData), name=(tmp5@idData$nick_name))
 
 mov_dat <- moveStack(tmp1, 
                      tmp3, 
                      tmp4, 
-                     tmp5)
+                     tmp5,
+                     tmp6)
 # Remove the random zeros
 summary(mov_dat$location_long)
 mov_dat <- mov_dat[mov_dat$location_long<0,]
@@ -216,6 +225,10 @@ onca <- makeIcon(
   iconWidth = 38, iconHeight = 36,
   iconAnchorX = 22, iconAnchorY = 39)
 
+pecari <- makeIcon(
+  iconUrl = "https://raw.githubusercontent.com/ChrisBeirne/Osa-Conservation-Movement-Ecology-Daily-Report/main/icons/WLP.png",
+  iconWidth = 38, iconHeight = 30,
+  iconAnchorX = 22, iconAnchorY = 39)
 
 iconSet <- iconList(aura= aura,
                     papa =papa,
@@ -224,7 +237,8 @@ iconSet <- iconList(aura= aura,
                     pardalis = pardalis,
                     bairdii = bairdii,
                     microtis = microtis,
-                    onca=onca)
+                    onca=onca,
+                    pecari=pecari)
 
 
 dat$icon <- sub(".*? ", "", dat$taxon_canonical_name)
@@ -338,6 +352,7 @@ fig <- fig %>% add_trace(y = ~data$`Panthera onca`, name = 'Jaguar')
 fig <- fig %>% add_trace(y = ~data$`Puma concolor`, name = 'Puma')
 fig <- fig %>% add_trace(y = ~data$`Atelocynus microtis`, name = 'SE dog')
 fig <- fig %>% add_trace(y = ~data$`Leopardus pardalis`, name = 'Ocelot')
+fig <- fig %>% add_trace(y = ~data$`Tayassu pecari`, name = 'WLP')
 fig <- fig %>% layout(yaxis = list(title = 'Count'), barmode = 'stack')
 
 fig
@@ -364,6 +379,10 @@ Temporal patterns in species tag deployments:
 
 i <- 1
 time_sum <- data.frame(year=unique(substr(animals$timestamp_start,1,4)), total_tags_deployed=NA, mammal_tags=NA, vulture_tags=NA)
+
+# remove NA's
+time_sum <- time_sum[is.na(time_sum$year)==F,]
+
 
 for(i in 1:nrow(time_sum))
 {

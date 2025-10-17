@@ -30,6 +30,11 @@ tmp_vulture$name[tmp_vulture$name=="Daule"] <- "X6.Daule"
 tmp_vulture$name[tmp_vulture$name=="Ceibo"] <- "X7.Ceibo"
 
 tmp_vulture <- tmp_vulture[tmp_vulture$name !="Colonche",] 
+
+# remove pepper peru
+tmp_vulture <- tmp_vulture[!(tmp_vulture$name=="Pepper" & tmp_vulture$country=="ecuador"),]
+
+
 row.names(tmp_vulture) <- 1:nrow(tmp_vulture)
 nrow(tmp_vulture)
 
@@ -53,7 +58,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 ```{r v1, }
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -195,7 +202,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 ```{r v2, }
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -337,7 +346,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 #################################################################################
 
 
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -476,7 +487,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 ```{r v4, }
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -615,7 +628,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 ```{r v5, }
 
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -756,7 +771,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 ```{r v6, }
 
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -896,7 +913,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -1036,7 +1055,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 ```{r v8, }
 
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -1177,7 +1198,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 ```{r v9, }
 i <- 9
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -1317,7 +1340,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 ```{r v10, }
 i <- 10
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -1461,7 +1486,9 @@ The 'sticking'outlier' point is real - the sensor was only reporting once per da
 ```{r v11, }
 i <- 11
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -1612,7 +1639,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i]
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -1765,7 +1794,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 13
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -1907,7 +1938,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 14
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -2048,7 +2081,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 15
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -2197,7 +2232,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 16
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -2337,7 +2374,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 17
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -2479,7 +2518,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 18
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -2619,7 +2660,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 19
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -2760,7 +2803,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 20
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -2902,7 +2947,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 21
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -3043,7 +3090,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 22
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -3185,7 +3234,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 23
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -3333,7 +3384,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 24
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -3474,7 +3527,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 25
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -3624,7 +3679,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 26
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -3765,7 +3822,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 27
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -3906,7 +3965,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 28
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -4046,7 +4107,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 29
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -4190,7 +4253,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 30
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -4333,7 +4398,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 #Kingkong
 i <- 31
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -4481,7 +4548,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 i <- 32
 
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -4623,7 +4692,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 33
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i]
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -4764,7 +4835,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 34
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i]
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -4906,7 +4979,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 35
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -5047,7 +5122,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 36
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i]
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -5187,7 +5264,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 37
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -5329,7 +5408,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 38
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -5470,7 +5551,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 39
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -5611,7 +5694,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 40
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -5751,7 +5836,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 41
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -5893,7 +5980,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 42
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -6033,7 +6122,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 43
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -6174,7 +6265,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 44
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -6316,7 +6409,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 45
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -6456,7 +6551,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 ```{r v46 }
 i <- 46
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -6598,7 +6695,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 47
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -6739,7 +6838,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 48
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -6879,7 +6980,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 49
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -7021,7 +7124,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 50
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -7162,7 +7267,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 51
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -7307,7 +7414,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 52
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -7447,7 +7556,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 53
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -7589,7 +7700,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 54
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -7729,7 +7842,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 55
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -7870,7 +7985,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 56
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -8012,7 +8129,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 57
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -8153,7 +8272,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 58
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -8295,7 +8416,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 59
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -8436,7 +8559,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 60
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -8576,7 +8701,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 61
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -8718,7 +8845,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 62
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -8859,7 +8988,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 63
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -9000,7 +9131,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 64
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -9140,7 +9273,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 65
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -9282,7 +9417,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 66
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -9422,7 +9559,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 67
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -9563,7 +9702,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 68
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -9706,7 +9847,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 69
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i]
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -9854,7 +9997,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 70
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -9997,7 +10142,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 #################################################################################
 i <- 71
 
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -10138,7 +10285,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 72
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -10278,7 +10427,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 73
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -10420,7 +10571,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 74
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -10561,7 +10714,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 75
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -10702,7 +10857,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 76
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -10842,7 +10999,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 77
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -10984,7 +11143,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 78
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -11124,7 +11285,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 79
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -11265,7 +11428,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 80
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -11407,7 +11572,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 81
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -11548,7 +11715,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 82
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -11690,7 +11859,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 83
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -11831,7 +12002,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 84
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -11971,7 +12144,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 85
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -12113,7 +12288,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 86
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -12254,7 +12431,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 87
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -12394,7 +12573,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 88
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -12534,7 +12715,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 89
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -12675,7 +12858,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 90
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -12815,7 +13000,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 91
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -12955,7 +13142,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 92
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -13095,7 +13284,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 93
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -13235,7 +13426,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 
 i <- 94
 #################################################################################
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -13375,7 +13568,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 #################################################################################
 i <- 95
 
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -13514,7 +13709,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 #################################################################################
 i <- 96
 
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -13653,7 +13850,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 #################################################################################
 i <- 97
 
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -13792,7 +13991,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 #################################################################################
 i <- 98
 
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -13931,7 +14132,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 #################################################################################
 i <- 99
 
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -14070,7 +14273,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 #################################################################################
 i <-100
 
-m1 <- mov_dat[[tmp_vulture$name[i]]]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away
@@ -14197,6 +14402,991 @@ plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i])
 i <- i +1
 ```
 
+### `r paste(tmp_vulture$name[i], "-" ,tmp_vulture$taxon_canonical_name[i])`
+
+First observation: `r first(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
+
+```{r v101 }
+#################################################################################
+i <-101
+
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
+
+# Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
+# Filter these out straight away
+m1 <- m1[!(m1$height_above_ellipsoid>5000 & is.na(m1$height_above_ellipsoid)==F) ,]
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_vulturename[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+m_df <- atl_filter_bounds(m_df, x = "location_long", 
+                              y = "location_lat", x_range = c(-88, -60), 
+                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(m_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE) 
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(h=50, lty=2, col="red")
+
+# Delete extreme values 
+clean_vulture[[i]] <- m2[OUT$speed<50,]
+
+# Check the outlier is gone [Only if required]
+
+# m2 <- clean_vulture[[i]]
+# dat_lines <- m2 %>% 
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# # Add the shapefiles 
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 0.5,opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
+#   addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_vulture[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i]) 
+
+# # Variogram fitting
+# # In ctmm.guess put "save to GUESS" or change "interactive = FALSE"
+# # Estimation of actual error is add in "error = TRUE"
+# GUESS <- ctmm.guess(Shakc, CTMM = ctmm(error = FALSE),variogram = NULL, name ="GUESS", interactive = TRUE)
+# vadj = ctmm.select(Shakc, CTMM = GUESS, verbose = TRUE, core = 0, MSPE = "position", level = 1)
+# ?ctmm.select
+# # Summary
+# summary(vadj)
+# ouf = vadj[[1]]
+# summary(ouf)
+# # Home range 
+# Hr = akde(Spaw, CTMM = ouf, weights = TRUE, debias = TRUE)
+# # Plot the 95% Utilization Distribution 
+# plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
+# summary(Hr, level.UD = 0.95)
+i <- i +1
+```
+
+### `r paste(tmp_vulture$name[i], "-" ,tmp_vulture$taxon_canonical_name[i])`
+
+First observation: `r first(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
+
+```{r v102 }
+#################################################################################
+i <-102
+
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
+
+# Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
+# Filter these out straight away
+m1 <- m1[!(m1$height_above_ellipsoid>5000 & is.na(m1$height_above_ellipsoid)==F) ,]
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_vulturename[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+m_df <- atl_filter_bounds(m_df, x = "location_long", 
+                              y = "location_lat", x_range = c(-88, -60), 
+                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(m_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE) 
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(h=50, lty=2, col="red")
+
+# Delete extreme values 
+clean_vulture[[i]] <- m2[OUT$speed<50,]
+
+# Check the outlier is gone [Only if required]
+
+# m2 <- clean_vulture[[i]]
+# dat_lines <- m2 %>% 
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# # Add the shapefiles 
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 0.5,opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
+#   addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_vulture[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i]) 
+
+# # Variogram fitting
+# # In ctmm.guess put "save to GUESS" or change "interactive = FALSE"
+# # Estimation of actual error is add in "error = TRUE"
+# GUESS <- ctmm.guess(Shakc, CTMM = ctmm(error = FALSE),variogram = NULL, name ="GUESS", interactive = TRUE)
+# vadj = ctmm.select(Shakc, CTMM = GUESS, verbose = TRUE, core = 0, MSPE = "position", level = 1)
+# ?ctmm.select
+# # Summary
+# summary(vadj)
+# ouf = vadj[[1]]
+# summary(ouf)
+# # Home range 
+# Hr = akde(Spaw, CTMM = ouf, weights = TRUE, debias = TRUE)
+# # Plot the 95% Utilization Distribution 
+# plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
+# summary(Hr, level.UD = 0.95)
+i <- i +1
+```
+
+### `r paste(tmp_vulture$name[i], "-" ,tmp_vulture$taxon_canonical_name[i])`
+
+First observation: `r first(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
+
+```{r v103 }
+#################################################################################
+i <-103
+
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
+
+# Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
+# Filter these out straight away
+m1 <- m1[!(m1$height_above_ellipsoid>5000 & is.na(m1$height_above_ellipsoid)==F) ,]
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_vulturename[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+m_df <- atl_filter_bounds(m_df, x = "location_long", 
+                              y = "location_lat", x_range = c(-88, -60), 
+                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(m_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE) 
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(h=50, lty=2, col="red")
+
+# Delete extreme values 
+clean_vulture[[i]] <- m2[OUT$speed<50,]
+
+# Check the outlier is gone [Only if required]
+
+# m2 <- clean_vulture[[i]]
+# dat_lines <- m2 %>% 
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# # Add the shapefiles 
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 0.5,opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
+#   addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_vulture[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i]) 
+
+# # Variogram fitting
+# # In ctmm.guess put "save to GUESS" or change "interactive = FALSE"
+# # Estimation of actual error is add in "error = TRUE"
+# GUESS <- ctmm.guess(Shakc, CTMM = ctmm(error = FALSE),variogram = NULL, name ="GUESS", interactive = TRUE)
+# vadj = ctmm.select(Shakc, CTMM = GUESS, verbose = TRUE, core = 0, MSPE = "position", level = 1)
+# ?ctmm.select
+# # Summary
+# summary(vadj)
+# ouf = vadj[[1]]
+# summary(ouf)
+# # Home range 
+# Hr = akde(Spaw, CTMM = ouf, weights = TRUE, debias = TRUE)
+# # Plot the 95% Utilization Distribution 
+# plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
+# summary(Hr, level.UD = 0.95)
+i <- i +1
+```
+
+### `r paste(tmp_vulture$name[i], "-" ,tmp_vulture$taxon_canonical_name[i])`
+
+First observation: `r first(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
+
+```{r v104 }
+#################################################################################
+i <-104
+
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
+
+# Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
+# Filter these out straight away
+m1 <- m1[!(m1$height_above_ellipsoid>5000 & is.na(m1$height_above_ellipsoid)==F) ,]
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_vulturename[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+m_df <- atl_filter_bounds(m_df, x = "location_long", 
+                              y = "location_lat", x_range = c(-88, -60), 
+                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(m_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE) 
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(h=50, lty=2, col="red")
+
+# Delete extreme values 
+clean_vulture[[i]] <- m2[OUT$speed<50,]
+
+# Check the outlier is gone [Only if required]
+
+# m2 <- clean_vulture[[i]]
+# dat_lines <- m2 %>% 
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# # Add the shapefiles 
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 0.5,opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
+#   addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_vulture[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i]) 
+
+# # Variogram fitting
+# # In ctmm.guess put "save to GUESS" or change "interactive = FALSE"
+# # Estimation of actual error is add in "error = TRUE"
+# GUESS <- ctmm.guess(Shakc, CTMM = ctmm(error = FALSE),variogram = NULL, name ="GUESS", interactive = TRUE)
+# vadj = ctmm.select(Shakc, CTMM = GUESS, verbose = TRUE, core = 0, MSPE = "position", level = 1)
+# ?ctmm.select
+# # Summary
+# summary(vadj)
+# ouf = vadj[[1]]
+# summary(ouf)
+# # Home range 
+# Hr = akde(Spaw, CTMM = ouf, weights = TRUE, debias = TRUE)
+# # Plot the 95% Utilization Distribution 
+# plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
+# summary(Hr, level.UD = 0.95)
+i <- i +1
+```
+
+
+### `r paste(tmp_vulture$name[i], "-" ,tmp_vulture$taxon_canonical_name[i])`
+
+First observation: `r first(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
+
+```{r v105 }
+#################################################################################
+i <-105
+
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i]
+m1$country <- tmp_vulture$country[i]
+
+# Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
+# Filter these out straight away
+m1 <- m1[!(m1$height_above_ellipsoid>5000 & is.na(m1$height_above_ellipsoid)==F) ,]
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_vulturename[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+m_df <- atl_filter_bounds(m_df, x = "location_long", 
+                              y = "location_lat", x_range = c(-88, -60), 
+                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(m_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE) 
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(h=50, lty=2, col="red")
+
+# Delete extreme values 
+clean_vulture[[i]] <- m2[OUT$speed<50,]
+
+# Check the outlier is gone [Only if required]
+
+# m2 <- clean_vulture[[i]]
+# dat_lines <- m2 %>% 
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# # Add the shapefiles 
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 0.5,opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
+#   addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_vulture[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i]) 
+
+# # Variogram fitting
+# # In ctmm.guess put "save to GUESS" or change "interactive = FALSE"
+# # Estimation of actual error is add in "error = TRUE"
+# GUESS <- ctmm.guess(Shakc, CTMM = ctmm(error = FALSE),variogram = NULL, name ="GUESS", interactive = TRUE)
+# vadj = ctmm.select(Shakc, CTMM = GUESS, verbose = TRUE, core = 0, MSPE = "position", level = 1)
+# ?ctmm.select
+# # Summary
+# summary(vadj)
+# ouf = vadj[[1]]
+# summary(ouf)
+# # Home range 
+# Hr = akde(Spaw, CTMM = ouf, weights = TRUE, debias = TRUE)
+# # Plot the 95% Utilization Distribution 
+# plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
+# summary(Hr, level.UD = 0.95)
+i <- i +1
+```
+
+### `r paste(tmp_vulture$name[i], "-" ,tmp_vulture$taxon_canonical_name[i])`
+
+First observation: `r first(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
+
+```{r v106 }
+#################################################################################
+i <-106
+
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
+
+# Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
+# Filter these out straight away
+m1 <- m1[!(m1$height_above_ellipsoid>5000 & is.na(m1$height_above_ellipsoid)==F) ,]
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_vulturename[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+m_df <- atl_filter_bounds(m_df, x = "location_long", 
+                              y = "location_lat", x_range = c(-88, -60), 
+                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(m_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE) 
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(h=50, lty=2, col="red")
+
+# Delete extreme values 
+clean_vulture[[i]] <- m2[OUT$speed<50,]
+
+# Check the outlier is gone [Only if required]
+
+# m2 <- clean_vulture[[i]]
+# dat_lines <- m2 %>% 
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# # Add the shapefiles 
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 0.5,opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
+#   addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+m_df <- as.data.frame(clean_vulture[[i]])
+tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+svf = variogram(tel, res = 1)
+level <- c(0.5, 0.95) # 50% and 95% CIs
+xlim <- c(0,24 %#% "hours") # 0-12 hour window
+plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i]) 
+
+# # Variogram fitting
+# # In ctmm.guess put "save to GUESS" or change "interactive = FALSE"
+# # Estimation of actual error is add in "error = TRUE"
+# GUESS <- ctmm.guess(Shakc, CTMM = ctmm(error = FALSE),variogram = NULL, name ="GUESS", interactive = TRUE)
+# vadj = ctmm.select(Shakc, CTMM = GUESS, verbose = TRUE, core = 0, MSPE = "position", level = 1)
+# ?ctmm.select
+# # Summary
+# summary(vadj)
+# ouf = vadj[[1]]
+# summary(ouf)
+# # Home range 
+# Hr = akde(Spaw, CTMM = ouf, weights = TRUE, debias = TRUE)
+# # Plot the 95% Utilization Distribution 
+# plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
+# summary(Hr, level.UD = 0.95)
+i <- i +1
+```
+
+### `r paste(tmp_vulture$name[i], "-" ,tmp_vulture$taxon_canonical_name[i])`
+
+First observation: `r first(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Last observation:  `r last(dat$timestamp[dat$name==tmp_vulture$name[i]])`
+
+Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$name[i]]) - first(dat$timestamp[dat$name==tmp_vulture$name[i]]))),1), "days")`
+
+```{r v107 }
+#################################################################################
+i <-107
+
+m1 <- mov_dat[[tmp_vulture$name[i]]] m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] m1$country <- tmp_vulture$country[i]
+
+# Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
+# Filter these out straight away
+m1 <- m1[!(m1$height_above_ellipsoid>5000 & is.na(m1$height_above_ellipsoid)==F) ,]
+
+# Make a dataframe
+m_df <- as.data.frame(m1)
+
+# Height above elipsoid check
+# summary(m_df$gps_satellite_count)
+# summary(m_df$height_above_ellipsoid)
+# plot(m_df$location_long, m_df$location_lat)
+# test <- m_df[m_df$height_above_ellipsoid>5000 & is.na(m_df$height_above_ellipsoid)==F ,]
+# points(test$location_long, test$location_lat, col="red")
+
+# move2
+m2 = mt_as_move2(m1, track_id_columna = tmp_vulturename[i])
+
+# Convert to track
+dat_lines <- m2 %>% 
+  mt_track_lines()
+
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+  addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# Add the shapefiles 
+m %>% addPolylines(data = dat_lines,
+                   # Colour by individual
+                   color = "#FF10F0",
+                   # The line properties
+                   weight = 0.5,opacity = 0.6,
+                   # hover label
+                   label = dat_lines$local_identifier) %>%
+    addCircleMarkers(lng=m_df$location_long[1],
+                   lat=m_df$location_lat[1], 
+                   color="#03F",
+                   popup="start") %>% 
+    addCircleMarkers(lng=m_df$location_long[nrow(m_df)],
+                   lat=m_df$location_lat[nrow(m_df)], 
+                   color="red",
+                   popup="end") %>% 
+  # Add a legend
+  addLayersControl(
+    baseGroups = c("OS", "Simple", "Satellite")) %>% 
+  addScaleBar(position = "topleft")
+
+# Finding outliers
+# There are several ways to remove them but I'm going to use atlastools and ctmm framework
+# METHOD 1 - GEOFENCE
+#plot(m_df$location_long, m_df$location_lat, asp = 1, type = "o")
+m_df <- atl_filter_bounds(m_df, x = "location_long", 
+                              y = "location_lat", x_range = c(-88, -60), 
+                              y_range = c(-20, 20),remove_inside = FALSE)
+
+# Method 2 -
+# Create a telemtry object
+tel = as.telemetry(m_df)
+#Import: we can add the estimation of error for Shakira from above code 
+# However, the error is negligible, but as an example is useful
+uere(tel)-> UERE
+
+# Check outliers
+par(mfrow = c(1, 2))
+outlie(tel)-> OUT
+#plot(OUT, units = FALSE) 
+plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
+
+# SPECIES SPECIFIC THRESHOLD
+abline(h=50, lty=2, col="red")
+
+# Delete extreme values 
+#clean_vulture[[i]] <- m2[OUT$speed<50,]
+
+# Check the outlier is gone [Only if required]
+
+# m2 <- clean_vulture[[i]]
+# dat_lines <- m2 %>% 
+#   mt_track_lines()
+# m <- leaflet() %>%
+#   # Add a satellite image layer
+#   addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple") %>%
+#   addProviderTiles(providers$Esri.WorldImagery       , group="Satellite") %>%
+#   addProviderTiles(providers$OpenStreetMap.Mapnik    , group="OS") #%>%     
+# # Add the shapefiles 
+# m %>% addPolylines(data = dat_lines,
+#                    # Colour by individual
+#                    #color = dat_lines$colours,
+#                    # The line properties
+#                    weight = 0.5,opacity = 0.6,
+#                    # hover label
+#                    label = dat_lines$local_identifier) %>%
+#   # Add a legend
+#   addLayersControl(
+#     baseGroups = c("OS", "Simple", "Satellite")) %>% 
+#   addScaleBar(position = "topleft")
+
+# Recreate the telemtry object
+#m_df <- as.data.frame(clean_vulture[[i]])
+#tel <- as.telemetry(m_df)
+
+# Check range-residency (i.e home range)
+#svf = variogram(tel, res = 1)
+#level <- c(0.5, 0.95) # 50% and 95% CIs
+#xlim <- c(0,24 %#% "hours") # 0-12 hour window
+#plot(svf, fraction = 0.65, level = level, main = tmp_vulture$name[i]) 
+
+# # Variogram fitting
+# # In ctmm.guess put "save to GUESS" or change "interactive = FALSE"
+# # Estimation of actual error is add in "error = TRUE"
+# GUESS <- ctmm.guess(Shakc, CTMM = ctmm(error = FALSE),variogram = NULL, name ="GUESS", interactive = TRUE)
+# vadj = ctmm.select(Shakc, CTMM = GUESS, verbose = TRUE, core = 0, MSPE = "position", level = 1)
+# ?ctmm.select
+# # Summary
+# summary(vadj)
+# ouf = vadj[[1]]
+# summary(ouf)
+# # Home range 
+# Hr = akde(Spaw, CTMM = ouf, weights = TRUE, debias = TRUE)
+# # Plot the 95% Utilization Distribution 
+# plot(Shakc, UD = Hr, level.UD = 0.95, main = "Shakira")
+# summary(Hr, level.UD = 0.95)
+i <- i +1
+```
 
 
 ### Number of vultures processed

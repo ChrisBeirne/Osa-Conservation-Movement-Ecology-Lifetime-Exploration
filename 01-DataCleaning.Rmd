@@ -15261,7 +15261,9 @@ Active for: `r paste(round(as.numeric((last(dat$timestamp[dat$name==tmp_vulture$
 #################################################################################
 i <-107
 
-m1 <- mov_dat[[tmp_vulture$name[i]]] m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] m1$country <- tmp_vulture$country[i]
+m1 <- mov_dat[[tmp_vulture$name[i]]] 
+m1$taxon_canonical_name <- tmp_vulture$taxon_canonical_name[i] 
+m1$country <- tmp_vulture$country[i]
 
 # Most issues arise through dodgy fixes -> most easily observed in the heigh above elipsoid
 # Filter these out straight away

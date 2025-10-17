@@ -106,6 +106,13 @@ kerrigan---sarcoramphus-papa
 galadriel---sarcoramphus-papa
 samus---sarcoramphus-papa
 tyrael---sarcoramphus-papa
+sansa---cathartes-melambrotus
+cersei---cathartes-melambrotus
+arya---cathartes-melambrotus
+copoazu---cathartes-melambrotus
+daenerys---sarcoramphus-papa
+dracarys---sarcoramphus-papa
+lysa---cathartes-melambrotus
 number-of-vultures-processed
 upload-clean-data
 data-cleaning---mammals
@@ -126,7 +133,8 @@ kirari-pe
 valentina-cr
 kosni-pe
 macho2-cr
-maximo-cr
+maximo-pe
+suxo-pe
 ocelots
 kurá-cr
 jerry-cr
@@ -140,7 +148,9 @@ tunche-pe
 cecina-pe
 ranga-pe
 cocona-pe
-namu-pe
+namu-cr
+white-lipped-peccaries
+sini-pe
 short-eared-dogs
 otinkami-pe
 otsiti-pe

@@ -15322,19 +15322,19 @@ m_df <- atl_filter_bounds(m_df, x = "location_long",
 
 # Method 2 -
 # Create a telemtry object
-tel = as.telemetry(m_df)
+#tel = as.telemetry(m_df)
 #Import: we can add the estimation of error for Shakira from above code 
 # However, the error is negligible, but as an example is useful
-uere(tel)-> UERE
+#uere(tel)-> UERE
 
 # Check outliers
-par(mfrow = c(1, 2))
-outlie(tel)-> OUT
+#par(mfrow = c(1, 2))
+#outlie(tel)-> OUT
 #plot(OUT, units = FALSE) 
-plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
+#plot(OUT$distance/1000, OUT$speed, pch=19,col=rgb(0,0,0,0.2),      ylab="Minimum speed (m/s)",      xlab="Median deviation (km)")
 
 # SPECIES SPECIFIC THRESHOLD
-abline(h=50, lty=2, col="red")
+#abline(h=50, lty=2, col="red")
 
 # Delete extreme values 
 #clean_vulture[[i]] <- m2[OUT$speed<50,]

@@ -15686,6 +15686,9 @@ We have processed `r i-1` vultures.
 dir.create("tmp")
 # Create.csv
 
+# Remove any NA elements
+clean_vulture <- clean_vulture[lengths(clean_vulture) > 0]
+
 vulture_stack <- mt_stack(clean_vulture)
 tmp_csv <- as.data.frame(vulture_stack)
 tmp_csv$geometry <- NULL

@@ -113,6 +113,8 @@ copoazu---cathartes-melambrotus
 daenerys---sarcoramphus-papa
 dracarys---sarcoramphus-papa
 lysa---cathartes-melambrotus
+joffrey---cathartes-melambrotus
+homero---cathartes-melambrotus
 number-of-vultures-processed
 upload-clean-data
 data-cleaning---mammals
@@ -126,6 +128,7 @@ matsonsori-pe
 amigo-pe
 chimuelo-pe
 ricolas-pe
+baby-pe
 pumas
 tico-cr
 coyunda-cr

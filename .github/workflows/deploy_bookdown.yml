@@ -45,13 +45,15 @@ jobs:
             "rmarkdown", "bookdown", "units", "leaflet", "move", 
             "dplyr", "sf", "viridis", "kableExtra", "lubridate", 
             "plotly", "googledrive", "purrr", "readxl", "geosphere", 
-            "foreach", "maptools", "leaflet.extras", "terra", "ggplot2",
+            "foreach", "maptools", "terra", "ggplot2",
             "remotes", "ctmm", "move2"
           ))'
           Rscript -e "install.packages('raster', type='mac.binary')"
       
       - name: Install atlastools
         run: Rscript -e "remotes::install_github('pratikunterwegs/atlastools')"
+      - name: Install leaflet.extras
+        run: Rscript -e "remotes::install_github('bhaskarvk/leaflet.extras')"        
         env: 
           GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       

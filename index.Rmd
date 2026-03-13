@@ -2,6 +2,7 @@
 title: "Osa Conservation: Lifetime exploration"
 author:
   - Chris Beirne
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
 site: bookdown::test-bookdown
 output: bookdown::gitbook
 documentclass: book

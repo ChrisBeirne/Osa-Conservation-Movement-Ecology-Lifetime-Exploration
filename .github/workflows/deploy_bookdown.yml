@@ -3,16 +3,16 @@ on:
   push:
   schedule:     
      - cron: "5 5 * * 1"
-
 # Cancel previous runs if new one is triggered
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
-
 jobs:
   bookdown:
     name: Render-Book
     runs-on: macos-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -52,10 +52,9 @@ jobs:
       
       - name: Install atlastools
         run: Rscript -e "remotes::install_github('pratikunterwegs/atlastools')"
+
       - name: Install leaflet.extras
-        run: Rscript -e "remotes::install_github('bhaskarvk/leaflet.extras')"        
-        env: 
-          GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+        run: Rscript -e "remotes::install_github('bhaskarvk/leaflet.extras')"
       
       - name: Render Book
         env: 

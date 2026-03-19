@@ -6199,8 +6199,30 @@ plot(svf, fraction = 0.65, level = level, main = m1$name[1])
 
 ```
 
-
 Distance moved: `r round(as.numeric(sum(mt_distance(clean_mammal[[i]]), na.rm=T))/1000,1)` km in `r paste(round(as.numeric(last(m_df$timestamp) - first(m_df$timestamp)),1), "days")`. 
+
+**Current battery level:**
+
+Be worried if it goes below 3000!
+
+```{r}
+p <- plot_ly(filtered_df, x = ~timestamp, y = ~tag_voltage) %>%
+  add_lines(name = 'Tag voltage') %>%
+  add_segments(
+    x = min(filtered_df$timestamp), xend = max(filtered_df$timestamp),
+    y = 3000, yend = 3000,
+    line = list(color = 'red', dash = 'dash'),
+    name = 'Critical threshold'
+  ) %>%
+  layout(
+    yaxis = list(
+      range = c(2500, 3500)
+    )
+  )
+p
+
+
+```
 
 
 

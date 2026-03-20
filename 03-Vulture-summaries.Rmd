@@ -1,7 +1,7 @@
 
 # Vulture summaries
 
-```{r}
+```{r s1}
 # If working offline read in the clean data
 
 #tmp_csv <- read.csv("tmp/vulture_clean.csv", header=T)
@@ -64,7 +64,7 @@ ec_shp <- dat_shp[dat_shp$location_lat<(2) & dat_shp$location_lat>(-6),]
 
 #### Peru
 
-```{r}
+```{r s2}
 
 # Track data
 tracks_tmp  <- mt_track_lines(peru_shp)
@@ -110,7 +110,7 @@ m
 
 #### Costa Rica
 
-```{r}
+```{r  s3}
 
 # Track data
 tracks_tmp  <- mt_track_lines(cr_shp)
@@ -155,7 +155,7 @@ m
 
 #### Ecuador
 
-```{r}
+```{r s4}
 
 # Track data
 tracks_tmp  <- mt_track_lines(ec_shp)
@@ -200,7 +200,7 @@ m
 
 #### Summary table
 
-```{r}
+```{r s5}
 all_tracks <- mt_track_data(dat_shp)
 
 all_summary <- all_tracks[, c("local_identifier", "taxon_canonical_name", "timestamp_start", "timestamp_end", "number_of_events")]
@@ -227,7 +227,7 @@ all_summary$timestamp_end <- substr(all_summary$timestamp_end,1,10)
 all_summary <- all_summary[,c("country", "taxon_canonical_name", "local_identifier", "days", "timestamp_start",	"timestamp_end",	"number_of_events", "distance_moved_km",	"avg_daily_dist_km")]
 ```
 
-```{r}
+```{r  s6}
 
 all_summary %>%
   kbl(row.names=F) %>%
@@ -245,7 +245,7 @@ all_summary %>%
 Any tag reporting in the last thirty days is classed as working. 
 
 
-```{r}
+```{r  s7}
 tmp <- table(all_summary$country, all_summary$taxon_canonical_name, (interval(ymd_hms(paste(all_summary$timestamp_end, "00:00:00")), Sys.time()) %/% days(1))<30)
 
 tmp <- as.data.frame(tmp)

@@ -4,7 +4,7 @@
 
 #### Peru
 
-```{r}
+```{r q1}
 # Read RDS
 #dat_shp <- readRDS("tmp/vulture_clean.RDS")
 dat_shp <- mammal_stack
@@ -19,7 +19,7 @@ cr_shp <- cr_shp[cr_shp$name %in% tmp_mammal$name[tmp_mammal$taxon_canonical_nam
 ```
 
 
-```{r}
+```{r q2}
 # Track data
 tracks_tmp  <- mt_track_lines(peru_shp)
 tracks_data  <- mt_track_data(peru_shp)
@@ -74,7 +74,7 @@ m
 
 #### Costa rica
 
-```{r}
+```{r q3}
 # Track data
 tracks_tmp  <- mt_track_lines(cr_shp)
 tracks_data  <- mt_track_data(cr_shp)

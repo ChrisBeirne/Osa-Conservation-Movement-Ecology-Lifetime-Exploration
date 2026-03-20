@@ -219,7 +219,7 @@ all_summary$avg_daily_dist_km <- as.numeric(round(all_summary$distance_moved_km/
 #all_summary[row.names(all_summary) %in% unique(peru_shp$local_identifier),]$country <- "Peru"
 #all_summary[row.names(all_summary) %in% unique(cr_shp$local_identifier),]$country <- "Costa Rica"
 
-all_summary <- all_summary[order(all_summary$country,all_summary$taxon_canonical_name,  all_summary$days, decreasing = T),]
+all_summary <- all_summary[order(all_summary$taxon_canonical_name,  all_summary$days, decreasing = T),]
 
 all_summary$timestamp_start <- substr(all_summary$timestamp_start,1,10)
 all_summary$timestamp_end <- substr(all_summary$timestamp_end,1,10)
@@ -240,24 +240,24 @@ all_summary %>%
 
 ```
 
-#### Tags still functioning by country and species
+#### Tags still functioning by species
 
 Any tag reporting in the last thirty days is classed as working. 
 
 
 ```{r  s7}
-tmp <- table(all_summary$country, all_summary$taxon_canonical_name, (interval(ymd_hms(paste(all_summary$timestamp_end, "00:00:00")), Sys.time()) %/% days(1))<30)
+tmp <- table(all_summary$taxon_canonical_name, (interval(ymd_hms(paste(all_summary$timestamp_end, "00:00:00")), Sys.time()) %/% days(1))<30)
 
 tmp <- as.data.frame(tmp)
-colnames(tmp) <- c("country", "species", "functioning", "freq")
+colnames(tmp) <- c("species", "functioning", "freq")
 d1 <- tmp[tmp$functioning==TRUE,]
 d1$functioning <- NULL
-colnames(d1) <- c("country","species","working")
+colnames(d1) <- c("species","working")
 d1$not_working <- tmp$freq[tmp$functioning==FALSE]
 
 # Remove double zeros
 d1 <- d1[!(d1$working==0 & d1$not_working==0),]
-d1 <- d1[order(d1$country, d1$species),]
+d1 <- d1[order(d1$species),]
 d1$percentage_working <- round(((d1$working)/(d1$working+ d1$not_working)*100),1)
 
 d1 %>%

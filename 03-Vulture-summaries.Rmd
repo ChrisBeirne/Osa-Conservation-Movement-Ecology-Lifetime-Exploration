@@ -215,9 +215,9 @@ track_shp <- mt_track_lines(dat_shp)
 all_summary$distance_moved_km <- as.numeric(round(st_length(track_shp)/1000,1))
 all_summary$avg_daily_dist_km <- as.numeric(round(all_summary$distance_moved_km/ all_summary$days,1))
 all_summary$country <- NA
-all_summary[row.names(all_summary) %in% unique(ec_shp$name),]$country <- "Ecuador"
-all_summary[row.names(all_summary) %in% unique(peru_shp$name),]$country <- "Peru"
-all_summary[row.names(all_summary) %in% unique(cr_shp$name),]$country <- "Costa Rica"
+all_summary[row.names(all_summary) %in% unique(ec_shp$local_identifier),]$country <- "Ecuador"
+all_summary[row.names(all_summary) %in% unique(peru_shp$local_identifier),]$country <- "Peru"
+all_summary[row.names(all_summary) %in% unique(cr_shp$local_identifier),]$country <- "Costa Rica"
 
 all_summary <- all_summary[order(all_summary$country,all_summary$taxon_canonical_name,  all_summary$days, decreasing = T),]
 

@@ -164,7 +164,7 @@ peru-1
 costa-rica-1
 ecuador-1
 summary-table
-tags-still-functioning-by-country-and-species
+tags-still-functioning-by-species
 mammal-summaries
 cats
 peru-2

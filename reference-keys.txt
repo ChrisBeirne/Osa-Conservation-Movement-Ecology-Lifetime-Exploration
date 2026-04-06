@@ -107,12 +107,12 @@ galadriel---sarcoramphus-papa
 samus---sarcoramphus-papa
 tyrael---sarcoramphus-papa
 sansa---cathartes-melambrotus
+lysa---cathartes-melambrotus
 cersei---cathartes-melambrotus
 arya---cathartes-melambrotus
 copoazu---cathartes-melambrotus
 daenerys---sarcoramphus-papa
 dracarys---sarcoramphus-papa
-lysa---cathartes-melambrotus
 joffrey---cathartes-melambrotus
 homero---cathartes-melambrotus
 number-of-vultures-processed

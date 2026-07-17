@@ -128,7 +128,69 @@ m
 ```
 
 
-### Dogs 
+### WLP
+
+```{r}
+# Read RDS
+# Just WLP
+wlp_shp <- dat_shp[dat_shp$location_lat>(2),]
+wlp_shp <- wlp_shp[wlp_shp$name %in% tmp_mammal$name[tmp_mammal$taxon_canonical_name %in% c("Tayassu pecari")],]
+```
+
+```{r}
+# Track data
+tracks_tmp  <- mt_track_lines(wlp_shp)
+tracks_data  <- mt_track_data(wlp_shp)
+
+
+# First lets choose a category to colour
+tracks_data$local_identifier <- factor(tracks_data$local_identifier)
+col.cat <- turbo(length(levels(tracks_data$local_identifier)))
+# Add it to the dataframe
+tracks_data$colours <- col.cat[tracks_data$local_identifier]
+
+ids <- tracks_data$track
+ids_labels <- paste0(tracks_data$track,"_" ,substr(tracks_data$taxon_canonical_name,1,3), "_", tracks_data$sex)
+i <- 1
+m <- leaflet() %>%
+  # Add a satellite image layer
+  addProviderTiles(providers$Esri.WorldImagery, group="Satellite") %>%
+  addProviderTiles(providers$OpenStreetMap.Mapnik, group="OS") %>%  
+    addProviderTiles(providers$CartoDB.PositronNoLabels, group="Simple")
+
+
+  for (i in seq(along=ids))
+    {
+      tmp <- tracks_tmp[tracks_tmp$track == ids[i],]
+      tmp_data <- wlp_shp[wlp_shp$name == ids[i],]
+      m <- m %>%
+        addPolylines(data = tmp, color = tracks_data$colours[i], group = ids_labels[i], weight=0.8,opacity=0.8, popup=ids[i]) 
+      m <- m %>%
+        addCircleMarkers(data = tmp_data, 
+                         color = tracks_data$colours[i], group = ids_labels[i], 
+                         popup= paste(tmp_data$name,
+                                            "<br>Time:",tmp_data$timestamp),
+                         fillOpacity = 0.3, opacity = 0.5, radius=2.2, stroke=F)
+      
+      
+      }
+    
+  m <- m %>%
+      addScaleBar(position="topleft", 
+                  options=scaleBarOptions(maxWidth = 100, metric = TRUE, imperial = FALSE, updateWhenIdle = TRUE)) %>%
+      addLayersControl(
+        baseGroups = c("Simple","OS", "Satellite"),
+        overlayGroups = ids_labels,
+        options = layersControlOptions(collapsed = FALSE)
+      ) %>%
+  addFullscreenControl()
+  
+m 
+
+
+```
+
+### SE Dogs 
 
 ```{r}
 # Read RDS
@@ -189,9 +251,6 @@ m
 
 
 ```
-
-
-
 
 ### Tapirs 
 When tracking mammals it is good to understand their home range, and where they have been in the preceeding weeks.

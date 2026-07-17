@@ -172,7 +172,8 @@ mammal-summaries
 cats
 peru-2
 costa-rica-2
-dogs
+wlp
+se-dogs
 tapirs-1
 juancito
 tuva
